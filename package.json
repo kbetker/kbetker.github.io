@@ -1,6 +1,6 @@
 {
-  "homepage": "https://github.com/kbetker/kbetker.github.io",
-  "name": "my_portfolio",
+  "homepage": "https://kbetker.github.io/",
+  "name": "kbetker.github.io",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
