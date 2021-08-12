@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/kbetker/kbetker.github.io/static/css/main.a617e044.chunk.css",
-    "main.js": "/kbetker/kbetker.github.io/static/js/main.e499b0ce.chunk.js",
-    "main.js.map": "/kbetker/kbetker.github.io/static/js/main.e499b0ce.chunk.js.map",
-    "runtime-main.js": "/kbetker/kbetker.github.io/static/js/runtime-main.36701649.js",
-    "runtime-main.js.map": "/kbetker/kbetker.github.io/static/js/runtime-main.36701649.js.map",
-    "static/js/2.0ab5474c.chunk.js": "/kbetker/kbetker.github.io/static/js/2.0ab5474c.chunk.js",
-    "static/js/2.0ab5474c.chunk.js.map": "/kbetker/kbetker.github.io/static/js/2.0ab5474c.chunk.js.map",
-    "static/js/3.12a3bd27.chunk.js": "/kbetker/kbetker.github.io/static/js/3.12a3bd27.chunk.js",
-    "static/js/3.12a3bd27.chunk.js.map": "/kbetker/kbetker.github.io/static/js/3.12a3bd27.chunk.js.map",
-    "index.html": "/kbetker/kbetker.github.io/index.html",
-    "static/css/main.a617e044.chunk.css.map": "/kbetker/kbetker.github.io/static/css/main.a617e044.chunk.css.map",
-    "static/js/2.0ab5474c.chunk.js.LICENSE.txt": "/kbetker/kbetker.github.io/static/js/2.0ab5474c.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/kbetker/kbetker.github.io/static/media/logo.6ce24c58.svg"
+    "main.css": "/static/css/main.a617e044.chunk.css",
+    "main.js": "/static/js/main.e499b0ce.chunk.js",
+    "main.js.map": "/static/js/main.e499b0ce.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.7e1587df.js",
+    "runtime-main.js.map": "/static/js/runtime-main.7e1587df.js.map",
+    "static/js/2.0ab5474c.chunk.js": "/static/js/2.0ab5474c.chunk.js",
+    "static/js/2.0ab5474c.chunk.js.map": "/static/js/2.0ab5474c.chunk.js.map",
+    "static/js/3.12a3bd27.chunk.js": "/static/js/3.12a3bd27.chunk.js",
+    "static/js/3.12a3bd27.chunk.js.map": "/static/js/3.12a3bd27.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.a617e044.chunk.css.map": "/static/css/main.a617e044.chunk.css.map",
+    "static/js/2.0ab5474c.chunk.js.LICENSE.txt": "/static/js/2.0ab5474c.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/static/media/logo.6ce24c58.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.36701649.js",
+    "static/js/runtime-main.7e1587df.js",
     "static/js/2.0ab5474c.chunk.js",
     "static/css/main.a617e044.chunk.css",
     "static/js/main.e499b0ce.chunk.js"
