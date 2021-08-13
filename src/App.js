@@ -50,7 +50,7 @@ function App() {
 
     setTimeout(async () => {
       clearTitle(currTitle)
-    }, 1500);
+    }, 2500);
   }
 
 
