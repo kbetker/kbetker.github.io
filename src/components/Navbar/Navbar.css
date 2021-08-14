@@ -1,3 +1,12 @@
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: black;
+  height: 60px;
+  width: 100%;
+}
+
 .navbar_element{
     display: flex;
     align-items: center;
@@ -9,6 +18,10 @@
   .navbar_element:hover{
     box-shadow: 0 -10px 7px -7px  black inset;
     background-color: rgb(53, 53, 53);
+  }
+  .navbar_element:active{
+    box-shadow: 0 -15px 7px -7px  black inset;
+    background-color: rgb(34, 34, 34);
   }
 
   .navbar{

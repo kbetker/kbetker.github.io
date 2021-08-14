@@ -1,6 +1,6 @@
-import React, { useState } from "react"
+import React from "react"
 import "./Navbar.css"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { pageNumFunc } from "../store/pageNum"
 
 
@@ -9,7 +9,7 @@ function Navbar() {
     return (
 
       <div className="header">
-      <div>logo?</div>
+      <div></div>
       <div className="navbar">
         <div className="navbar_element" onClick={()=> dispatch(pageNumFunc("page-1"))}>Home</div>
         <div>|</div>

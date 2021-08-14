@@ -1,9 +1,11 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import pageNum from "./pageNum";
+import myWork from "./myWork";
 
 const rootReducer = combineReducers({
     pageNum,
+    myWork,
 });
 
 let enhancer;

@@ -1,0 +1,57 @@
+.MyWork{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    width: 100%;
+    overflow-y: auto;
+    height: 84vh;
+}
+
+.thumbnail{
+    width: 375px;
+    height: 175px;
+    margin: 1%;
+    background-color: grey;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.thumbnail:hover{
+    border: 1px solid grey;
+    box-sizing: border-box;
+
+}
+
+.transparent{
+    opacity: 0;
+    margin-bottom: 10px;
+}
+
+.darkBackground{
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    transition: all 1s ease-in-out;
+
+}
+
+.preview{
+    width: 700px;
+    height: 500px;
+    background-color: grey;
+    border-radius:10px;
+    border: solid 1px white;
+    z-index: 20;
+    transition: all 1s ease-in-out;
+}
+
+.previewHide{
+    /* margin-top: -1000px; */
+    margin-top: -1400px;
+}
