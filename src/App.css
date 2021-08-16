@@ -7,6 +7,12 @@ body{
   background-color: rgb(34, 34, 34);
 
 }
+h1{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  font-size: 44px;
+  margin: 10px;
+}
 
 .wrapper{
   display: flex;

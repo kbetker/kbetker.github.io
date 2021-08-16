@@ -1,0 +1,34 @@
+.theForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    /* background-color: grey; */
+    border: 1px solid grey;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.form_element,.submit_button,.message_form_element{
+    width: 300px;
+    border: solid 1px rgb(122, 122, 122);
+    background-color: rgb(51, 51, 51);
+    color: white;
+}
+.message_form_element{
+    height: 100px;
+}
+.submit_button{
+
+    height: 40px;
+    border-radius: 10px;
+}
+.errors{
+    color: red;
+    background-color: rgb(26, 26, 26);
+    padding: 15px;
+    margin: 15px;
+    border: 1px solid red;
+    border-radius: 5px;
+}

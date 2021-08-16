@@ -1,11 +1,12 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import Navbar from './components/Navbar';
 import { useSelector } from "react-redux"
-import MyWork from './components/MyWork/MyWork';
-import Home from './components/Home';
-import SoundBlender from './components/MyWork/MyWorkComponents/SoundBlender';
 // import { pageNumFunc } from './components/store/pageNum';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import MyWork from './components/MyWork/MyWork';
+import SoundBlender from './components/MyWork/MyWorkComponents/SoundBlender';
+import Contact from './components/Contact';
 
 
 function App() {
@@ -37,9 +38,7 @@ function App() {
                             <div>** UNDER CONSTRUCTION 3**</div>
                         </div>
 
-                        <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-4" >
-                            <div>** UNDER CONSTRUCTION 4 **</div>
-                        </div>
+                       <Contact />
 
                     </div>
                 </div>
