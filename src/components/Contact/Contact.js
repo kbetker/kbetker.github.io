@@ -2,7 +2,7 @@ import { init, sendForm } from 'emailjs-com';
 import React, { useState } from "react"
 import { useForm } from 'react-hook-form'
 import "./Contact.css"
-init("temp");
+init("user_z7yv2pWRTNjbyYs2SqFGU");
 
 function Contact() {
     const { register, handleSubmit, watch, errors } = useForm();
@@ -18,7 +18,7 @@ function Contact() {
       const onSubmit = (data) => {
         console.log(data);
         generateContactNumber();
-        sendForm('default_service', 'temp', '#contact-form')
+        sendForm('default_service', 'XXXXtemplate_2v34f1q', '#contact-form')
           .then(function(response) {
             console.log('SUCCESS!', response.status, response.text);
           }, function(error) {
