@@ -30,8 +30,23 @@
 .errors{
     color: red;
     background-color: rgb(26, 26, 26);
-    padding: 15px;
+    padding: 6px;
     margin: 15px;
     border: 1px solid red;
     border-radius: 5px;
+    width: 300px;
+}
+.red{
+    border: solid 1px red;
+    background-color: rgb(43, 14, 14);
+}
+
+
+@media screen and (max-width: 530px){
+
+    .theForm{
+        width: 98%;
+        padding-bottom: 35px;
+
+    }
 }
