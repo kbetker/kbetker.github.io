@@ -23,7 +23,7 @@ function Contact() {
             console.log('SUCCESS!', response.status, response.text);
           }, function(error) {
             console.log('FAILED...', error);
-            setErr("Hmm. Something went wrong. Totally not our fault though, it appears to be something internal. Please contact me at kevin@betker.org ")
+            setErr("-contact is off at the moment as space is currently limited. Please contact me at kevin@betker.org. Thank you")
           });
       }
 
