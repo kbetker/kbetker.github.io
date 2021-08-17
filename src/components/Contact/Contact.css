@@ -6,7 +6,7 @@
     width: 500px;
     /* background-color: grey; */
     border: 1px solid grey;
-    padding: 25px;
+    padding-bottom: 35px;
     border-radius: 10px;
 }
 
@@ -15,6 +15,9 @@
     border: solid 1px rgb(122, 122, 122);
     background-color: rgb(51, 51, 51);
     color: white;
+    padding: 6px;
+    border-radius: 5px;
+    font-family: 'Montserrat', sans-serif;
 }
 .message_form_element{
     height: 100px;
