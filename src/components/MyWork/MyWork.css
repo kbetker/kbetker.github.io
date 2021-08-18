@@ -11,10 +11,11 @@
     width: 375px;
     height: 175px;
     margin: 1%;
-    background-color: grey;
+    background-color: rgb(48, 48, 48);
     transition: all 0.5s ease-in-out;
     cursor: pointer;
     border-radius: 5px;
+    /* border: 1px solid rgba(255, 255, 255, 0); */
     box-sizing: border-box;
 }
 .thumbnail:hover{
@@ -45,7 +46,7 @@
 .preview{
     width: 700px;
     height: 500px;
-    background-color: grey;
+    background-color: rgb(56, 56, 56);
     border-radius:10px;
     border: solid 1px white;
     z-index: 20;
@@ -55,6 +56,6 @@
 
 .previewHide{
     /* margin-top: -1000px; */
-    margin-top: -1400px;
-    transform: rotate(90deg);
+    margin-top: -1800px;
+    transform: rotate(60deg);
 }

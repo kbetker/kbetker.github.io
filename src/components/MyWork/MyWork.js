@@ -30,14 +30,14 @@ function MyWork() {
     <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-2" >
       <div className="MyWork">
         <div className="thumbnail transparent" onClick={()=>dispatch(myWorkFunc("soundblender"))} style={{backgroundImage: `url(${soundBlenderThumb})`}}></div>
-        <div className="thumbnail transparent"></div>
-        <div className="thumbnail transparent"></div>
-        <div className="thumbnail transparent"></div>
-        <div className="thumbnail transparent"></div>
-        <div className="thumbnail transparent"></div>
-        <div className="thumbnail transparent"></div>
-        <div className="thumbnail transparent"></div>
-        <div className="thumbnail transparent"></div>
+        <div className="thumbnail transparent" onClick={()=>dispatch(myWorkFunc("airdnd"))}>Air D&amp;D</div>
+        <div className="thumbnail transparent" onClick={()=>dispatch(myWorkFunc("pixel8"))}>Pixel8</div>
+        <div className="thumbnail transparent" onClick={()=>dispatch(myWorkFunc("jfelectric"))}>JF Electric</div>
+        <div className="thumbnail transparent" onClick={()=>dispatch(myWorkFunc("nevco"))}>Nevco</div>
+        <div className="thumbnail transparent" onClick={()=>dispatch(myWorkFunc("john1"))}>John 1</div>
+        <div className="thumbnail transparent" onClick={()=>dispatch(myWorkFunc("investigation"))}>Investigation Destination</div>
+        <div className="thumbnail transparent" onClick={()=>dispatch(myWorkFunc("bbb"))}>Born to be a Betker</div>
+        <div className="thumbnail transparent" onClick={()=>dispatch(myWorkFunc("print"))}>Print Material</div>
 
       </div>
     </div>

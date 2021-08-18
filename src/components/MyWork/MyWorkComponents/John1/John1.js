@@ -1,13 +1,11 @@
 import React, { useEffect, useRef } from "react"
 import { useDispatch } from "react-redux"
-import "../../MyWork.css"
+import "./John1.css"
 import { myWorkFunc } from "../../../store/myWork";
 
 
 
-function SoundBlender(){
-    // let darkBackground = document.getElementById("darkBackground")
-    // let preview = document.getElementById("preview")
+function John1(){
     const darkBackground = useRef()
     const preview = useRef()
 
@@ -32,10 +30,10 @@ function SoundBlender(){
     return(
         <div className="darkBackground transparent" onClick={(e)=> closePage(e)} ref={darkBackground} id="close">
             <div className="preview previewHide" ref={preview}>
-            SoundBlender
+            John 1
             </div>
         </div>
     )
 }
 
-export default SoundBlender
+export default John1
