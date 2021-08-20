@@ -5,8 +5,17 @@ import { useSelector } from "react-redux"
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import MyWork from './components/MyWork/MyWork';
-import SoundBlender from './components/MyWork/MyWorkComponents/SoundBlender';
 import Contact from './components/Contact';
+import SoundBlender from './components/MyWork/MyWorkComponents/SoundBlender';
+import JF_Electric from './components/MyWork/MyWorkComponents/JFElectric';
+import AirDnD from './components/MyWork/MyWorkComponents/AirDnD'
+import BBB from './components/MyWork/MyWorkComponents/BBB/BBB';
+import Investigation from './components/MyWork/MyWorkComponents/Investigation/Investigation';
+import John1 from './components/MyWork/MyWorkComponents/John1/John1';
+import Nevco from './components/MyWork/MyWorkComponents/Nevco/Nevco';
+import Pixel8 from './components/MyWork/MyWorkComponents/Pixel8/Pixel8';
+import Print from './components/MyWork/MyWorkComponents/Print/Print';
+
 
 
 function App() {
@@ -26,6 +35,17 @@ function App() {
     return (
         <div className="wrapper">
         {myWork === "soundblender" && <SoundBlender />}
+        {myWork === "airdnd" && <AirDnD />}
+        {myWork === "pixel8" && <Pixel8 />}
+        {myWork === "jfelectric" && <JF_Electric />}
+        {myWork === "nevco" && <Nevco />}
+        {myWork === "john1" && <John1 />}
+        {myWork === "investigation" && <Investigation />}
+        {myWork === "bbb" && <BBB />}
+        {myWork === "print" && <Print />}
+
+
+
 
             <Navbar />
             <div className="content_container">

@@ -2,6 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    align-items: center;
     width: 100%;
     overflow-y: auto;
     height: 84vh;
@@ -11,10 +12,11 @@
     width: 375px;
     height: 175px;
     margin: 1%;
-    background-color: grey;
+    background-color: rgb(48, 48, 48);
     transition: all 0.5s ease-in-out;
     cursor: pointer;
     border-radius: 5px;
+    /* border: 1px solid rgba(255, 255, 255, 0); */
     box-sizing: border-box;
 }
 .thumbnail:hover{
@@ -26,6 +28,16 @@
 .transparent{
     opacity: 0;
     margin-bottom: 10px;
+}
+
+
+.thumb_content{
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+.thumb_content:hover{
+    opacity: 1;
 }
 
 .darkBackground{
@@ -45,7 +57,7 @@
 .preview{
     width: 700px;
     height: 500px;
-    background-color: grey;
+    background-color: rgb(56, 56, 56);
     border-radius:10px;
     border: solid 1px white;
     z-index: 20;
@@ -55,6 +67,6 @@
 
 .previewHide{
     /* margin-top: -1000px; */
-    margin-top: -1400px;
-    transform: rotate(90deg);
+    margin-top: -1800px;
+    transform: rotate(60deg);
 }
