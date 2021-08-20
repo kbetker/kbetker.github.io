@@ -30,7 +30,9 @@ function JFElectric(){
     return(
         <div className="darkBackground transparent" onClick={(e)=> closePage(e)} ref={darkBackground} id="close">
             <div className="preview previewHide" ref={preview}>
-            J.F. Electric
+
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/VmZPzDeiV_A" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+
             </div>
         </div>
     )

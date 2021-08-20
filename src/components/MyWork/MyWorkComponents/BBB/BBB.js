@@ -30,7 +30,7 @@ function BBB(){
     return(
         <div className="darkBackground transparent" onClick={(e)=> closePage(e)} ref={darkBackground} id="close">
             <div className="preview previewHide" ref={preview}>
-            BBB
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/QnZonceoDeM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     )
