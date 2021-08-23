@@ -12,7 +12,7 @@ function SoundBlender(){
     const preview = useRef()
 
     function closePage(e){
-       if(e.target.id === "close"){
+        if(e.target.id.startsWith("close")){
         darkBackground.current.classList.add("transparent")
         preview.current.classList.add("previewHide")
         setTimeout(() => {
@@ -30,8 +30,9 @@ function SoundBlender(){
 
     const dispatch = useDispatch();
     return(
-        <div className="darkBackground transparent" onClick={(e)=> closePage(e)} ref={darkBackground} id="close">
+        <div className="darkBackground transparent" onClick={(e)=> closePage(e)} ref={darkBackground} id="close-background">
             <div className="preview previewHide" ref={preview}>
+            <div className="close_X" id="close_X">X</div>
             SoundBlender
             </div>
         </div>

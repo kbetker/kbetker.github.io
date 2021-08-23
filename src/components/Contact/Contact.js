@@ -1,11 +1,11 @@
 import { init, sendForm } from 'emailjs-com';
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from 'react-hook-form'
 import "./Contact.css"
 init("user_z7yv2pWRTNjbyYs2SqFGU");
 
 function Contact() {
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const [contactNumber, setContactNumber] = useState("000000");
   const [err, setErr] = useState([])
   const generateContactNumber = () => {

@@ -38,17 +38,55 @@ function MyWork() {
     return (
         <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-2" >
             <div className="MyWork">
-                <div className="thumbnail transparent" onClick={() => dispatch(myWorkFunc("soundblender"))} style={{ backgroundImage: `url(${soundBlenderThumb})` }}></div>
-                <div className="thumbnail transparent" onClick={() => dispatch(myWorkFunc("airdnd"))} style={{ backgroundImage: `url(${airDnDThumb})` }}>
-                    <div className="thumb_content">Air D&amp;D</div>
+
+
+                <div className="thumbnail transparent" onClick={() => dispatch(myWorkFunc("soundblender"))} style={{ backgroundImage: `url(${soundBlenderThumb})` }}>
+                <div className="thumb_content">
+                        <div className="thumbnail_skills">
+                            <div className="thumbnail_skill"></div>
+                            <div className="thumbnail_skill"></div>
+                            <div className="thumbnail_skill"></div>
+                            <div className="thumbnail_skill"></div>
+                            <div className="thumbnail_skill"></div>
+                        </div>
+                        <div className="thumb_title">SoundBlender</div>
+                        <div className="thumbnail_skills">
+                        <div className="thumbnail_skill"></div>
+                            <div className="thumbnail_skill"></div>
+                            <div className="thumbnail_skill"></div>
+                            <div className="thumbnail_skill"></div>
+                            <div className="thumbnail_skill"></div>
+                        </div>
+                    </div>
+
+
                 </div>
+
+
+
+                <div className="thumbnail transparent" onClick={() => dispatch(myWorkFunc("airdnd"))} style={{ backgroundImage: `url(${airDnDThumb})` }}>
+                    <div className="thumb_content">
+                        <div className="thumbnail_skills">
+                            <div className="thumbnail_skill"></div>
+                            <div className="thumbnail_skill"></div>
+                            <div className="thumbnail_skill"></div>
+                            <div className="thumbnail_skill"></div>
+                            <div className="thumbnail_skill"></div>
+                        </div>
+                        <div className="thumb_title">Air D&amp;D</div>
+                        <div className="thumbnail_skills"></div>
+                    </div>
+                </div>
+
+
+
                 <div className="thumbnail transparent" onClick={() => dispatch(myWorkFunc("pixel8"))} style={{ backgroundImage: `url(${pixel8Thumb})` }}>Pixel8</div>
                 <div className="thumbnail transparent" onClick={() => dispatch(myWorkFunc("jfelectric"))} style={{ backgroundImage: `url(${jfElectricThumb})` }}>JF Electric</div>
                 <div className="thumbnail transparent" onClick={() => dispatch(myWorkFunc("nevco"))} style={{ backgroundImage: `url(${nevcoThumb})` }}>Nevco</div>
                 <div className="thumbnail transparent" onClick={() => dispatch(myWorkFunc("john1"))} style={{ backgroundImage: `url(${john1Thumb})` }}>John 1</div>
                 <div className="thumbnail transparent" onClick={() => dispatch(myWorkFunc("investigation"))} style={{ backgroundImage: `url(${idThumb})` }}>Investigation Destination</div>
                 <div className="thumbnail transparent" onClick={() => dispatch(myWorkFunc("bbb"))} style={{ backgroundImage: `url(${BBBThumb})` }}>Born to be a Betker</div>
-                <div className="thumbnail transparent" onClick={()=>dispatch(myWorkFunc("print"))} style={{backgroundImage: `url(${printThumb})`}}>Print Material</div>
+                <div className="thumbnail transparent" onClick={() => dispatch(myWorkFunc("print"))} style={{ backgroundImage: `url(${printThumb})` }}>Print Material</div>
 
             </div>
         </div>

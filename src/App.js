@@ -7,7 +7,7 @@ import Home from './components/Home';
 import MyWork from './components/MyWork/MyWork';
 import Contact from './components/Contact';
 import SoundBlender from './components/MyWork/MyWorkComponents/SoundBlender';
-import JF_Electric from './components/MyWork/MyWorkComponents/JFElectric';
+import JFElectric from './components/MyWork/MyWorkComponents/JFElectric';
 import AirDnD from './components/MyWork/MyWorkComponents/AirDnD'
 import BBB from './components/MyWork/MyWorkComponents/BBB/BBB';
 import Investigation from './components/MyWork/MyWorkComponents/Investigation/Investigation';
@@ -37,7 +37,7 @@ function App() {
         {myWork === "soundblender" && <SoundBlender />}
         {myWork === "airdnd" && <AirDnD />}
         {myWork === "pixel8" && <Pixel8 />}
-        {myWork === "jfelectric" && <JF_Electric />}
+        {myWork === "jfelectric" && <JFElectric />}
         {myWork === "nevco" && <Nevco />}
         {myWork === "john1" && <John1 />}
         {myWork === "investigation" && <Investigation />}

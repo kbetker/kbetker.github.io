@@ -10,8 +10,8 @@ function AirDnD(){
     const preview = useRef()
 
     function closePage(e){
-       if(e.target.id === "close"){
-        darkBackground.current.classList.add("transparent")
+        if(e.target.id.startsWith("close")){
+            darkBackground.current.classList.add("transparent")
         preview.current.classList.add("previewHide")
         setTimeout(() => {
             dispatch(myWorkFunc(""))
