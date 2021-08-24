@@ -1,0 +1,43 @@
+.pixel8Preview{
+    width: 800px;
+    /* height: 500px; */
+    background-color: rgb(56, 56, 56);
+    border-radius:10px;
+    border: solid 1px white;
+    z-index: 20;
+    transition: all 1s ease-in-out;
+    cursor: initial;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /* background-color: blue; */
+}
+
+.pixel8Images{
+    /* background-color: rgba(255, 0, 0, 0.5); */
+    width: 100%;
+    height: 388px;
+    display: flex;
+    justify-content: space-between;
+}
+.pixel8LeftImage{
+    width: 457px;
+}
+.pixel8RightImages{
+    width: 330px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.pixel8_mainImg{
+    border-top-left-radius: 10px;
+}
+.pixel8TopRight{
+    border-top-right-radius: 10px;
+}
+
+.pixel8_text{
+    margin: 20px;
+}

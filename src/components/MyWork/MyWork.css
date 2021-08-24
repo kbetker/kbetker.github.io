@@ -97,8 +97,8 @@
 
 .previewHide{
     /* margin-top: -1000px; */
-    margin-top: -1800px;
-    transform: rotate(60deg);
+    /* margin-top: -1800px; */
+    transform: scale(0%);
 }
 
 .close_X{
@@ -118,6 +118,7 @@
     font-size: 20px;
     border: 1px solid white;
     box-sizing: border-box;
+    box-shadow: 0 5px 10px black;
 }
 .close_X:hover{
     background-color: white;

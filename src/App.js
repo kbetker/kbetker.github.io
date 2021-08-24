@@ -15,7 +15,7 @@ import John1 from './components/MyWork/MyWorkComponents/John1/John1';
 import Nevco from './components/MyWork/MyWorkComponents/Nevco/Nevco';
 import Pixel8 from './components/MyWork/MyWorkComponents/Pixel8/Pixel8';
 import Print from './components/MyWork/MyWorkComponents/Print/Print';
-
+import Footer from './components/Footer/Footer';
 
 
 function App() {
@@ -64,7 +64,7 @@ function App() {
                 </div>
             </div>
 
-            <div className="footer"></div>
+           <Footer />
         </div>
     );
 }
