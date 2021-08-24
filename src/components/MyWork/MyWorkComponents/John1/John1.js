@@ -10,8 +10,8 @@ function John1(){
     const preview = useRef()
 
     function closePage(e){
-       if(e.target.id === "close"){
-        darkBackground.current.classList.add("transparent")
+        if(e.target.id.startsWith("close")){
+            darkBackground.current.classList.add("transparent")
         preview.current.classList.add("previewHide")
         setTimeout(() => {
             dispatch(myWorkFunc(""))
@@ -31,7 +31,7 @@ function John1(){
         <div className="darkBackground transparent" onClick={(e)=> closePage(e)} ref={darkBackground} id="close">
             <div className="preview previewHide" ref={preview}>
 
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/CtiTpMzobZc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/CtiTpMzobZc" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 
             </div>
         </div>
