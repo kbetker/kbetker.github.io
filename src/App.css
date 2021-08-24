@@ -13,6 +13,24 @@ h1{
   font-size: 44px;
   margin: 10px;
 }
+h2{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+  font-size: 28px;
+  margin: 10px;
+}
+p{
+  font-size: 18px;
+  font-weight: 200;
+}
+
+a{
+  color: white;
+  text-decoration: none;
+}
+a:hover{
+  text-decoration: underline;
+}
 
 .wrapper{
   display: flex;

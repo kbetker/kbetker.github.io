@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react"
 import "./Home.css"
 import img0 from "./images/myProfileLaser.jpg"
-import img1 from "./images/img1.jpg"
-import img2 from "./images/img2.jpg"
+import img1 from "./images/fullStack.jpg"
+import img2 from "./images/graphicDesigner.jpg"
 import img3 from "./images/animater2.gif"
-import img4 from "./images/photographer.jpg"
+import img4 from "./images/photographer2.jpg"
 import img5 from "./images/silly.jpg"
-import img6 from "./images/img6.jpg"
-import img7 from "./images/img7.jpg"
-import img8 from "./images/img8.jpg"
+import img6 from "./images/Musician.jpg"
+import img7 from "./images/videographer.jpg"
+import img8 from "./images/dungeonMaster.jpg"
 import img9 from "./images/img9.jpg"
 
 
@@ -20,7 +20,7 @@ function Home() {
   const homeImage = useRef()
   const backGroundImage = useRef()
   const [opacity, setOpacity] = useState(1)
-  const images = [img1, img2, img3, img4, img5, img6, img7, img8, img9]
+  const images = [img1, img2, img3, img4, img5, img6, img7, img8, img0]
 
 
   let count = 0;
