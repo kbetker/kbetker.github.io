@@ -34,18 +34,15 @@ function App() {
 
     return (
         <div className="wrapper">
-        {myWork === "soundblender" && <SoundBlender />}
-        {myWork === "airdnd" && <AirDnD />}
-        {myWork === "pixel8" && <Pixel8 />}
-        {myWork === "jfelectric" && <JFElectric />}
-        {myWork === "nevco" && <Nevco />}
-        {myWork === "john1" && <John1 />}
-        {myWork === "investigation" && <Investigation />}
-        {myWork === "bbb" && <BBB />}
-        {myWork === "print" && <Print />}
-
-
-
+            {myWork === "soundblender" && <SoundBlender />}
+            {myWork === "airdnd" && <AirDnD />}
+            {myWork === "pixel8" && <Pixel8 />}
+            {myWork === "jfelectric" && <JFElectric />}
+            {myWork === "nevco" && <Nevco />}
+            {myWork === "john1" && <John1 />}
+            {myWork === "investigation" && <Investigation />}
+            {myWork === "bbb" && <BBB />}
+            {myWork === "print" && <Print />}
 
             <Navbar />
             <div className="content_container">
@@ -53,18 +50,14 @@ function App() {
                     <div className="page" style={{ width: `${windowWidth * 4}px`, left: `-${pageOffset}px` }}>
                         <Home />
                         <MyWork />
-
                         <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-3" >
                             <div>** UNDER CONSTRUCTION 3**</div>
                         </div>
-
-                       <Contact />
-
+                        <Contact />
                     </div>
                 </div>
             </div>
-
-           <Footer />
+            <Footer />
         </div>
     );
 }
