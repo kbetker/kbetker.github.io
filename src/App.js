@@ -47,12 +47,12 @@ function App() {
             <Navbar />
             <div className="content_container">
                 <div className="pages" style={{ width: `${windowWidth}px` }}>
-                    <div className="page" style={{ width: `${windowWidth * 4}px`, left: `-${pageOffset}px` }}>
+                    <div className="page" style={{ width: `${windowWidth * 3}px`, left: `-${pageOffset}px` }}>
                         <Home />
                         <MyWork />
-                        <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-3" >
+                        {/* <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-3" >
                             <div>** UNDER CONSTRUCTION 3**</div>
-                        </div>
+                        </div> */}
                         <Contact />
                     </div>
                 </div>

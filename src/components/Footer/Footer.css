@@ -5,8 +5,20 @@
     background-color: black;
     height: 60px;
     width: 100%;
+    filter: brightness(0.7);
+    transition: all 0.3s linear;
+
+  }
+  .footer:hover{
+      filter: brightness(1);
   }
 
   .footerImage{
       height: 30px;
+      filter: brightness(0.6);
+      transition: all 0.3s linear;
+
+  }
+  .footerImage:hover{
+      filter: brightness(1);
   }

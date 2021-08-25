@@ -71,7 +71,7 @@ function Contact() {
   }, [])
 
   return (
-    <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-4" >
+    <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-3" >
       <form id='contact-form' onSubmit={handleSubmit(onSubmit)} className="theForm">
         <h1>Contact Me</h1>
         {err.length > 0 && <div className="errors">

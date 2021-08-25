@@ -15,9 +15,9 @@ function Navbar() {
         <div>|</div>
         <div className="navbar_element"  onClick={() => dispatch(pageNumFunc("page-2"))}>My Work</div>
         <div>|</div>
-        <div className="navbar_element"  onClick={()=> dispatch(pageNumFunc("page-3"))}>About</div>
-        <div>|</div>
-        <div className="navbar_element"  onClick={()=> dispatch(pageNumFunc("page-4"))}>Contact</div>
+        {/* <div className="navbar_element"  onClick={()=> dispatch(pageNumFunc("page-3"))}>About</div>
+        <div>|</div> */}
+        <div className="navbar_element"  onClick={()=> dispatch(pageNumFunc("page-3"))}>Contact</div>
       </div>
     </div>
     )
