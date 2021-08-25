@@ -15,7 +15,7 @@ import John1 from './components/MyWork/MyWorkComponents/John1/John1';
 import Nevco from './components/MyWork/MyWorkComponents/Nevco/Nevco';
 import Pixel8 from './components/MyWork/MyWorkComponents/Pixel8/Pixel8';
 import Print from './components/MyWork/MyWorkComponents/Print/Print';
-
+import Footer from './components/Footer/Footer';
 
 
 function App() {
@@ -34,37 +34,30 @@ function App() {
 
     return (
         <div className="wrapper">
-        {myWork === "soundblender" && <SoundBlender />}
-        {myWork === "airdnd" && <AirDnD />}
-        {myWork === "pixel8" && <Pixel8 />}
-        {myWork === "jfelectric" && <JFElectric />}
-        {myWork === "nevco" && <Nevco />}
-        {myWork === "john1" && <John1 />}
-        {myWork === "investigation" && <Investigation />}
-        {myWork === "bbb" && <BBB />}
-        {myWork === "print" && <Print />}
-
-
-
+            {myWork === "soundblender" && <SoundBlender />}
+            {myWork === "airdnd" && <AirDnD />}
+            {myWork === "pixel8" && <Pixel8 />}
+            {myWork === "jfelectric" && <JFElectric />}
+            {myWork === "nevco" && <Nevco />}
+            {myWork === "john1" && <John1 />}
+            {myWork === "investigation" && <Investigation />}
+            {myWork === "bbb" && <BBB />}
+            {myWork === "print" && <Print />}
 
             <Navbar />
             <div className="content_container">
                 <div className="pages" style={{ width: `${windowWidth}px` }}>
-                    <div className="page" style={{ width: `${windowWidth * 4}px`, left: `-${pageOffset}px` }}>
+                    <div className="page" style={{ width: `${windowWidth * 3}px`, left: `-${pageOffset}px` }}>
                         <Home />
                         <MyWork />
-
-                        <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-3" >
+                        {/* <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-3" >
                             <div>** UNDER CONSTRUCTION 3**</div>
-                        </div>
-
-                       <Contact />
-
+                        </div> */}
+                        <Contact />
                     </div>
                 </div>
             </div>
-
-            <div className="footer"></div>
+            <Footer />
         </div>
     );
 }
