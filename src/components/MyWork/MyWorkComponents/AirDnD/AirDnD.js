@@ -46,15 +46,13 @@ function AirDnD(){
                         </div>
                     </div>
 
-
                     <div>
-
-                        <h2>airDnD</h2>
+                        <h2>Air D&amp;D</h2>
                         <div className="airDnd_text">
                         <p>
-                            airDnD is a skdf ladsnf ndsla lfsdf f afsd sadfm dsmfl mdsfm sdamf ;lmsadlf ndsanf lkndslfn ldsank fndksankl cmldmskfnkj ndsnf sdkcodskjnfn kdsjaf nd,snfkln dscnds nc ,dslaf ndskfnm, dsnfndsanfdsnf
+                        Air D&amp;D is a clone of Air BnB, set in the magical D&amp;D world of Faer&#251;n. Say goodbye to camping under the stars where owlbears may hunt you down in the middle of the night. No longer do you need to worry whether the cabin in the woods is really a coven for hags&#40;unless that's what you're in to&#41;. Find a location, pick a date, go on an adventure!
                         </p>
-                        <a href="https://airDnD.herokuapp.com/" className="link" target="_blank">airDnD.com</a>
+                        <a href="https://airdnd-kb.herokuapp.com/" className="link" target="_blank"> Click here to view the site live =&gt; AirD&amp;D.com</a>
                         </div>
                     </div>
 
