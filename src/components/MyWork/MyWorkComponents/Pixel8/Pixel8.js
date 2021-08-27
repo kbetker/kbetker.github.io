@@ -48,15 +48,14 @@ function Pixel8(){
 
 
                 <div>
-
-                    <h2>pixel8</h2>
-                    <div className="pixel8_text">
-                    <p>
-                        pixel8 is a skdf ladsnf ndsla lfsdf f afsd sadfm dsmfl mdsfm sdamf ;lmsadlf ndsanf lkndslfn ldsank fndksankl cmldmskfnkj ndsnf sdkcodskjnfn kdsjaf nd,snfkln dscnds nc ,dslaf ndskfnm, dsnfndsanfdsnf
-                    </p>
-                    <a href="https://pixel8.herokuapp.com/" className="link" target="_blank">pixel8.com</a>
+                        <h2>Pixel8</h2>
+                        <div className="airDnd_text">
+                        <p>
+                        Pixel8 is a full stack application designed for all game-related articles, where you can read reviews, opinions, walkthroughs, and receive news about the latest and greatest in the gaming world. Read all about upcoming games and honest reviews by users that will help you decide if you would like to buy your next game!
+                        </p>
+                        <a href="https://bestpixel8.herokuapp.com/" className="link" target="_blank"> Click here to view the site live =&gt; bestpixel8.herokuapp.com</a>
+                        </div>
                     </div>
-                </div>
 
 
 

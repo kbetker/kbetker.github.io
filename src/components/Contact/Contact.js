@@ -16,7 +16,7 @@ function Contact() {
 
   const onSubmit = (data) => {
     let errArray = []
-    console.log(data);
+    // console.log(data);
     if (data.user_name === "") {
       errArray.push("name: required");
       document.getElementById("nameField").classList.add("red")

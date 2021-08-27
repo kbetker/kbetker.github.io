@@ -53,13 +53,12 @@ function SoundBlender() {
 
 
                     <div>
-
                         <h2>SoundBlender</h2>
                         <div className="sb_text">
                         <p>
-                            Soundblender is a skdf ladsnf ndsla lfsdf f afsd sadfm dsmfl mdsfm sdamf ;lmsadlf ndsanf lkndslfn ldsank fndksankl cmldmskfnkj ndsnf sdkcodskjnfn kdsjaf nd,snfkln dscnds nc ,dslaf ndskfnm, dsnfndsanfdsnf
+                            Soundblender allows users to upload audio files to create soundscapes for roleplaying games or any type of interactive story telling. SoundBlender offers plenty of options to organize and customize sounds to optimize the user's experience. Users can interact with the sounds using the app's built-in buttons and sliders or even connect to an external MIDI device for precision control.
                         </p>
-                        <a href="https://soundblender.herokuapp.com/" className="link" target="_blank">SoundBlender.com</a>
+                        <a href="https://soundblender.herokuapp.com/" className="link" target="_blank"> Click here to view the site live =&gt; SoundBlender.com</a>
                         </div>
                     </div>
 

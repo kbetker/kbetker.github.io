@@ -16,12 +16,13 @@ h1{
 h2{
   font-family: 'Montserrat', sans-serif;
   font-weight: 200;
-  font-size: 28px;
-  margin: 10px;
+  font-size: 35px;
+  margin: 20px;
 }
 p{
   font-size: 18px;
-  font-weight: 200;
+  /* font-weight: 200; */
+  color: white;
 }
 
 a{
