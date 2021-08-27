@@ -36,7 +36,7 @@ function Nevco() {
                 </div>
                 <h2>Nevco</h2>
                 <div className="nevcoText">
-                     Wait... Is that really how I sound? Nevco is the largest privately-held scoreboard manufacturer in the world. We were asked to produce a video showcasing their various models and upgrades. I beleive this is the second or possibly third draft - definitely before it was sent off for a professional voice over&#40;hence my voice that I'd swear doesn't sound like me&#41; Unfortunatley, I was unable to obtain a final version, but I still thought this is a good peice to show my photo, video, and 3d editing capabilities.
+                     Wait... Is that really how I sound? Nevco is the largest privately-held scoreboard manufacturer in the world. My former employer was asked to produce a video showcasing their various models and upgrades. I believe this is the second or possibly third draft? It's definitely before it was sent off for a professional voice over&#40;hence my voice that I'd swear doesn't sound like me&#41; Unfortunately, I was unable to obtain a final version, but I still thought this is a good piece to show my photo, video, and 3d editing capabilities.
                 </div>
             </div>
 
