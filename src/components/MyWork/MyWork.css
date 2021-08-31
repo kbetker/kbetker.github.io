@@ -18,6 +18,7 @@
     transition: all 0.5s ease-in-out;
     cursor: pointer;
     border-radius: 5px;
+    background-size: cover;
     /* border: 1px solid rgba(255, 255, 255, 0); */
     box-sizing: border-box;
 }
@@ -34,7 +35,6 @@
     display: flex;
     width: 100%;
     justify-content: space-evenly;
-
 }
 
 .thumbnail_skill{
@@ -44,6 +44,17 @@
     height: 30px;
     /* opacity: 0.6; */
     /* border-radius: 20px; */
+}
+.preview_skills{
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.preview_skill{
+    height: 30px;
+    margin: 3px 8px;
 }
 
 
@@ -135,6 +146,7 @@
     border: 1px solid white;
     box-sizing: border-box;
     box-shadow: 0 5px 10px black;
+    z-index: 100;
 }
 .close_X:hover{
     background-color: white;
@@ -150,3 +162,11 @@
 /* .thumbnail_hover{
     background-color: black;
 } */
+
+
+@media screen and (max-width: 400px){
+    .thumbnail{
+        width: 290px;
+        height: 135px;
+    }
+  }

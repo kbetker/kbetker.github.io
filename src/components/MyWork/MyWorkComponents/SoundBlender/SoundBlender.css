@@ -15,7 +15,7 @@
 }
 
 .soundBlenderImages{
-    /* background-color: rgba(255, 0, 0, 0.5); */
+    transition: all 1s ease-in-out;
     width: 100%;
     height: 388px;
     display: flex;
@@ -23,22 +23,77 @@
 }
 .soundblenderLeftImage{
     width: 457px;
+    transition: all 1s ease-in-out;
 }
 .soundBlenderRightImages{
     width: 330px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
+    transition: all 1s ease-in-out;
 }
 
-.sb_mainImg{
+.soundBlenderMainImg{
+    width: 457px;
     border-top-left-radius: 20px;
+    transition: all 1s ease-in-out;
 }
 .soundBlenderTopRight{
     border-top-right-radius: 20px;
 }
 
-.sb_text{
+.soundBlenderText{
     margin: 20px;
+}
+
+
+@media screen and (max-width: 820px) {
+    .soundBlenderPreview{
+        width: 500px;
+    }
+
+    .soundBlenderImages{
+        height: 242px;
+    }
+
+    .soundBlenderLeftImage{
+        width: 285px;
+    }
+    .soundBlenderMainImg{
+        width: 285px;
+    }
+    .soundBlenderRightImages{
+        width: 206px;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    h2{
+        font-size: 28px;
+        margin: 4px 0 0 4px;
+    }
+    .soundBlenderPreview{
+        width: 300px;
+        padding: 5px;
+    }
+
+    .soundBlenderImages{
+        height: 125px;
+        overflow: hidden;
+    }
+    .soundBlenderText {
+        margin: 0px 4px;
+    }
+    .soundBlenderText > p{
+        margin-top: 4px;
+        font-size: 16px;
+    }
+
+    .soundBlenderMainImg{
+        width: 300px;
+        height: 254px;
+    }
+    .soundBlenderRightImages{
+        width: 0px;
+    }
 }

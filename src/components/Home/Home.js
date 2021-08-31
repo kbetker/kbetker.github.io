@@ -124,6 +124,7 @@ function Home() {
           <div><span className="highlightColor" id="colors"></span> <span style={{ opacity: `${opacity}` }}>|</span></div>
         </div>
       </div>
+      <div id="spacer" style={{height: "70px", width: "100%"}}></div>
     </div>
   )
 }

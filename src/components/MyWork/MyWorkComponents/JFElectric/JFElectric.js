@@ -33,14 +33,14 @@ function JFElectric() {
             <div className="JFPreview previewHide" ref={preview}>
                 <div className="close_X" id="close_X">X</div>
                 <div className="JFContent">
-                    <iframe width="800" height="315" src="https://www.youtube.com/embed/VmZPzDeiV_A" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen style={{borderTopLeftRadius: "20px", borderTopRightRadius: "20px"}}></iframe>
+                    <iframe src="https://www.youtube.com/embed/VmZPzDeiV_A" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="iFrame"></iframe>
                 </div>
                 <h2>J.F. Electric</h2>
                 <div className="JFDescription">
                     <div className="JFText">
                     J.F. Electric is an electrical contractor that provides a wide range of services to many surrounding states. Wanting to install and showcase the installation of solar panels on the roof of a GIANT shed at their main location, I was contacted to produce a video documenting the process. Being new to time-lapse photography, I had to research new softwares and hardware to come up with a solution. I am particularly happy with how my DIY-on-a-budget time-lapse slider turned out. Using a motor designed for telescopic photography&#40;meant to counter the earth's rotation&#41;, simple PVC pipes, and wheels from a pair of unused roller blades, I was able to produce dynamic time-lapse footage.
                     </div>
-                    <img src={slider} className="slider"></img>
+                    <div className="sliderContainer" style={{backgroundImage: `url(${slider})`}}></div>
                 </div>
             </div>
         </div>

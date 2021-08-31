@@ -27,5 +27,44 @@
 
 .nevcoText{
     color: white;
-    margin: 0 20px;
+    margin: 0 20px 10px 20px;
+}
+
+.nevco_iFrame{
+ width: 660px;
+ height: 315px;
+ transition: all 1s ease-in-out;
+}
+
+@media screen and (max-width: 850px) {
+    .nevco_iFrame{
+        width: 500px;
+        height: 215px;
+    }
+
+    .nevcoPreview{
+        width: 500px;
+        padding: 10px;
+    }
+
+}
+
+@media screen and (max-width: 530px) {
+
+    .nevco_iFrame{
+        width: 305px;
+        height: 155px;
+    }
+
+    .nevcoPreview{
+        width: 305px;
+        padding: 5px;
+    }
+
+    .nevcoText{
+        color: white;
+        margin: 0 5px 5px 5px;
+        /* width: 480px; */
+        font-size: 15px;
+    }
 }

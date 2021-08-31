@@ -32,7 +32,7 @@ function Nevco() {
             <div className="nevcoPreview previewHide" ref={preview}>
                 <div className="close_X" id="close_X">X</div>
                 <div className="JFContent">
-                    <iframe width="660" height="315" src="https://www.youtube.com/embed/OfALn2ZcInk" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"  style={{borderTopLeftRadius: "20px", borderTopRightRadius: "20px"}} allowFullScreen></iframe>
+                    <iframe className="nevco_iFrame" src="https://www.youtube.com/embed/OfALn2ZcInk" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"  style={{borderTopLeftRadius: "20px", borderTopRightRadius: "20px"}} allowFullScreen></iframe>
                 </div>
                 <h2>Nevco</h2>
                 <div className="nevcoText">

@@ -9,7 +9,7 @@ function Navbar() {
     return (
 
       <div className="header">
-      <div style={{fontSize: "28px", marginLeft: "20px"}}>** Under Construction **</div>
+      <div className="construction">** Under Construction **</div>
       <div className="navbar">
         <div className="navbar_element" onClick={()=> dispatch(pageNumFunc("page-1"))}>Home</div>
         <div>|</div>
