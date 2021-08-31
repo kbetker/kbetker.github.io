@@ -58,6 +58,7 @@ function App() {
                 </div>
             </div>
             <Footer />
+            <div id="spacer" style={{height: "70px", width: "100%"}}></div>
         </div>
     );
 }

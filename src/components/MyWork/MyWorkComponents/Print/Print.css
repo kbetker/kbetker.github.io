@@ -1,0 +1,44 @@
+.printPreview{
+    width: 800px;
+    /* height: 500px; */
+    background-color: rgb(56, 56, 56);
+    border-radius:10px;
+    border: solid 1px white;
+    z-index: 20;
+    transition: all 1s ease-in-out;
+    cursor: initial;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    /* background-color: blue; */
+}
+
+.printImages{
+    /* background-color: rgba(255, 0, 0, 0.5); */
+    width: 100%;
+    height: 388px;
+    display: flex;
+    justify-content: space-between;
+}
+.printLeftImage{
+    width: 457px;
+}
+.printRightImages{
+    width: 330px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.sb_mainImg{
+    border-top-left-radius: 20px;
+}
+.printTopRight{
+    border-top-right-radius: 20px;
+}
+
+.sb_text{
+    margin: 20px;
+}

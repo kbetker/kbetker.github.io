@@ -115,6 +115,7 @@ function Contact() {
         <input type='submit' value='Send' className="submit_button" />
 
       </form>
+      <div id="spacer" style={{height: "70px", width: "100%"}}></div>
     </div>
   )
 

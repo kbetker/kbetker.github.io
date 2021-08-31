@@ -28,7 +28,63 @@
 .JFText{
     color: white;
     margin: 0 20px;
+    width: 480px;
 }
-.slider{
+.sliderContainer{
     border-bottom-right-radius: 20px;
+    width: 320px;
+    height: 299px;
+    transition: all 1s ease-in-out;
+}
+
+.iFrame{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    width: 800px;
+    height: 315px;
+    transition: all 1s ease-in-out;
+}
+
+@media screen and (max-width: 850px) {
+    .iFrame{
+        width: 500px;
+        height: 215px;
+    }
+
+    .JFPreview{
+        width: 500px;
+        padding: 10px;
+    }
+
+    .sliderContainer{
+        border-bottom-right-radius: 0;
+        width: 220px;
+
+    }
+}
+
+@media screen and (max-width: 530px) {
+
+    .iFrame{
+        width: 305px;
+        height: 100px;
+        z-index: 0;
+        margin-top: 25px;
+    }
+
+    .JFPreview{
+        width: 305px;
+        padding: 5px;
+    }
+
+    .sliderContainer{
+        border-bottom-right-radius: 0;
+        width: 0px;
+    }
+    .JFText{
+        color: white;
+        margin: 0 5px;
+        width: 480px;
+        font-size: 15px;
+    }
 }

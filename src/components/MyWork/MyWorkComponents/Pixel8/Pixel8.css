@@ -20,25 +20,84 @@
     height: 388px;
     display: flex;
     justify-content: space-between;
+    transition: all 1s ease-in-out;
 }
+
 .pixel8LeftImage{
     width: 457px;
+    transition: all 1s ease-in-out;
 }
+
 .pixel8RightImages{
     width: 330px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
+    transition: all 1s ease-in-out;
 }
 
-.pixel8_mainImg{
+.pixel8MainImg{
+    width: 457px;
     border-top-left-radius: 10px;
+    transition: all 1s ease-in-out;
 }
 .pixel8TopRight{
     border-top-right-radius: 10px;
 }
 
-.pixel8_text{
+.pixel8Text{
     margin: 20px;
+}
+
+
+
+@media screen and (max-width: 820px) {
+    .pixel8Preview{
+        width: 500px;
+    }
+
+    .pixel8Images{
+        height: 242px;
+    }
+
+    .pixel8LeftImage{
+        width: 285px;
+    }
+    .pixel8MainImg{
+        width: 285px;
+    }
+    .pixel8RightImages{
+        width: 206px;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    h2{
+        font-size: 28px;
+        margin: 4px 0 0 4px;
+    }
+    .pixel8Preview{
+        width: 300px;
+        padding: 5px;
+    }
+
+    .pixel8Images{
+        height: 165px;
+        overflow: hidden;
+    }
+    .pixel8Text {
+        margin: 0px 4px;
+    }
+    .pixel8Text > p{
+        margin-top: 4px;
+        font-size: 16px;
+    }
+
+    .pixel8MainImg{
+        width: 300px;
+        height: 254px;
+    }
+    .pixel8RightImages{
+        width: 0px;
+    }
 }

@@ -20,20 +20,24 @@
     height: 388px;
     display: flex;
     justify-content: space-between;
+    transition: all 1s ease-in-out;
 }
 .airDnDLeftImage{
     width: 457px;
+    transition: all 1s ease-in-out;
 }
 .airDnDRightImages{
     width: 330px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
+    transition: all 1s ease-in-out;
 }
 
 .airDnd_mainImg{
+    width: 457px;
     border-top-left-radius: 10px;
+    transition: all 1s ease-in-out;
 }
 .airDnDTopRight{
     border-top-right-radius: 10px;
@@ -41,4 +45,55 @@
 
 .airDnd_text{
     margin: 20px;
+}
+
+@media screen and (max-width: 820px) {
+    .airDnDPreview{
+        width: 500px;
+    }
+
+    .airDnDImages{
+        height: 242px;
+    }
+
+    .airDnDLeftImage{
+        width: 285px;
+    }
+    .airDnd_mainImg{
+        width: 285px;
+    }
+    .airDnDRightImages{
+        width: 206px;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    h2{
+        font-size: 28px;
+        margin: 4px 0 0 4px;
+    }
+    .airDnDPreview{
+        width: 310px;
+        padding: 5px;
+    }
+
+    .airDnDImages{
+        height: 155px;
+        overflow: hidden;
+    }
+    .airDnd_text {
+        margin: 0px 4px;
+    }
+    .airDnd_text > p{
+        margin-top: 4px;
+        font-size: 16px;
+    }
+
+    .airDnd_mainImg{
+        width: 305px;
+        height: 254px;
+    }
+    .airDnDRightImages{
+        width: 0px;
+    }
 }

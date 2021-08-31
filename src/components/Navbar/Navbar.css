@@ -32,3 +32,13 @@
     font-weight: 500;
     /* background-color: red; */
   }
+  .construction{
+    font-size: 28px;
+    margin-left: 20px;
+  }
+
+  @media screen and (max-width: 550px) {
+    .construction{
+    display: none;
+    }
+  }
