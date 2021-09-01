@@ -9,7 +9,6 @@ import img5 from "./images/silly.jpg"
 import img6 from "./images/Musician.jpg"
 import img7 from "./images/videographer.jpg"
 import img8 from "./images/dungeonMaster.jpg"
-import img9 from "./images/img9.jpg"
 
 
 import { titlesArray, waitAMoment, colors } from "../MiscComponents/MiscComponents.js"
@@ -18,6 +17,7 @@ import { titlesArray, waitAMoment, colors } from "../MiscComponents/MiscComponen
 function Home() {
   const title = useRef('')
   const homeImage = useRef()
+  const titleDiv = useRef()
   const backGroundImage = useRef()
   const [opacity, setOpacity] = useState(1)
   const images = [img1, img2, img3, img4, img5, img6, img7, img8, img0]
@@ -27,7 +27,7 @@ function Home() {
 
   const clearTitle = async (temp) => {
 
-    const titleDiv = document.getElementById("colors")
+    // const titleDiv = document.getElementById("colors")
 
     while (temp.length) {
       await waitAMoment(5)
@@ -38,7 +38,7 @@ function Home() {
         temp = temp.slice(0, temp.length - 1)
       }
       title.current = temp
-      titleDiv.innerHTML = `${title.current}`
+      titleDiv.current.innerHTML = `${title.current}`
     }
 
     setTimeout(async () => {
@@ -52,7 +52,7 @@ function Home() {
     homeImage.current.src = images[count]
     homeImage.current.classList.remove("hidden")
 
-    const titleDiv = document.getElementById("colors")
+    // const titleDiv = document.getElementById("colors")
     for (let i = 0; i < currTitle.length; i++) {
       let char = currTitle[i]
       await waitAMoment(30)
@@ -63,7 +63,7 @@ function Home() {
       } else {
         title.current += char
       }
-      titleDiv.innerHTML = `${title.current}`
+      titleDiv.current.innerHTML = `${title.current}`
     }
 
 
@@ -94,6 +94,7 @@ function Home() {
     setTimeout(async () => {
       changeTitle()
     }, 3000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
@@ -116,12 +117,12 @@ function Home() {
     <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-1" >
       <div className="homeContainter">
         <div className="homeImage" style={{backgroundImage: `url(${img0})`}} ref={backGroundImage}>
-          <img src={img2} className="image hidden" ref={homeImage}></img>
+          <img src={img2} className="image hidden" ref={homeImage} alt=""></img>
         </div>
 
         <div className="homeText">
           <div>Hi, my name is <span className="highlightColor">Kevin Betker</span>. I am ...</div>
-          <div><span className="highlightColor" id="colors"></span> <span style={{ opacity: `${opacity}` }}>|</span></div>
+          <div><span className="highlightColor" ref={titleDiv} id="colors"></span> <span style={{ opacity: `${opacity}` }}>|</span></div>
         </div>
       </div>
       <div id="spacer" style={{height: "70px", width: "100%"}}></div>

@@ -39,7 +39,7 @@ function John1() {
                 <div className="john1Text">
                      When STLCGC found out about my video editing capabilities, I was often called upon to produce videos for special events &#40;Like: &quot;Hey Kevin, it's Sunday this coming Sunday...&quot;&#41;. One common issue I found when recording people, is that memorizing lines not long before shooting is not the easiest.
                 </div>
-                <img src={prompt} className="prompt"></img>
+                <img src={prompt} className="prompt" alt="My Teleprompter"></img>
                 </div>
             </div>
         </div>

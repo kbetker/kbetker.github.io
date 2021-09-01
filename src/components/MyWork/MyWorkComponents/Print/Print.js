@@ -37,11 +37,11 @@ function Print(){
 
                 <div className="printImages">
                         <div className="printLeftImage">
-                            <img src={print1} className="sb_mainImg"></img>
+                            <img src={print1} className="sb_mainImg" alt=""></img>
                             </div>
                         <div className="printRightImages">
-                            <img src={print2} className="printTopRight"></img>
-                            <img src={print3}></img>
+                            <img src={print2} className="printTopRight" alt=""></img>
+                            <img src={print3} alt=""></img>
                         </div>
                     </div>
 
@@ -52,7 +52,6 @@ function Print(){
                         <p>
                             print allows users to upload audio files to create soundscapes for roleplaying games or any type of interactive story telling. print offers plenty of options to organize and customize sounds to optimize the user's experience. Users can interact with the sounds using the app's built-in buttons and sliders or even connect to an external MIDI device for precision control.
                         </p>
-                        <a href="https://print.herokuapp.com/" className="link" target="_blank"> Click here to view the site live =&gt; SoundBlender.com</a>
                         </div>
                     </div>
 

@@ -5,7 +5,7 @@ import "./Contact.css"
 init("user_z7yv2pWRTNjbyYs2SqFGU");
 
 function Contact() {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const [contactNumber, setContactNumber] = useState("000000");
   const [err, setErr] = useState([])
   const generateContactNumber = () => {
