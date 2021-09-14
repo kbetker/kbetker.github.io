@@ -6,7 +6,7 @@ import { myWorkFunc } from "../../../store/myWork";
 import sb_1 from "./soundBlender_preview.jpg"
 import sb_2 from "./soundBlender_preview2.jpg"
 import sb_3 from "./soundBlender_preview3.jpg"
-import {airDnDThumb, BBBThumb, idThumb, jfElectricThumb, john1Thumb, nevcoThumb, pixel8Thumb, soundBlenderThumb, printThumb, afterEffects_png, AWS_png, audacity_png, blender_png, css_png, express_png, flask_png, garageBand_png, html5_png, js_png, illustrator_png, inDesign_png, MIDI_png, mocha_png, mochaAE_png, nodeJs_png, photoshop_png, postgresql_png, premiere_png, python_png, pug_png, react_png, redux_png, sequelize_png, sqla_png} from "../../ImageExport.js"
+import {afterEffects_png, AWS_png, css_png, flask_png, html5_png, illustrator_png, MIDI_png, photoshop_png, python_png, react_png, redux_png, sqla_png} from "../../ImageExport.js"
 
 
 
@@ -44,11 +44,11 @@ function SoundBlender() {
 
                     <div className="soundBlenderImages">
                         <div className="soundblenderLeftImage">
-                            <img src={sb_1} className="soundBlenderMainImg"></img>
+                            <img src={sb_1} className="soundBlenderMainImg" alt=""></img>
                             </div>
                         <div className="soundBlenderRightImages">
-                            <img src={sb_3} className="soundBlenderTopRight"></img>
-                            <img src={sb_2}></img>
+                            <img src={sb_3} className="soundBlenderTopRight" alt=""></img>
+                            <img src={sb_2} alt=""></img>
                         </div>
                     </div>
 
@@ -57,26 +57,25 @@ function SoundBlender() {
                         <h2>SoundBlender</h2>
                         <div className="soundBlenderText">
                         <p>
-                            Soundblender allows users to upload audio files to create soundscapes for roleplaying games or any type of interactive story telling. SoundBlender offers plenty of options to organize and customize sounds to optimize the user's experience. Users can interact with the sounds using the app's built-in buttons and sliders or even connect to an external MIDI device for precision control.
+                            Soundblender allows users to upload audio files to create soundscapes for roleplaying games or any type of interactive storytelling. SoundBlender offers plenty of options to organize and customize sounds to optimize the user's experience. Users can interact with the sounds using the app's built-in buttons and sliders or even connect to an external MIDI device for precision control.
                         </p>
-                        <a href="https://soundblender.herokuapp.com/" className="link" target="_blank"> Live Demo =&gt; SoundBlender.com</a>
+                        <a href="https://soundblender.herokuapp.com/" className="link" target="_blank" rel="noreferrer"> Live Demo =&gt; SoundBlender.com</a>
                         </div>
                     </div>
 
                     <div className="preview_skills">
-                            <img className="preview_skill" src={js_png}></img>
-                            <img className="preview_skill" src={react_png}></img>
-                            <img className="preview_skill" src={redux_png}></img>
-                            <img className="preview_skill" src={flask_png}></img>
-                            <img className="preview_skill" src={sqla_png}></img>
-                            <img className="preview_skill" src={html5_png}></img>
-                            <img className="preview_skill" src={AWS_png}></img>
-                            <img className="preview_skill" src={python_png}></img>
-                            <img className="preview_skill" src={css_png}></img>
-                            <img className="preview_skill" src={photoshop_png}></img>
-                            <img className="preview_skill" src={illustrator_png}></img>
-                            <img className="preview_skill" src={afterEffects_png}></img>
-                            <img className="preview_skill" src={MIDI_png}></img>
+                            <img className="preview_skill" src={react_png} alt="React"></img>
+                            <img className="preview_skill" src={redux_png} alt="Redux"></img>
+                            <img className="preview_skill" src={flask_png} alt=""Flask></img>
+                            <img className="preview_skill" src={sqla_png} alt="SQLA"></img>
+                            <img className="preview_skill" src={html5_png} alt="HTML5" ></img>
+                            <img className="preview_skill" src={AWS_png} alt="AWS"></img>
+                            <img className="preview_skill" src={python_png} alt="Python"></img>
+                            <img className="preview_skill" src={css_png} alt="CSS"></img>
+                            <img className="preview_skill" src={photoshop_png} alt="Photoshop"></img>
+                            <img className="preview_skill" src={illustrator_png} alt="Illustrator"></img>
+                            <img className="preview_skill" src={afterEffects_png} alt="After Effects"></img>
+                            <img className="preview_skill" src={MIDI_png} alt="MIDI"></img>
                     </div>
 
 

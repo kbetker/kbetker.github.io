@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import "./JFElectric.css"
 import { myWorkFunc } from "../../../store/myWork";
 import slider from "./slider.jpg"
-
+import { afterEffects_png, premiere_png, photoshop_png, blender_png, mochaAE_png, audacity_png } from "../../ImageExport"
 
 
 function JFElectric() {
@@ -42,7 +42,17 @@ function JFElectric() {
                     </div>
                     <div className="sliderContainer" style={{backgroundImage: `url(${slider})`}}></div>
                 </div>
+
+                <div className="preview_skills">
+                    <img className="preview_skill" src={afterEffects_png} alt="JavaScript"></img>
+                    <img className="preview_skill" src={premiere_png} alt="React"></img>
+                    <img className="preview_skill" src={photoshop_png} alt="Redux"></img>
+                    <img className="preview_skill" src={blender_png} alt="Sequelize"></img>
+                    <img className="preview_skill" src={mochaAE_png} alt="Express"></img>
+                    <img className="preview_skill" src={audacity_png} alt="HTML5" ></img>
+                </div>
             </div>
+
         </div>
     )
 }

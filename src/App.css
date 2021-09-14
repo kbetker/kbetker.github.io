@@ -40,6 +40,7 @@ a:hover{
   align-items: center;
   width: 100vw;
   height: 100vh;
+  background-size: cover;
 
 }
 
@@ -88,4 +89,39 @@ a:hover{
 }
 .reference{
   font-size: 25px;
+}
+
+
+.unhide{
+  animation: unhide 1s linear 2s 1 normal forwards;
+}
+
+.hide{
+  animation: hide 1s linear 0s 1 normal forwards;
+}
+
+.unhide2{
+  animation: unhide 1s linear 0s 1 normal forwards;
+}
+
+.hide2{
+  animation: hide 1s linear 1s 1 normal forwards;
+}
+
+@keyframes unhide {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@keyframes hide {
+  from {
+      opacity: 1;
+  }
+  to {
+      opacity: 0.01;
+  }
 }

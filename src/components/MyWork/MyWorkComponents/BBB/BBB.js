@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react"
 import { useDispatch } from "react-redux"
 import "./BBB.css"
 import { myWorkFunc } from "../../../store/myWork";
-
+import { blender_png, afterEffects_png, premiere_png, photoshop_png, audacity_png } from "../../ImageExport"
 
 
 function BBB() {
@@ -36,7 +36,16 @@ function BBB() {
                 </div>
                 <h2>Born to be a Betker</h2>
                 <div className="BBBText">
-                     When STLCGC found out about my video editing capabilities, I was often called upon to produce videos for special events. One common issue I found when recording people, is that memorizing lines not long before shooting is not the easiest.
+                    This was my first project while still learning Blender where I incorporated live action keyed out on a green screen in After Effects. My skills have grown significantly since this project, but given the short time I had to learn Blender, it shows my ability to pick up on new software. However, I really wanted to showcase this piece in my portfolio because, well just look how cute my boy is!
+                </div>
+
+                <div className="preview_skills">
+                    <img className="preview_skill" src={blender_png} alt="Sequelize"></img>
+                    <img className="preview_skill" src={afterEffects_png} alt="JavaScript"></img>
+                    <img className="preview_skill" src={premiere_png} alt="React"></img>
+                    <img className="preview_skill" src={photoshop_png} alt="Redux"></img>
+                    <img className="preview_skill" src={audacity_png} alt="HTML5" ></img>
+
                 </div>
             </div>
         </div>
