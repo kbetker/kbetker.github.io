@@ -50,10 +50,12 @@ function Print(){
                         <h2>Print Materials</h2>
                         <div className="sb_text">
                         <p>
-                            print allows users to upload audio files to create soundscapes for roleplaying games or any type of interactive story telling. print offers plenty of options to organize and customize sounds to optimize the user's experience. Users can interact with the sounds using the app's built-in buttons and sliders or even connect to an external MIDI device for precision control.
+                         In addition to being a fullstack developer, I am also highly experienced with all the necessary publishing tools and have worked closely with printers to create a wide range of printed materials from: business cards, letterheads, and all other types of print collateral - to brochures, trade show booths, and full brand identity.
                         </p>
                         </div>
                     </div>
+
+
 
 
             </div>

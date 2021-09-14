@@ -7,7 +7,7 @@ export const titlesArray = [
     "<, a Musician>",
     "<, a Videographer>",
     "<, a Dungeon Master>",
-    "<, and currently seeking like minded individuals to work on some cool projects!>"
+    "<, and currently seeking a like minded company/individuals to work on some cool projects!>"
   ]
   export let colors = ['lime', 'red', 'cyan', 'magenta', 'blanchedalmond', 'mediumturquoise', 'orangered', 'gold', 'white']
 

@@ -51,7 +51,7 @@ function AirDnD() {
                     <h2>Air D&amp;D</h2>
                     <div className="airDnd_text">
                         <p>
-                            Air D&amp;D is a clone of Air BnB set in the magical world of Faer&#251;n. Say goodbye to camping under the stars where owlbears may hunt you down in the middle of the night! No longer do you need to worry whether the denizens of the cabin in the woods are friendly or if it's actually a coven for hags&#40;unless that's what you're into&#41;. Find a location, pick a date, go on an adventure!
+                            Air D&amp;D is a clone of AirBnB set in the magical world of Faer&#251;n. Say goodbye to camping under the stars where owlbears may hunt you down in the middle of the night! No longer do you need to worry whether the denizens of the cabin in the woods are friendly or if it's actually a coven for hags&#40;unless that's what you're into&#41;. Find a location, pick a date, go on an adventure!
                         </p>
                         <a href="https://airdnd-kb.herokuapp.com/" className="link" target="_blank" rel="noreferrer"> Live Demo =&gt; AirD&amp;D.com</a>
                     </div>
