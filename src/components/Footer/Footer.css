@@ -9,8 +9,9 @@
     transition: all 0.3s linear;
     position: absolute;
     bottom: 0;
-
   }
+
+
   .footer:hover{
       filter: brightness(1);
   }
@@ -40,4 +41,13 @@
         border-radius: 10px;
         border-bottom: solid 3px black;
     }
+
+    .footer{
+       flex-direction: column;
+       height: auto;
+        justify-content: space-evenly;
+        position: relative;
+        /* bottom: 0; */
+      }
+
   }

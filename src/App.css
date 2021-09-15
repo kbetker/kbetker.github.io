@@ -4,7 +4,7 @@ body{
   font-family: 'Montserrat', sans-serif;
   color: white;
   overflow-x: hidden;
-  background-color: rgb(34, 34, 34);
+  background-color: black;
 
 }
 h1{
@@ -63,6 +63,8 @@ a:hover{
   justify-items: center;
   align-items: center;
   overflow-x: hidden;
+  background-color: rgb(34, 34, 34);
+
 }
 
 
@@ -92,6 +94,12 @@ a:hover{
 }
 
 
+.spacer{
+  height: 70px;
+  width: 100%;
+}
+
+
 .unhide{
   animation: unhide 1s linear 2s 1 normal forwards;
 }
@@ -100,11 +108,11 @@ a:hover{
   animation: hide 1s linear 0s 1 normal forwards;
 }
 
-.unhide2{
+.unHideFooterLinks{
   animation: unhide 1s linear 0s 1 normal forwards;
 }
 
-.hide2{
+.hideFooterLinks{
   animation: hide 1s linear 1s 1 normal forwards;
 }
 
@@ -124,4 +132,36 @@ a:hover{
   to {
       opacity: 0.01;
   }
+}
+
+
+@media screen and (max-width: 550px) {
+  .wrapper{
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100vw;
+  }
+  .page{
+    height: 650px;
+  }
+  .spacer{
+    height: 1px;
+  }
+
+}
+
+@media screen and (max-width: 450px) {
+  .wrapper{
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100vw;
+  }
+  .page{
+    height: 450px;
+    align-items: flex-start;
+  }
+  .spacer{
+    height: 1px;
+  }
+
 }
