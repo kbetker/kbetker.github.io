@@ -40,7 +40,7 @@ function App() {
 
     useEffect(()=>{
         if(isIE()){
-            alert("This app does not support Internet Explorer")
+            alert("This app does not support Internet Explorer.")
         }
 
     },[])
