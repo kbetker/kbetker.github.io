@@ -54,8 +54,8 @@ function App() {
                         <Contact />
 
                         <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-4" >
-                            <div className="contactContainer">
-                               <img src={anim}></img>
+                            <div className="contactContainer" style={{width: "50px"}}>
+                               <img src={anim} style={{width: "50px"}}></img>
                             </div>
                         </div>
 
