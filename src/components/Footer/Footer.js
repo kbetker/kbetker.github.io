@@ -12,7 +12,7 @@ function Footer(){
             <a href="https://github.com/kbetker" target="_blank" rel="noreferrer">
                 <img
                 src={gitHub}
-                className={`footerImage ${pageNum === "page-3" ? "hide2" : "unhide2"}`}
+                className={`footerImage ${pageNum === "page-3" ? "hideFooterLinks" : "unHideFooterLinks"}`}
                 alt="GitHub" >
                 </img>
             </a>
@@ -20,7 +20,7 @@ function Footer(){
             <a href="https://www.linkedin.com/in/kevin-betker-878505128/" target="_blank" rel="noreferrer">
                 <img
                 src={linkedIn}
-                className={`footerImage ${pageNum === "page-3" ? "hide2" : "unhide2"}`}
+                className={`footerImage ${pageNum === "page-3" ? "hideFooterLinks" : "unHideFooterLinks"}`}
                 alt="LinkedIn" >
                 </img>
             </a>
@@ -28,7 +28,7 @@ function Footer(){
             <a href="https://angel.co/u/kevin-betker" target="_blank" rel="noreferrer">
                 <img
                 src={angelList}
-                className={`footerImage ${pageNum === "page-3" ? "hide2" : "unhide2"}`}
+                className={`footerImage ${pageNum === "page-3" ? "hideFooterLinks" : "unHideFooterLinks"}`}
                 alt="Angel List" >
                 </img>
             </a>

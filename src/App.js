@@ -16,7 +16,7 @@ import Nevco from './components/MyWork/MyWorkComponents/Nevco/Nevco';
 import Pixel8 from './components/MyWork/MyWorkComponents/Pixel8/Pixel8';
 import Print from './components/MyWork/MyWorkComponents/Print/Print';
 import Footer from './components/Footer/Footer';
-
+import anim from "./components/Home/images/animater2.gif"
 
 function App() {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
@@ -47,18 +47,23 @@ function App() {
             <Navbar />
             <div className="content_container">
                 <div className="pages" style={{ width: `${windowWidth}px` }}>
-                    <div className="page" style={{ width: `${windowWidth * 3}px`, left: `-${pageOffset}px` }}>
+                    {/* windowWidth X the number of pages */}
+                    <div className="page" style={{ width: `${windowWidth * 4}px`, left: `-${pageOffset}px` }}>
                         <Home />
                         <MyWork />
-                        {/* <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-3" >
-                            <div>** UNDER CONSTRUCTION 3**</div>
-                        </div> */}
                         <Contact />
+
+                        <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-4" >
+                            <div className="contactContainer" style={{width: "50px"}}>
+                               <img src={anim} style={{width: "50px"}}></img>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
             <Footer />
-            <div id="spacer" style={{height: "70px", width: "100%"}}></div>
+            <div className="spacer"></div>
         </div>
     );
 }
