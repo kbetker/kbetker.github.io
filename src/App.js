@@ -26,11 +26,24 @@ function App() {
     window.addEventListener("resize", (e) => {
         setWindowWidth(window.innerWidth)
     })
+    const isIE = () => {
+        if ((navigator.userAgent.indexOf("MSIE") !== -1 ) || (!!document.documentMode === true )) {
+        return true
+      } else {
+          return false
+      }
+    }
 
     useEffect(() => {
         setPageOffset((pageNum[5] - 1) * windowWidth)
     }, [pageNum, windowWidth])
 
+    useEffect(()=>{
+        if(isIE()){
+            alert("This app does not support Internet Explorer")
+        }
+
+    },[])
 
     return (
         <div className="wrapper">
@@ -55,7 +68,7 @@ function App() {
 
                         <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-4" >
                             <div className="contactContainer" style={{width: "50px"}}>
-                               <img src={anim} style={{width: "50px"}}></img>
+                               <img src={anim} style={{width: "50px"}} alt=""></img>
                             </div>
                         </div>
 
