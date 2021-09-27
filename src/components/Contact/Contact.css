@@ -23,10 +23,19 @@
     height: 100px;
 }
 .submit_button{
-
     height: 40px;
     border-radius: 10px;
 }
+.submit_button:hover{
+    background-color: rgb(68, 67, 67);
+}
+.submit_button:active{
+    width: 296px;
+    box-shadow: 0 0 5px black inset;
+    background-color: rgb(35, 35, 35);
+    font-size: 12px;
+}
+
 .errors{
     color: red;
     background-color: rgb(26, 26, 26);
@@ -168,7 +177,30 @@
 
 }
 
+.loading{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: rgba(148, 133, 133, 0.5); */
+    height: 60vh;
+    top: 0;
+}
+.loadingImg{
+    animation: spinny 0.8s linear infinite;
+    filter: saturate(0) brightness(15);
+    z-index: 55;
+}
 
+@keyframes spinny {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(-360deg);
+    }
+
+}
 
 
 

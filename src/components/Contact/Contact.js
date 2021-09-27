@@ -5,8 +5,10 @@ import "./Contact.css"
 import angelList from "../Footer/images/angelList.png"
 import gitHubLogo from "../Footer/images/gitHubLogo.png"
 import linkedin from "../Footer/images/linkedin.png"
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { pageNumFunc } from '../store/pageNum';
 import mailicon from "./mailIcon.png"
+import loading from "./loader.png"
 
 
 init("user_z7yv2pWRTNjbyYs2SqFGU");
@@ -16,6 +18,8 @@ function Contact() {
     const [contactNumber, setContactNumber] = useState("000000");
     const [err, setErr] = useState([])
     const pageNum = useSelector(state => state.pageNum)
+    const dispatch = useDispatch();
+    const [loadingAnim, setLoadingAnim] = useState(false)
     const generateContactNumber = () => {
         const numStr = "000000" + (Math.random() * 1000000 | 0);
         setContactNumber(numStr.substring(numStr.length - 6));
@@ -46,13 +50,17 @@ function Contact() {
         setErr(errArray)
 
         if (errArray.length === 0) {
+            setLoadingAnim(true)
             generateContactNumber();
-            sendForm('default_service', 'XXXXtemplate_2v34f1q', '#contact-form')
+            sendForm('default_service', 'template_2v34f1q', '#contact-form')
                 .then(function (response) {
                     console.log('SUCCESS!', response.status, response.text);
+                    dispatch(pageNumFunc("page-4"))
+                    setLoadingAnim(false)
                 }, function (error) {
                     console.log('FAILED...', error);
-                    setErr(["contact is off at the moment as space is currently limited. Please contact me at kevin@betker.org. Thank you"])
+                    setErr(["An Internal Error occured. Please contact me at kevin@betker.org. Thank you"])
+                    setLoadingAnim(false)
                 });
         }
     }
@@ -80,7 +88,10 @@ function Contact() {
 
     return (
         <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-3" >
-            <div className="contactContainer">
+            { loadingAnim && <div className="loading" style={{ width: `${window.innerWidth}px` }}>
+                <img src={loading} className="loadingImg"></img>
+            </div>}
+            <div className="contactContainer" style={{filter: `brightness(${loadingAnim ? 0 : 1})`}}>
 
                 <div className="contactForm">
                     <form id='contact-form' onSubmit={handleSubmit(onSubmit)} className="theForm">

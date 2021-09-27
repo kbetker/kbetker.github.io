@@ -61,12 +61,16 @@ function App() {
             <div className="content_container">
                 <div className="pages" style={{ width: `${windowWidth}px` }}>
                     {/* windowWidth X the number of pages */}
-                    <div className="page" style={{ width: `${windowWidth * 4}px`, left: `-${pageOffset}px` }}>
+                    <div className="page" style={{ width: `${windowWidth * 5}px`, left: `-${pageOffset}px` }}>
                         <Home />
                         <MyWork />
                         <Contact />
 
                         <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-4" >
+                            <span style={{fontSize: "25px", width: "80%", textAlign: "center"}}>Message sent! Thank you for contacting me! I look forward to speaking with you soon.</span>
+                        </div>
+
+                        <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-5" >
                             <div className="contactContainer" style={{width: "50px"}}>
                                <img src={anim} style={{width: "50px"}} alt=""></img>
                             </div>
