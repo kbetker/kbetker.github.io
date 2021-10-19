@@ -1,12 +1,15 @@
 import airDnDThumb from "./images/airDnD_thumb.jpg"
 import BBBThumb from "./images/BBB_thumb.jpg"
 import idThumb from "./images/id_thumb.jpg"
+import retrogfx_png from "./images/retrogfx_thumb.jpg"
+import minesweeper_png from "./images/minesweeper_thumb.jpg"
 import jfElectricThumb from "./images/jfelectric_thumb.jpg"
 import john1Thumb from "./images/john1_thumb.jpg"
 import nevcoThumb from "./images/nevco_thumb.jpg"
 import pixel8Thumb from "./images/pixel8_thumb.jpg"
 import soundBlenderThumb from "./images/soundBlenderThumb.jpg"
 import printThumb from "./images/print_thumb.jpg"
+
 import afterEffects_png from "./softwareLogos/afterEffects.png"
 import AWS_png from "./softwareLogos/AWS.png"
 import audacity_png from "./softwareLogos/audacity.png"
@@ -34,4 +37,4 @@ import sequelize_png from "./softwareLogos/sequelize.png"
 import sqla_png from "./softwareLogos/sqla.png"
 
 
-export {airDnDThumb, BBBThumb, idThumb, jfElectricThumb, john1Thumb, nevcoThumb, pixel8Thumb, soundBlenderThumb, printThumb, afterEffects_png, AWS_png, audacity_png, blender_png, css_png, express_png, flask_png, garageBand_png, html5_png, js_png, illustrator_png, inDesign_png, MIDI_png, mocha_png, mochaAE_png, nodeJs_png, photoshop_png, postgresql_png, premiere_png, python_png, pug_png, react_png, redux_png, sequelize_png, sqla_png}
+export { minesweeper_png, retrogfx_png, airDnDThumb, BBBThumb, idThumb, jfElectricThumb, john1Thumb, nevcoThumb, pixel8Thumb, soundBlenderThumb, printThumb, afterEffects_png, AWS_png, audacity_png, blender_png, css_png, express_png, flask_png, garageBand_png, html5_png, js_png, illustrator_png, inDesign_png, MIDI_png, mocha_png, mochaAE_png, nodeJs_png, photoshop_png, postgresql_png, premiere_png, python_png, pug_png, react_png, redux_png, sequelize_png, sqla_png}
