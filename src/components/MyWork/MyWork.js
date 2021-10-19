@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { waitAMoment } from "../MiscComponents/MiscComponents"
 import "./MyWork.css"
 import { myWorkFunc } from "../store/myWork"
-import {airDnDThumb, BBBThumb, jfElectricThumb, john1Thumb, nevcoThumb, pixel8Thumb, soundBlenderThumb, printThumb, afterEffects_png, AWS_png, audacity_png, blender_png, css_png, express_png, flask_png, garageBand_png, html5_png, js_png, illustrator_png, inDesign_png, MIDI_png, mochaAE_png, photoshop_png, premiere_png, python_png, pug_png, react_png, redux_png, sequelize_png, sqla_png} from "./ImageExport.js"
+import { minesweeper_png, retrogfx_png, airDnDThumb, BBBThumb, jfElectricThumb, john1Thumb, nevcoThumb, pixel8Thumb, soundBlenderThumb, printThumb, afterEffects_png, AWS_png, audacity_png, blender_png, css_png, express_png, flask_png, garageBand_png, html5_png, js_png, illustrator_png, inDesign_png, MIDI_png, mochaAE_png, photoshop_png, premiere_png, python_png, pug_png, react_png, redux_png, sequelize_png, sqla_png} from "./ImageExport.js"
 
 
 function MyWork() {
@@ -105,6 +105,49 @@ function MyWork() {
                             <img className="thumbnail_skill" src={photoshop_png} alt="Photoshop"></img>
                             <img className="thumbnail_skill" src={illustrator_png} alt="Illustrator"></img>
                             <img className="thumbnail_skill" src={pug_png} alt="Pug"></img>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div className="thumbnail transparent" onClick={() => dispatch(myWorkFunc("retrogfx"))} style={{ backgroundImage: `url(${retrogfx_png})` }}>
+                    <div className="thumb_content">
+                        <div className="thumbnail_skills">
+                            <img className="thumbnail_skill" src={js_png} alt="JavaScript"></img>
+                            <img className="thumbnail_skill" src={react_png} alt="React"></img>
+                            <img className="thumbnail_skill" src={redux_png} alt="Redux"></img>
+                            <img className="thumbnail_skill" src={express_png} alt="Express"></img>
+                        </div>
+
+                        <div className="thumb_titles">
+                            <div className="thumb_title">RetroGFX</div>
+                            <div className="thumb_subtitle">Fullstack Web App</div>
+                        </div>
+                        <div className="thumbnail_skills">
+                            <img className="thumbnail_skill" src={sequelize_png} alt="Sequelize"></img>
+                            <img className="thumbnail_skill" src={html5_png} alt="HTML5" ></img>
+                            <img className="thumbnail_skill" src={css_png} alt="CSS"></img>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div className="thumbnail transparent" onClick={() => dispatch(myWorkFunc("minesweeper"))} style={{ backgroundImage: `url(${minesweeper_png})` }}>
+                    <div className="thumb_content">
+                        <div className="thumbnail_skills">
+                            <img className="thumbnail_skill" src={js_png} alt="JavaScript"></img>
+                            <img className="thumbnail_skill" src={react_png} alt="React"></img>
+
+                        </div>
+
+                        <div className="thumb_titles">
+                            <div className="thumb_title">Minesweeper</div>
+                            <div className="thumb_subtitle">Coding Exercise</div>
+                        </div>
+                        <div className="thumbnail_skills">
+                            <img className="thumbnail_skill" src={html5_png} alt="HTML5" ></img>
+                            <img className="thumbnail_skill" src={css_png} alt="CSS"></img>
+
                         </div>
                     </div>
                 </div>
