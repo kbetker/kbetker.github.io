@@ -16,10 +16,10 @@ ReactDOM.render(
     <Provider store={store}>
       <HashRouter>
         <Switch>
-          <Route path="/pickleball">
+          <Route exact path="/pickleball">
             <Pickleball />
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <App />
           </Route>
         </Switch>
