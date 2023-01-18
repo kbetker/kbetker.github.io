@@ -12,21 +12,19 @@ import { Route, Switch, HashRouter, BrowserRouter } from "react-router-dom";
 const store = configureStore();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <HashRouter basename="/">
-          <Switch>
-            <Route exact path="/pickleball">
-              <Pickleball />
-            </Route>
-            <Route exact path="/">
-              <App />
-            </Route>
-          </Switch>
-        </HashRouter>
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <HashRouter basename="/">
+      <Provider store={store}>
+        <Switch>
+          <Route exact path="/pickleball">
+            <Pickleball />
+          </Route>
+          <Route exact path="/">
+            <App />
+          </Route>
+        </Switch>
+      </Provider>
+    </HashRouter>
+  </BrowserRouter>,
   document.getElementById("root")
 );
