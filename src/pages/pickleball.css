@@ -1,8 +1,179 @@
 .pickle-container {
   width: 100%;
-  background-color: green;
+
   height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar {
+  /* width: 30%; */
+}
+
+.content {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgb(1, 97, 187);
+  height: 100vh;
+  width: 100%;
+}
+
+.teams-or-single {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+  font-size: 5rem;
+  margin-block: 2rem;
+  padding-inline: 2rem;
+  cursor: pointer;
+  border-radius: 15px;
+}
+
+button:hover {
+  filter: contrast(0.75) brightness(2);
+  box-shadow: 5px 5px 10px black;
+}
+
+input {
+  width: 100%;
+  height: 100%;
+  font-size: 3rem;
+  margin-block: 1rem;
+  margin-inline: 1rem;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.color-input {
+  width: 8rem;
+  height: 4rem;
+}
+
+p {
+  font-size: 3rem;
+  margin-inline: 1rem;
+}
+.game-start {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+}
+.court {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+}
+
+.right-court,
+.left-court {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.quads {
+  border: solid 5px white;
+  box-sizing: border-box;
+  width: 100%;
+  height: 50%;
+  background-color: rgb(102, 143, 102);
+}
+
+.kitchen {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 10px solid orange;
+  background-color: rgb(98, 116, 77);
+}
+.net {
+  width: 5px;
+  height: 100%;
+  background-color: white;
+  border-right: 2px solid black;
+  border-style: dashed;
+  box-shadow: 10px 0 10px rgba(0, 0, 0, 0.538);
+}
+
+.top-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+
+  width: 100%;
+}
+.top-row button {
+  width: auto;
+}
+
+.score {
+  /* justify-content: center; */
+  padding-top: 1rem;
+  font-size: 6rem;
+}
+
+.players {
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: black;
+  text-shadow: 2px 2px 0 white, -2px -2px 0 white, 2px -2px 0 white,
+    -2px 2px 0 white;
+  transition: all 500ms;
+}
+
+.first-letter {
+  font-size: 6em;
+}
+
+.serving {
+  animation-name: borderColor;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  box-shadow: 0 0 10px rgb(255, 255, 255);
+}
+
+@keyframes borderColor {
+  0% {
+    border: 5px solid rgba(0, 0, 0, 0);
+    box-shadow: 0 0 10px rgba(251, 251, 251, 0);
+  }
+  50% {
+    border: 5px solid rgb(0, 0, 0);
+    box-shadow: 0 0 10px rgb(255, 255, 255);
+  }
+  100% {
+    border: 5px solid rgba(0, 0, 0, 0);
+    box-shadow: 0 0 10px rgba(252, 252, 252, 0);
+  }
+}
+
+.green-button {
+  background-color: lime;
+}
+.red-button {
+  background-color: red;
 }
