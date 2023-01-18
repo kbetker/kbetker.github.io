@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import "./pickleball.css";
-import court from "../images/pickleBallCourt.jpg";
 
 const Pickleball = () => {
   const gameInitialState = {
