@@ -14,7 +14,7 @@ const store = configureStore();
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <HashRouter>
+      <HashRouter basename="/">
         <Switch>
           <Route exact path="/pickleball">
             <Pickleball />
