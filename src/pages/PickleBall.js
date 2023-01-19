@@ -19,11 +19,12 @@ const Pickleball = () => {
   };
   const timeOut = useRef(null);
   const [gameState, setGameState] = useState(gameInitialState);
+  const [confirmPosition, setConfirmPositions] = useState(false);
+  const [startTheGame, setStartTheGame] = useState(false);
   const [color1, setColor1] = useState("#00ffff");
   const [color2, setColor2] = useState("#ff00ff");
   const [color3, setColor3] = useState("#ffffff");
   const [color4, setColor4] = useState("#ffff00");
-  const [confirmPosition, setConfirmPositions] = useState(false);
   const quad1 = useRef(null);
   const quad2 = useRef(null);
   const quad3 = useRef(null);
@@ -204,27 +205,10 @@ const Pickleball = () => {
         );
       }
     } else {
-      if (copiedGameState.serving === "player1") {
-        copiedGameState.scoreSide1++;
-        if (copiedGameState.scoreSide1 % 2 === 0) {
-          player1.current.style.top = quad1pos.top;
-          player2.current.style.top = quad4pos.top;
-        } else {
-          player1.current.style.top = quad2pos.top;
-          player2.current.style.top = quad3pos.top;
-        }
-      } else {
-        copiedGameState.scoreSide2++;
-        if (copiedGameState.scoreSide2 % 2 === 0) {
-          player1.current.style.top = quad1pos.top;
-          player2.current.style.top = quad4pos.top;
-        } else {
-          player1.current.style.top = quad2pos.top;
-          player2.current.style.top = quad3pos.top;
-        }
-      }
+      // singles
+      console.log("Poop");
     }
-
+    console.log(copiedGameState.servingSide);
     setGameState(copiedGameState);
   };
 
@@ -296,6 +280,11 @@ const Pickleball = () => {
           player2.current.style.top = quad3pos.top;
         }
       }
+      if (copiedGameState.servingSide === "left") {
+        copiedGameState.servingSide = "right";
+      } else {
+        copiedGameState.servingSide = "left";
+      }
     }
 
     setGameState(copiedGameState);
@@ -333,9 +322,50 @@ const Pickleball = () => {
     // }
   }, [confirmPosition]);
 
+  const switchPlayers = (e) => {
+    console.log(e.target.id);
+  };
+
+  const switchSides = (e) => {
+    let copiedGameState = deepCopyFunction(gameState);
+    if (gameState.teams === "doubles") {
+      if (player1.current.style.left === "2%") {
+        player1.current.style.left = quad4pos.left;
+        player2.current.style.left = quad3pos.left;
+        player3.current.style.left = quad1pos.left;
+        player4.current.style.left = quad2pos.left;
+      } else {
+        player1.current.style.left = quad1pos.left;
+        player2.current.style.left = quad2pos.left;
+        player3.current.style.left = quad3pos.left;
+        player4.current.style.left = quad4pos.left;
+      }
+    } else {
+      if (player1.current.style.left === "2%") {
+        player1.current.style.left = quad4pos.left;
+        player1.current.style.top = quad4pos.top;
+
+        player2.current.style.left = quad1pos.left;
+        player2.current.style.top = quad1pos.top;
+      } else {
+        player1.current.style.left = quad1pos.left;
+        player1.current.style.top = quad1pos.top;
+
+        player2.current.style.left = quad4pos.left;
+        player2.current.style.top = quad4pos.top;
+      }
+    }
+    if (copiedGameState.servingSide === "left") {
+      copiedGameState.servingSide = "right";
+    } else {
+      copiedGameState.servingSide = "left";
+    }
+    setGameState(copiedGameState);
+  };
+
   return (
     <div className="pickle-container">
-      <div className="sidebar">wat</div>
+      {/* <div className="sidebar">wat</div> */}
 
       <div className="content">
         {/* Singles or Doubles Selection */}
@@ -416,7 +446,7 @@ const Pickleball = () => {
                 Back
               </button>
               <button id="confirmPosition" onClick={(e) => handleInput(e)}>
-                Start Game
+                Next
               </button>
             </div>
           </div>
@@ -424,51 +454,86 @@ const Pickleball = () => {
 
         {confirmPosition && (
           <div className="game-start">
-            <div className="top-row">
-              <button
-                className={`green-button ${
-                  (gameState.teams === "doubles" &&
-                    gameState.servingSide === "right") ||
-                  (gameState.teams === "singles" &&
-                    gameState.serving === "player2")
-                    ? " button-on-right"
-                    : " button-on-left"
-                }`}
-                id="score-button"
-                onClick={(e) => calcScore(e)}
-              >
-                Score
-              </button>
-              <div className="game-stats">
-                <span
-                  className={`score${
-                    ((gameState.teams === "doubles" &&
-                      gameState.servingSide === "right") ||
-                      (gameState.teams === "singles" &&
-                        gameState.serving === "player2")) &&
-                    " right-side"
-                  }`}
+            {confirmPosition && !startTheGame && (
+              <>
+                <button
+                  className="play-ball"
+                  onClick={() => setStartTheGame(true)}
                 >
-                  <span>{gameState.scoreSide1}</span>-
-                  <span>{gameState.scoreSide2}</span>
-                </span>
-                {gameState.teams === "doubles" && "-" + gameState.serverNumber}
+                  Play Ball!
+                </button>
+
+                <button className="switch-sides" onClick={() => switchSides()}>
+                  Switch Sides
+                </button>
+
+                <button
+                  className="switch-server"
+                  onClick={() => setStartTheGame(true)}
+                >
+                  Switch Server
+                </button>
+
+                <button
+                  className="switch-players-left"
+                  id="switch-players-left"
+                  onClick={(e) => switchPlayers(e)}
+                >
+                  Switch Players
+                </button>
+
+                <button
+                  className="switch-players-right"
+                  id="switch-players-right"
+                  onClick={(e) => switchPlayers(e)}
+                >
+                  Switch Players
+                </button>
+              </>
+            )}
+
+            {startTheGame && (
+              <div className="top-row">
+                <button
+                  className={`green-button ${
+                    gameState.servingSide === "right"
+                      ? " button-on-right"
+                      : " button-on-left"
+                  }`}
+                  id="score-button"
+                  onClick={(e) => calcScore(e)}
+                >
+                  Score
+                </button>
+                <div className="game-stats">
+                  <span
+                    className={`score${
+                      ((gameState.teams === "doubles" &&
+                        gameState.servingSide === "right") ||
+                        (gameState.teams === "singles" &&
+                          gameState.serving === "player2")) &&
+                      " right-side"
+                    }`}
+                  >
+                    <span>{gameState.scoreSide1}</span>-
+                    <span>{gameState.scoreSide2}</span>
+                  </span>
+                  {gameState.teams === "doubles" &&
+                    "-" + gameState.serverNumber}
+                </div>
+                <button
+                  className={`red-button ${
+                    gameState.servingSide === "right"
+                      ? " button-on-left"
+                      : " button-on-right"
+                  }`}
+                  id="fault-button"
+                  onClick={(e) => calcFault(e)}
+                >
+                  Fault
+                </button>
               </div>
-              <button
-                className={`red-button ${
-                  (gameState.teams === "doubles" &&
-                    gameState.servingSide === "right") ||
-                  (gameState.teams === "singles" &&
-                    gameState.serving === "player2")
-                    ? " button-on-left"
-                    : " button-on-right"
-                }`}
-                id="fault-button"
-                onClick={(e) => calcFault(e)}
-              >
-                Fault
-              </button>
-            </div>
+            )}
 
             <div className="court">
               <div className="left-court">

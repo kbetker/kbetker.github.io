@@ -31,6 +31,9 @@ button {
   padding-inline: 2rem;
   cursor: pointer;
   border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 button:hover {
@@ -200,4 +203,37 @@ p {
 
 .button-on-left {
   left: 2%;
+}
+
+.play-ball {
+  width: 35%;
+}
+.switch-sides {
+  font-size: 3rem;
+  width: 15%;
+  position: absolute;
+  left: 1%;
+}
+
+.switch-server {
+  font-size: 3rem;
+  width: 15%;
+  position: absolute;
+  right: 1%;
+}
+
+.switch-players-left,
+.switch-players-right {
+  font-size: 2rem;
+  width: 10%;
+  position: absolute;
+  top: 55%;
+}
+
+.switch-players-left {
+  left: 1%;
+}
+
+.switch-players-right {
+  right: 1%;
 }
