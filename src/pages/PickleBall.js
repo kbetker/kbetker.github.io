@@ -1,5 +1,3 @@
-// DISCLAIMER!!!!!!! This code was rushed due to time constraints. It is in major need of refactoring.
-
 import { useEffect, useRef, useState } from "react";
 import "./pickleball.css";
 
@@ -351,9 +349,7 @@ const Pickleball = () => {
             </button>
           </div>
         )}
-        {/* {console.log(gameState)} */}
-        {/* Player Name input */}
-        {/* Singles Name Input*/}
+
         {gameState.teams !== "" && !confirmPosition && (
           <div className="players-input">
             <div className="flex-container">

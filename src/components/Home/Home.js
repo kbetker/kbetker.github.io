@@ -17,7 +17,6 @@ import {
 } from "../MiscComponents/MiscComponents.js";
 
 function Home() {
-  console.log(window.location.href, "????");
   const title = useRef("");
   const homeImage = useRef();
   const titleDiv = useRef();
@@ -141,3 +140,5 @@ function Home() {
   );
 }
 export default Home;
+
+// why you no deploy Github?!?!? >:(
