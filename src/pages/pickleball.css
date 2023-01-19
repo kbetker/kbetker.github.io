@@ -123,10 +123,17 @@ p {
   width: auto;
 }
 
-.score {
+.game-stats {
   /* justify-content: center; */
   padding-top: 1rem;
   font-size: 6rem;
+}
+
+.score {
+  display: inline-flex;
+}
+.right-side {
+  flex-direction: row-reverse;
 }
 
 .players {
@@ -142,7 +149,8 @@ p {
   color: black;
   text-shadow: 2px 2px 0 white, -2px -2px 0 white, 2px -2px 0 white,
     -2px 2px 0 white;
-  transition: all 500ms;
+  transition: all 500ms ease-out;
+  box-shadow: 5px 5px 5px black;
 }
 
 .first-letter {
@@ -158,22 +166,38 @@ p {
 
 @keyframes borderColor {
   0% {
-    border: 5px solid rgba(0, 0, 0, 0);
-    box-shadow: 0 0 10px rgba(251, 251, 251, 0);
+    border: 3px solid rgba(255, 255, 255, 0);
+    outline: 3px solid rgba(0, 0, 0, 0);
+    box-shadow: 0 0 10px 10px rgba(251, 251, 251, 0);
   }
   50% {
-    border: 5px solid rgb(0, 0, 0);
-    box-shadow: 0 0 10px rgb(255, 255, 255);
+    border: 3px solid rgb(255, 255, 255);
+    outline: 3px solid rgb(0, 0, 0);
+    box-shadow: 0 0 10px 10px rgb(255, 255, 255);
   }
   100% {
-    border: 5px solid rgba(0, 0, 0, 0);
-    box-shadow: 0 0 10px rgba(252, 252, 252, 0);
+    border: 3px solid rgba(255, 255, 255, 0);
+    outline: 3px solid rgba(0, 0, 0, 0);
+    box-shadow: 0 0 10px 10px rgba(252, 252, 252, 0);
   }
 }
 
+.green-button,
+.red-button {
+  position: absolute;
+  transition: all 1s;
+}
 .green-button {
   background-color: lime;
 }
 .red-button {
   background-color: red;
+}
+
+.button-on-right {
+  left: 80%;
+}
+
+.button-on-left {
+  left: 2%;
 }
