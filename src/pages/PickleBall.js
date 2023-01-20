@@ -603,21 +603,30 @@ const Pickleball = () => {
                       Score
                     </button>
                     <div className="game-stats">
-                      <span
-                        className={`score${
-                          ((gameState.teams === "doubles" &&
-                            gameState.servingSide === "right") ||
-                            (gameState.teams === "singles" &&
-                              gameState.serving === "player2")) &&
-                          " right-side"
-                        }`}
-                      >
-                        <span>{gameState.scoreSide1}</span>-
-                        <span>{gameState.scoreSide2}</span>
-                      </span>
-                      {gameState.teams === "doubles" &&
-                        "-" + gameState.serverNumber}
+                      {(gameState.teams === "doubles" &&
+                        gameState.servingSide === "right") ||
+                      (gameState.teams === "singles" &&
+                        gameState.serving === "player2") ? (
+                        <>
+                          {" "}
+                          <span>{gameState.scoreSide2}-</span>
+                          <span>{gameState.scoreSide1}</span>
+                          {gameState.teams === "doubles" && (
+                            <span>-{gameState.serverNumber}</span>
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          {" "}
+                          <span>{gameState.scoreSide1}-</span>
+                          <span>{gameState.scoreSide2}</span>
+                          {gameState.teams === "doubles" && (
+                            <span>-{gameState.serverNumber}</span>
+                          )}
+                        </>
+                      )}
                     </div>
+
                     <button
                       className={`red-button ${
                         gameState.servingSide === "right"
