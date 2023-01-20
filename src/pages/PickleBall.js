@@ -1,3 +1,5 @@
+// This code was rushed to have it ready for the weekend. Please excuse the mess.
+
 import { useEffect, useRef, useState } from "react";
 import "./pickleball.css";
 
