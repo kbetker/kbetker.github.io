@@ -5,10 +5,10 @@ const Pickleball = () => {
   const gameInitialState = {
     teams: "",
     players: {
-      player1: { name: "", color: "#00ffff" },
-      player2: { name: "", color: "#ff00ff" },
-      player3: { name: "", color: "#ffffff" },
-      player4: { name: "", color: "#ffff00" },
+      player1: { name: "", color: "#835020" },
+      player2: { name: "", color: "#145022" },
+      player3: { name: "", color: "#466cb9" },
+      player4: { name: "", color: "#a4a43d" },
     },
     serving: "player1",
     scoreSide1: 0,
@@ -21,10 +21,12 @@ const Pickleball = () => {
   const [gameState, setGameState] = useState(gameInitialState);
   const [confirmPosition, setConfirmPositions] = useState(false);
   const [startTheGame, setStartTheGame] = useState(false);
-  const [color1, setColor1] = useState("#00ffff");
-  const [color2, setColor2] = useState("#ff00ff");
-  const [color3, setColor3] = useState("#ffffff");
-  const [color4, setColor4] = useState("#ffff00");
+  const [gameOver, setGameOver] = useState(false);
+  const [color1, setColor1] = useState("#835020");
+  const [color2, setColor2] = useState("#145022");
+  const [color3, setColor3] = useState("#466cb9");
+  const [color4, setColor4] = useState("#a4a43d");
+  const [winners, setWinners] = useState({});
   const quad1 = useRef(null);
   const quad2 = useRef(null);
   const quad3 = useRef(null);
@@ -39,6 +41,14 @@ const Pickleball = () => {
   const quad2pos = { left: "2%", top: "35%" };
   const quad3pos = { left: "88%", top: "75%" };
   const quad4pos = { left: "88%", top: "35%" };
+
+  const reset = () => {
+    setGameState(gameInitialState);
+    setGameOver(false);
+    setStartTheGame(false);
+    setConfirmPositions(false);
+    setWinners({});
+  };
 
   /*
    * Deep Copy Object
@@ -182,9 +192,11 @@ const Pickleball = () => {
           copiedGameState.scoreSide1 >= 11 &&
           copiedGameState.scoreSide1 - copiedGameState.scoreSide2 >= 2
         ) {
-          alert(
-            `${copiedGameState.players.player1.name} & ${copiedGameState.players.player2.name} won!`
-          );
+          setGameOver(true);
+          setWinners({
+            player1: copiedGameState.players.player1,
+            player2: copiedGameState.players.player2,
+          });
         }
       } else {
         copiedGameState.scoreSide2++;
@@ -200,9 +212,11 @@ const Pickleball = () => {
         copiedGameState.scoreSide2 >= 11 &&
         copiedGameState.scoreSide2 - copiedGameState.scoreSide1 >= 2
       ) {
-        alert(
-          `${copiedGameState.players.player3.name} & ${copiedGameState.players.player4.name} won!`
-        );
+        setGameOver(true);
+        setWinners({
+          player1: copiedGameState.players.player3,
+          player2: copiedGameState.players.player4,
+        });
       }
     } else {
       if (copiedGameState.serving === "player1") {
@@ -214,6 +228,13 @@ const Pickleball = () => {
           player1.current.style.top = quad2pos.top;
           player2.current.style.top = quad3pos.top;
         }
+        if (
+          copiedGameState.scoreSide1 >= 11 &&
+          copiedGameState.scoreSide1 - copiedGameState.scoreSide2 >= 2
+        ) {
+          setGameOver(true);
+          setWinners(copiedGameState.players.player1);
+        }
       } else {
         copiedGameState.scoreSide2++;
         if (copiedGameState.scoreSide2 % 2 === 0) {
@@ -222,6 +243,13 @@ const Pickleball = () => {
         } else {
           player1.current.style.top = quad2pos.top;
           player2.current.style.top = quad3pos.top;
+        }
+        if (
+          copiedGameState.scoreSide2 >= 11 &&
+          copiedGameState.scoreSide2 - copiedGameState.scoreSide1 >= 2
+        ) {
+          setGameOver(true);
+          setWinners(copiedGameState.players.player2);
         }
       }
     }
@@ -394,245 +422,262 @@ const Pickleball = () => {
       {/* <div className="sidebar">wat</div> */}
 
       <div className="content">
-        {/* Singles or Doubles Selection */}
-        {gameState.teams === "" && (
-          <div className="teams-or-single">
-            <button id="doubles-button" onClick={(e) => handleInput(e)}>
-              Doubles
-            </button>
-            <button id="singles-button" onClick={(e) => handleInput(e)}>
-              Singles
-            </button>
-          </div>
-        )}
+        {!gameOver && (
+          <>
+            {/* Singles or Doubles Selection */}
+            {gameState.teams === "" && (
+              <div className="teams-or-single">
+                <button id="doubles-button" onClick={(e) => handleInput(e)}>
+                  Doubles
+                </button>
+                <button id="singles-button" onClick={(e) => handleInput(e)}>
+                  Singles
+                </button>
+              </div>
+            )}
 
-        {gameState.teams !== "" && !confirmPosition && (
-          <div className="players-input">
-            <div className="flex-container">
-              <input
-                onChange={(e) => debounce(e)}
-                placeholder="Player 1(start)"
-                id="player1"
-              ></input>
-              <input
-                type="color"
-                className="color-input"
-                id="player1-color"
-                value={color1}
-                onChange={(e) => setColor1(e.target.value)}
-              ></input>
-              {gameState.teams === "singles" && <p>Vs.</p>}
-              <input
-                onChange={(e) => debounce(e)}
-                placeholder="Player 2"
-                id="player2"
-              ></input>
-              <input
-                type="color"
-                className="color-input"
-                id="player2-color"
-                value={color2}
-                onChange={(e) => setColor2(e.target.value)}
-              ></input>
-            </div>
-            {/* Doubles Name Input*/}
-            {gameState.teams === "doubles" && (
-              <>
-                <p className="flex-container">Vs.</p>
+            {gameState.teams !== "" && !confirmPosition && (
+              <div className="players-input">
                 <div className="flex-container">
                   <input
                     onChange={(e) => debounce(e)}
-                    placeholder="Player 3"
-                    id="player3"
-                  ></input>{" "}
+                    placeholder="Player 1"
+                    id="player1"
+                  ></input>
                   <input
                     type="color"
                     className="color-input"
-                    id="player3-color"
-                    value={color3}
-                    onChange={(e) => setColor3(e.target.value)}
+                    id="player1-color"
+                    value={color1}
+                    onChange={(e) => setColor1(e.target.value)}
                   ></input>
+                  {gameState.teams === "singles" && <p>Vs.</p>}
                   <input
                     onChange={(e) => debounce(e)}
-                    placeholder="Player 4"
-                    id="player4"
-                  ></input>{" "}
+                    placeholder="Player 2"
+                    id="player2"
+                  ></input>
                   <input
                     type="color"
                     className="color-input"
-                    id="player4-color"
-                    value={color4}
-                    onChange={(e) => setColor4(e.target.value)}
+                    id="player2-color"
+                    value={color2}
+                    onChange={(e) => setColor2(e.target.value)}
                   ></input>
                 </div>
-              </>
+                {/* Doubles Name Input*/}
+                {gameState.teams === "doubles" && (
+                  <>
+                    <p className="flex-container">Vs.</p>
+                    <div className="flex-container">
+                      <input
+                        onChange={(e) => debounce(e)}
+                        placeholder="Player 3"
+                        id="player3"
+                      ></input>{" "}
+                      <input
+                        type="color"
+                        className="color-input"
+                        id="player3-color"
+                        value={color3}
+                        onChange={(e) => setColor3(e.target.value)}
+                      ></input>
+                      <input
+                        onChange={(e) => debounce(e)}
+                        placeholder="Player 4"
+                        id="player4"
+                      ></input>{" "}
+                      <input
+                        type="color"
+                        className="color-input"
+                        id="player4-color"
+                        value={color4}
+                        onChange={(e) => setColor4(e.target.value)}
+                      ></input>
+                    </div>
+                  </>
+                )}
+                <div className="flex-container">
+                  <button
+                    onClick={(e) => handleInput(e)}
+                    id="back-to-team-choice"
+                  >
+                    Back
+                  </button>
+                  <button id="confirmPosition" onClick={(e) => handleInput(e)}>
+                    Next
+                  </button>
+                </div>
+              </div>
             )}
-            <div className="flex-container">
-              <button onClick={(e) => handleInput(e)} id="back-to-team-choice">
-                Back
-              </button>
-              <button id="confirmPosition" onClick={(e) => handleInput(e)}>
-                Next
-              </button>
-            </div>
-          </div>
-        )}
 
-        {confirmPosition && (
-          <div className="game-start">
-            {confirmPosition && !startTheGame && (
-              <>
-                <button
-                  className="play-ball"
-                  onClick={() => setStartTheGame(true)}
+            {confirmPosition && (
+              <div className="game-start">
+                {confirmPosition && !startTheGame && (
+                  <>
+                    <button
+                      className="play-ball"
+                      onClick={() => setStartTheGame(true)}
+                    >
+                      Play Ball!
+                    </button>
+
+                    <button
+                      className="switch-sides"
+                      onClick={() => switchSides()}
+                    >
+                      Switch Sides
+                    </button>
+
+                    <button
+                      className="switch-server"
+                      onClick={() => switchServer()}
+                    >
+                      Switch Server
+                    </button>
+
+                    {gameState.teams === "doubles" && (
+                      <>
+                        {" "}
+                        <button
+                          className="switch-players-left"
+                          id="switch-players-left"
+                          onClick={(e) => switchPlayers(e)}
+                        >
+                          Switch Players
+                        </button>
+                        <button
+                          className="switch-players-right"
+                          id="switch-players-right"
+                          onClick={(e) => switchPlayers(e)}
+                        >
+                          Switch Players
+                        </button>
+                      </>
+                    )}
+                  </>
+                )}
+
+                {startTheGame && (
+                  <div className="top-row">
+                    <button
+                      className={`green-button ${
+                        gameState.servingSide === "right"
+                          ? " button-on-right"
+                          : " button-on-left"
+                      }`}
+                      id="score-button"
+                      onClick={(e) => calcScore(e)}
+                    >
+                      Score
+                    </button>
+                    <div className="game-stats">
+                      <span
+                        className={`score${
+                          ((gameState.teams === "doubles" &&
+                            gameState.servingSide === "right") ||
+                            (gameState.teams === "singles" &&
+                              gameState.serving === "player2")) &&
+                          " right-side"
+                        }`}
+                      >
+                        <span>{gameState.scoreSide1}</span>-
+                        <span>{gameState.scoreSide2}</span>
+                      </span>
+                      {gameState.teams === "doubles" &&
+                        "-" + gameState.serverNumber}
+                    </div>
+                    <button
+                      className={`red-button ${
+                        gameState.servingSide === "right"
+                          ? " button-on-left"
+                          : " button-on-right"
+                      }`}
+                      id="fault-button"
+                      onClick={(e) => calcFault(e)}
+                    >
+                      Fault
+                    </button>
+                  </div>
+                )}
+
+                <div className="court">
+                  <div className="left-court">
+                    <div className="quads quad-1" ref={quad1}></div>
+                    <div className="quads quad-2" ref={quad2}></div>
+                  </div>
+                  <div className="kitchen">
+                    <div className="net"></div>
+                  </div>
+                  <div className="right-court">
+                    <div className="quads quad-3" ref={quad3}></div>
+                    <div className="quads quad-4" ref={quad4}></div>
+                  </div>
+                </div>
+
+                <div
+                  className={`players player1${
+                    gameState.serving === "player1" ? " serving" : ""
+                  }`}
+                  style={{
+                    backgroundColor: gameState.players.player1.color,
+                  }}
+                  ref={player1}
                 >
-                  Play Ball!
-                </button>
+                  {styleName(gameState.players.player1.name)}
+                </div>
 
-                <button className="switch-sides" onClick={() => switchSides()}>
-                  Switch Sides
-                </button>
-
-                <button
-                  className="switch-server"
-                  onClick={() => switchServer()}
+                <div
+                  className={`players player2${
+                    gameState.serving === "player2" ? " serving" : ""
+                  }`}
+                  style={{
+                    backgroundColor: gameState.players.player2.color,
+                  }}
+                  ref={player2}
                 >
-                  Switch Server
-                </button>
+                  {styleName(gameState.players.player2.name)}
+                </div>
 
                 {gameState.teams === "doubles" && (
                   <>
                     {" "}
-                    <button
-                      className="switch-players-left"
-                      id="switch-players-left"
-                      onClick={(e) => switchPlayers(e)}
+                    <div
+                      className={`players player3${
+                        gameState.serving === "player3" ? " serving" : ""
+                      }`}
+                      style={{
+                        backgroundColor: gameState.players.player3.color,
+                      }}
+                      ref={player3}
                     >
-                      Switch Players
-                    </button>
-                    <button
-                      className="switch-players-right"
-                      id="switch-players-right"
-                      onClick={(e) => switchPlayers(e)}
+                      {styleName(gameState.players.player3.name)}
+                    </div>
+                    <div
+                      className={`players player4${
+                        gameState.serving === "player4" ? " serving" : ""
+                      }`}
+                      style={{
+                        backgroundColor: gameState.players.player4.color,
+                      }}
+                      ref={player4}
                     >
-                      Switch Players
-                    </button>
+                      {styleName(gameState.players.player4.name)}
+                    </div>
                   </>
                 )}
-              </>
-            )}
-
-            {startTheGame && (
-              <div className="top-row">
-                <button
-                  className={`green-button ${
-                    gameState.servingSide === "right"
-                      ? " button-on-right"
-                      : " button-on-left"
-                  }`}
-                  id="score-button"
-                  onClick={(e) => calcScore(e)}
-                >
-                  Score
-                </button>
-                <div className="game-stats">
-                  <span
-                    className={`score${
-                      ((gameState.teams === "doubles" &&
-                        gameState.servingSide === "right") ||
-                        (gameState.teams === "singles" &&
-                          gameState.serving === "player2")) &&
-                      " right-side"
-                    }`}
-                  >
-                    <span>{gameState.scoreSide1}</span>-
-                    <span>{gameState.scoreSide2}</span>
-                  </span>
-                  {gameState.teams === "doubles" &&
-                    "-" + gameState.serverNumber}
-                </div>
-                <button
-                  className={`red-button ${
-                    gameState.servingSide === "right"
-                      ? " button-on-left"
-                      : " button-on-right"
-                  }`}
-                  id="fault-button"
-                  onClick={(e) => calcFault(e)}
-                >
-                  Fault
-                </button>
               </div>
             )}
+            {/* end content */}
+          </>
+        )}
+        {gameOver && (
+          <div className="game-over-congrats">
+            <h1>Congrats</h1>
 
-            <div className="court">
-              <div className="left-court">
-                <div className="quads" ref={quad1}></div>
-                <div className="quads" ref={quad2}></div>
-              </div>
-              <div className="kitchen">
-                <div className="net"></div>
-              </div>
-              <div className="right-court">
-                <div className="quads" ref={quad3}></div>
-                <div className="quads" ref={quad4}></div>
-              </div>
-            </div>
-
-            <div
-              className={`players player1${
-                gameState.serving === "player1" ? " serving" : ""
-              }`}
-              style={{
-                backgroundColor: gameState.players.player1.color,
-              }}
-              ref={player1}
-            >
-              {styleName(gameState.players.player1.name)}
-            </div>
-
-            <div
-              className={`players player2${
-                gameState.serving === "player2" ? " serving" : ""
-              }`}
-              style={{
-                backgroundColor: gameState.players.player2.color,
-              }}
-              ref={player2}
-            >
-              {styleName(gameState.players.player2.name)}
-            </div>
-
-            {gameState.teams === "doubles" && (
-              <>
-                {" "}
-                <div
-                  className={`players player3${
-                    gameState.serving === "player3" ? " serving" : ""
-                  }`}
-                  style={{
-                    backgroundColor: gameState.players.player3.color,
-                  }}
-                  ref={player3}
-                >
-                  {styleName(gameState.players.player3.name)}
-                </div>
-                <div
-                  className={`players player4${
-                    gameState.serving === "player4" ? " serving" : ""
-                  }`}
-                  style={{
-                    backgroundColor: gameState.players.player4.color,
-                  }}
-                  ref={player4}
-                >
-                  {styleName(gameState.players.player4.name)}
-                </div>
-              </>
-            )}
+            <button onClick={() => reset()}>New Game</button>
           </div>
         )}
-        {/* end content */}
       </div>
     </div>
   );
