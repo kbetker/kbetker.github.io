@@ -233,6 +233,7 @@ const Pickleball = () => {
           copiedGameState.scoreSide1 - copiedGameState.scoreSide2 >= 2
         ) {
           setGameOver(true);
+          console.log(copiedGameState.players.player1);
           setWinners(copiedGameState.players.player1);
         }
       } else {
@@ -439,65 +440,74 @@ const Pickleball = () => {
             {gameState.teams !== "" && !confirmPosition && (
               <div className="players-input">
                 <div className="flex-container">
-                  <input
-                    onChange={(e) => debounce(e)}
-                    placeholder="Player 1"
-                    id="player1"
-                  ></input>
-                  <input
-                    type="color"
-                    className="color-input"
-                    id="player1-color"
-                    value={color1}
-                    onChange={(e) => setColor1(e.target.value)}
-                  ></input>
+                  <div className="name-color">
+                    <input
+                      onChange={(e) => debounce(e)}
+                      placeholder="Player 1"
+                      id="player1"
+                    ></input>
+                    <input
+                      type="color"
+                      className="color-input"
+                      id="player1-color"
+                      value={color1}
+                      onChange={(e) => setColor1(e.target.value)}
+                    ></input>
+                  </div>
                   {gameState.teams === "singles" && <p>Vs.</p>}
-                  <input
-                    onChange={(e) => debounce(e)}
-                    placeholder="Player 2"
-                    id="player2"
-                  ></input>
-                  <input
-                    type="color"
-                    className="color-input"
-                    id="player2-color"
-                    value={color2}
-                    onChange={(e) => setColor2(e.target.value)}
-                  ></input>
+                  <div className="name-color">
+                    <input
+                      onChange={(e) => debounce(e)}
+                      placeholder="Player 2"
+                      id="player2"
+                    ></input>
+                    <input
+                      type="color"
+                      className="color-input"
+                      id="player2-color"
+                      value={color2}
+                      onChange={(e) => setColor2(e.target.value)}
+                    ></input>
+                  </div>
                 </div>
                 {/* Doubles Name Input*/}
                 {gameState.teams === "doubles" && (
                   <>
                     <p className="flex-container">Vs.</p>
+
                     <div className="flex-container">
-                      <input
-                        onChange={(e) => debounce(e)}
-                        placeholder="Player 3"
-                        id="player3"
-                      ></input>{" "}
-                      <input
-                        type="color"
-                        className="color-input"
-                        id="player3-color"
-                        value={color3}
-                        onChange={(e) => setColor3(e.target.value)}
-                      ></input>
-                      <input
-                        onChange={(e) => debounce(e)}
-                        placeholder="Player 4"
-                        id="player4"
-                      ></input>{" "}
-                      <input
-                        type="color"
-                        className="color-input"
-                        id="player4-color"
-                        value={color4}
-                        onChange={(e) => setColor4(e.target.value)}
-                      ></input>
+                      <div className="name-color">
+                        <input
+                          onChange={(e) => debounce(e)}
+                          placeholder="Player 3"
+                          id="player3"
+                        ></input>{" "}
+                        <input
+                          type="color"
+                          className="color-input"
+                          id="player3-color"
+                          value={color3}
+                          onChange={(e) => setColor3(e.target.value)}
+                        ></input>
+                      </div>
+                      <div className="name-color">
+                        <input
+                          onChange={(e) => debounce(e)}
+                          placeholder="Player 4"
+                          id="player4"
+                        ></input>{" "}
+                        <input
+                          type="color"
+                          className="color-input"
+                          id="player4-color"
+                          value={color4}
+                          onChange={(e) => setColor4(e.target.value)}
+                        ></input>
+                      </div>
                     </div>
                   </>
                 )}
-                <div className="flex-container">
+                <div className="flex-container back-next">
                   <button
                     onClick={(e) => handleInput(e)}
                     id="back-to-team-choice"
@@ -512,29 +522,29 @@ const Pickleball = () => {
             )}
 
             {confirmPosition && (
-              <div className="game-start">
+              <div className="confirm-start">
                 {confirmPosition && !startTheGame && (
                   <>
-                    <button
-                      className="play-ball"
-                      onClick={() => setStartTheGame(true)}
-                    >
-                      Play Ball!
-                    </button>
-
-                    <button
-                      className="switch-sides"
-                      onClick={() => switchSides()}
-                    >
-                      Switch Sides
-                    </button>
-
-                    <button
-                      className="switch-server"
-                      onClick={() => switchServer()}
-                    >
-                      Switch Server
-                    </button>
+                    <div className="top-row-position-options">
+                      <button
+                        className="switch-sides"
+                        onClick={() => switchSides()}
+                      >
+                        Switch Sides
+                      </button>
+                      <button
+                        className="play-ball"
+                        onClick={() => setStartTheGame(true)}
+                      >
+                        Play Ball!
+                      </button>
+                      <button
+                        className="switch-server"
+                        onClick={() => switchServer()}
+                      >
+                        Switch Server
+                      </button>
+                    </div>
 
                     {gameState.teams === "doubles" && (
                       <>
@@ -680,7 +690,7 @@ const Pickleball = () => {
               </p>
             )}
             {gameState.teams === "singles" && (
-              <p className="a-winner-is-you">{winners}</p>
+              <p className="a-winner-is-you">{winners.name}</p>
             )}
 
             <button onClick={() => reset()}>New Game</button>

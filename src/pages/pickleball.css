@@ -11,6 +11,12 @@
   /* width: 30%; */
 }
 
+.top-row-position-options {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .content {
   display: flex;
   justify-content: center;
@@ -75,9 +81,9 @@ p {
   font-size: 3rem;
   margin-inline: 1rem;
 }
-.game-start {
-  width: 100%;
-  height: 100vh;
+.confirm-start {
+  width: 85%;
+  height: 85vh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -86,6 +92,7 @@ p {
   background-size: 100% 100%;
   position: relative;
 }
+
 .court {
   width: 100%;
   height: 80%;
@@ -97,7 +104,7 @@ p {
 .left-court {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 25%;
 }
 
 .quads {
@@ -109,7 +116,7 @@ p {
 }
 
 .kitchen {
-  width: 10%;
+  width: 20%;
   display: flex;
   justify-content: center;
   box-sizing: border-box;
@@ -140,7 +147,7 @@ p {
 
 .game-stats {
   /* justify-content: center; */
-  padding-top: 1rem;
+  /* padding-top: 1rem; */
   font-size: 8rem;
   font-weight: 900;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
@@ -185,17 +192,14 @@ p {
 @keyframes borderColor {
   0% {
     border: 3px solid rgba(255, 255, 255, 0);
-    outline: 3px solid rgba(0, 0, 0, 0);
     box-shadow: 0 0 10px 10px rgba(251, 251, 251, 0);
   }
   50% {
     border: 3px solid rgb(255, 255, 255);
-    outline: 3px solid rgb(0, 0, 0);
     box-shadow: 0 0 10px 10px rgb(255, 255, 255);
   }
   100% {
     border: 3px solid rgba(255, 255, 255, 0);
-    outline: 3px solid rgba(0, 0, 0, 0);
     box-shadow: 0 0 10px 10px rgba(252, 252, 252, 0);
   }
 }
@@ -228,13 +232,13 @@ p {
 }
 .switch-sides {
   font-size: 3rem;
-  position: absolute;
+  /* position: absolute; */
   left: 1%;
 }
 
 .switch-server {
   font-size: 3rem;
-  position: absolute;
+  /* position: absolute; */
   right: 1%;
 }
 
@@ -304,4 +308,211 @@ h1 {
 .a-winner-is-you {
   font-size: 6rem;
   font-weight: 900;
+}
+
+.name-color {
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 1390px) {
+  .players {
+    width: 100px;
+    height: 100px;
+    transform: translateX(-1rem);
+  }
+  .play-ball {
+    /* width: 35%; */
+    font-size: 2rem;
+    padding: 0.5rem;
+  }
+  .switch-sides {
+    font-size: 2rem;
+    /* position: absolute; */
+    left: 1%;
+  }
+
+  .switch-server {
+    font-size: 2rem;
+  }
+
+  .switch-players-left,
+  .switch-players-right {
+    width: 10%;
+
+    top: 55%;
+  }
+  .confirm-start {
+    width: 85%;
+    height: 80vh;
+  }
+  .game-stats {
+    /* justify-content: center; */
+    padding-top: 1rem;
+    font-size: 6rem;
+    font-weight: 900;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      8px 8px 0 #000;
+  }
+  button {
+    font-size: 3rem;
+  }
+  .court {
+    width: 95%;
+    height: 70%;
+    margin-bottom: 2rem;
+  }
+
+  .right-court,
+  .left-court {
+    width: 25%;
+  }
+
+  .quads {
+    width: 100%;
+    height: 50%;
+  }
+
+  .kitchen {
+    width: 20%;
+    box-shadow: 0 0 90px rgba(0, 0, 0, 0.3) inset;
+  }
+  .net {
+    width: 5px;
+    height: 100%;
+    background-color: white;
+    border-right: 2px solid black;
+    border-style: dashed;
+    box-shadow: 10px 0 10px rgba(0, 0, 0, 0.538);
+  }
+  .first-letter {
+    font-size: 3.5rem;
+  }
+}
+
+@media only screen and (max-width: 930px) {
+  .players {
+    width: 90px;
+    height: 90px;
+    transform: translateX(-2rem);
+  }
+  .play-ball {
+    /* width: 35%; */
+    font-size: 2rem;
+    padding: 0.5rem;
+  }
+  .switch-sides {
+    font-size: 2rem;
+    /* position: absolute; */
+    left: 1%;
+  }
+
+  .switch-server {
+    font-size: 2rem;
+  }
+
+  .switch-players-left,
+  .switch-players-right {
+    width: 10%;
+    font-size: 1rem;
+    top: 55%;
+    padding: 2.3rem;
+  }
+
+  .switch-players-left::after,
+  .switch-players-left::before,
+  .switch-players-right::after,
+  .switch-players-right::before {
+    font-size: 2rem;
+  }
+
+  .confirm-start {
+    width: 85%;
+    height: 80vh;
+  }
+  .game-stats {
+    /* justify-content: center; */
+    padding-top: 1rem;
+    font-size: 6rem;
+    font-weight: 900;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      8px 8px 0 #000;
+  }
+  button {
+    font-size: 3rem;
+  }
+  .court {
+    width: 95%;
+    height: 60%;
+    margin-bottom: 1rem;
+  }
+
+  .right-court,
+  .left-court {
+    width: 25%;
+  }
+
+  .quads {
+    border: solid 3px white;
+    width: 100%;
+    height: 50%;
+  }
+
+  .kitchen {
+    width: 20%;
+    border: 5px solid orange;
+    box-shadow: 0 0 90px rgba(0, 0, 0, 0.3) inset;
+  }
+  .net {
+    width: 2px;
+    height: 100%;
+    background-color: white;
+    border-right: 2px solid black;
+    border-style: dashed;
+    box-shadow: 5px 0 5px rgba(0, 0, 0, 0.538);
+  }
+  .game-stats {
+    /* justify-content: center; */
+    padding-top: 0;
+    transform: translateY(-2rem);
+  }
+
+  button {
+    font-size: 1.5rem;
+    height: 3rem;
+    margin-block: 0;
+    /* font-size: 5rem; */
+    padding-inline: 0.6rem;
+    border-radius: 0.5rem;
+  }
+  input {
+    font-size: 2rem;
+    /* width: 20%; */
+    height: auto;
+    margin: 0.1rem;
+    margin-inline: 0.6rem;
+  }
+  .flex-container {
+    flex-direction: column;
+  }
+  p {
+    font-size: 1.5rem;
+    margin: 0.3rem;
+  }
+  .back-next {
+    flex-direction: row;
+  }
+  .first-letter {
+    font-size: 2.6rem;
+  }
+  .top-row-position-options {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
+  .green-button,
+  .red-button {
+    transform: translateY(4rem);
+    height: 5rem;
+  }
 }
