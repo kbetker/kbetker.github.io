@@ -395,6 +395,8 @@ h1 {
     width: 90px;
     height: 90px;
     transform: translateX(-2rem);
+    text-shadow: 1px 1px 0 white, -1px -1px 0 white, 1px -1px 0 white,
+      -1px 1px 0 white;
   }
   .play-ball {
     /* width: 35%; */
@@ -520,5 +522,9 @@ h1 {
   }
   .a-winner-is-you {
     font-size: 3rem;
+  }
+  .content,
+  .pickle-container {
+    height: 95vh;
   }
 }
