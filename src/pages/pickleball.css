@@ -115,7 +115,6 @@ p {
   box-sizing: border-box;
   border: 10px solid orange;
   background-color: rgb(98, 116, 77);
-
   box-shadow: 0 0 90px rgba(0, 0, 0, 0.3) inset;
 }
 .net {
@@ -274,8 +273,16 @@ p {
 .game-over-congrats {
   width: 90%;
   height: 90%;
-  background-color: rgb(177, 162, 162);
+  background-color: rgb(14, 53, 30);
   border-radius: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: 0 0 30px 15px rgba(0, 0, 0, 0.54);
+}
+h1 {
+  font-size: 8rem;
 }
 
 .quad-1 {
@@ -292,4 +299,9 @@ p {
 
 .quad-4 {
   box-shadow: -60px -60px 90px rgba(0, 0, 0, 0.3) inset;
+}
+
+.a-winner-is-you {
+  font-size: 6rem;
+  font-weight: 900;
 }

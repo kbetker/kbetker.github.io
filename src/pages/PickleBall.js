@@ -673,7 +673,15 @@ const Pickleball = () => {
         )}
         {gameOver && (
           <div className="game-over-congrats">
-            <h1>Congrats</h1>
+            <h1>Congrats to:</h1>
+            {gameState.teams === "doubles" && (
+              <p className="a-winner-is-you">
+                {winners.player1.name} &amp; {winners.player2.name}
+              </p>
+            )}
+            {gameState.teams === "singles" && (
+              <p className="a-winner-is-you">{winners}</p>
+            )}
 
             <button onClick={() => reset()}>New Game</button>
           </div>
