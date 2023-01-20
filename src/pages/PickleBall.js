@@ -27,6 +27,8 @@ const Pickleball = () => {
   const [color3, setColor3] = useState("#466cb9");
   const [color4, setColor4] = useState("#a4a43d");
   const [winners, setWinners] = useState({});
+  const scoreButton = useRef(null);
+  const faultButton = useRef(null);
   const quad1 = useRef(null);
   const quad2 = useRef(null);
   const quad3 = useRef(null);
@@ -172,6 +174,9 @@ const Pickleball = () => {
 
   const calcScore = (e) => {
     let copiedGameState = deepCopyFunction(gameState);
+    if (scoreButton.current) {
+      scoreButton.current.style.pointerEvents = "none";
+    }
 
     if (copiedGameState.teams === "doubles") {
       if (
@@ -256,10 +261,18 @@ const Pickleball = () => {
     }
 
     setGameState(copiedGameState);
+    setTimeout(() => {
+      if (scoreButton.current) {
+        scoreButton.current.style.pointerEvents = "all";
+      }
+    }, 1000);
   };
 
   const calcFault = (e) => {
     let copiedGameState = deepCopyFunction(gameState);
+    if (faultButton.current) {
+      faultButton.current.style.pointerEvents = "none";
+    }
     if (gameState.teams === "doubles") {
       if (copiedGameState.serverNumber === 1) {
         copiedGameState.serverNumber++;
@@ -331,6 +344,11 @@ const Pickleball = () => {
     }
 
     setGameState(copiedGameState);
+    setTimeout(() => {
+      if (faultButton.current) {
+        faultButton.current.style.pointerEvents = "all";
+      }
+    }, 1000);
   };
 
   useEffect(() => {
@@ -578,6 +596,7 @@ const Pickleball = () => {
                       }`}
                       id="score-button"
                       onClick={(e) => calcScore(e)}
+                      ref={scoreButton}
                     >
                       Score
                     </button>
@@ -605,6 +624,7 @@ const Pickleball = () => {
                       }`}
                       id="fault-button"
                       onClick={(e) => calcFault(e)}
+                      ref={faultButton}
                     >
                       Fault
                     </button>

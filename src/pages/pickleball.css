@@ -515,4 +515,10 @@ h1 {
     transform: translateY(4rem);
     height: 5rem;
   }
+  h1 {
+    font-size: 3rem;
+  }
+  .a-winner-is-you {
+    font-size: 3rem;
+  }
 }
