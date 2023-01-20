@@ -141,4 +141,4 @@ function Home() {
 }
 export default Home;
 
-// why you no deploy Github?!?!? >:( grr
+// why you no deploy Github?!?!? >:( grr. Rethinking life choices....
