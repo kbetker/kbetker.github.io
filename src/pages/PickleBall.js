@@ -574,7 +574,7 @@ const Pickleball = () => {
                       >
                         Switch Server
                       </button>
-                      <div className="play-up-to">
+                      {/* <div className="play-up-to">
                         <h2>Play up to</h2>
                         <input
                           onChange={(e) => setFinishScore(e.target.value)}
@@ -582,7 +582,7 @@ const Pickleball = () => {
                           type="number"
                         ></input>
                         <h2>points</h2>
-                      </div>
+                      </div> */}
                     </div>
 
                     {gameState.teams === "doubles" && (
@@ -737,7 +737,7 @@ const Pickleball = () => {
         )}
         {gameOver && (
           <div className="game-over-congrats">
-            <h1>A wiiner is you!</h1>
+            <h1>A winner is you!</h1>
             {gameState.teams === "doubles" && (
               <p className="a-winner-is-you">
                 {winners.player1.name} &amp; {winners.player2.name}
