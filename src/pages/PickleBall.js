@@ -22,6 +22,7 @@ const Pickleball = () => {
   };
   const timeOut = useRef(null);
   const [gameState, setGameState] = useState(gameInitialState);
+  const [confirmFinishScore, setConfirmFinishScore] = useState(false);
   const [confirmPosition, setConfirmPositions] = useState(false);
   const [startTheGame, setStartTheGame] = useState(false);
   const [gameOver, setGameOver] = useState(false);
@@ -56,6 +57,37 @@ const Pickleball = () => {
     setConfirmPositions(false);
     setWinners({});
     setFinishScore(11);
+    setConfirmFinishScore(false);
+  };
+
+  const playAgain = () => {
+    let copiedGameState = deepCopyFunction(gameState);
+    copiedGameState.scoreSide1 = 0;
+    copiedGameState.scoreSide2 = 0;
+    copiedGameState.serverNumber = 2;
+    copiedGameState.serving = "player1";
+    copiedGameState.servingSide = "left";
+    setGameOver(false);
+    setStartTheGame(false);
+    setConfirmPositions(true);
+    setWinners({});
+    // setConfirmFinishScore(true);
+    setTimeout(() => {
+      player1.current.classList.remove("serving");
+      player2.current.classList.remove("serving");
+      if (copiedGameState.teams === "doubles") {
+        player3.current.classList.remove("serving");
+        player4.current.classList.remove("serving");
+      }
+    }, 10);
+
+    setTimeout(() => {
+      player1.current.classList.add("serving");
+      setGameState(copiedGameState);
+      setPositions();
+    }, 200);
+
+    setPositions();
   };
 
   /*
@@ -103,6 +135,25 @@ const Pickleball = () => {
       case "back-to-team-choice":
         copiedGameState = gameInitialState;
         break;
+      case "back-to-choose-points":
+        setConfirmFinishScore(false);
+        break;
+      case "confirmPoints":
+        if (finishScore < 0) {
+          alert(
+            "You can't have negative points in Picklball! What's wrong with you?"
+          );
+          return;
+        } else if (finishScore < 2) {
+          alert(
+            "You must win by at least 2 points, so it makes sense to at least set the score to 2."
+          );
+          return;
+        }
+
+        copiedGameState.playToScore = parseInt(finishScore);
+        setConfirmFinishScore(true);
+        break;
       case "confirmPosition":
         // const singlesNames =
         //   copiedGameState.players.player1.name.length > 1 &&
@@ -124,7 +175,7 @@ const Pickleball = () => {
         // }
         // let copiedGameState = deepCopyFunction(gameState);
 
-        setGameState(copiedGameState);
+        // setGameState(copiedGameState);
         setConfirmPositions(true);
         break;
       default:
@@ -244,7 +295,6 @@ const Pickleball = () => {
           copiedGameState.scoreSide1 - copiedGameState.scoreSide2 >= 2
         ) {
           setGameOver(true);
-          console.log(copiedGameState.players.player1);
           setWinners(copiedGameState.players.player1);
         }
       } else {
@@ -354,13 +404,19 @@ const Pickleball = () => {
       if (faultButton.current) {
         faultButton.current.style.pointerEvents = "all";
       }
-    }, 1000);
+    }, 50);
   };
 
-  useEffect(() => {
-    // if (true) {
-
+  const setColors = () => {
     let copiedGameState = deepCopyFunction(gameState);
+    copiedGameState.players.player1.color = color1;
+    copiedGameState.players.player2.color = color2;
+    copiedGameState.players.player3.color = color3;
+    copiedGameState.players.player4.color = color4;
+    setGameState(copiedGameState);
+  };
+
+  const setPositions = () => {
     if (gameState.teams === "doubles" && player1.current) {
       player1.current.style.left = quad1pos.left;
       player1.current.style.top = quad1pos.top;
@@ -380,12 +436,12 @@ const Pickleball = () => {
       player2.current.style.left = quad4pos.left;
       player2.current.style.top = quad4pos.top;
     }
+  };
 
-    copiedGameState.players.player1.color = color1;
-    copiedGameState.players.player2.color = color2;
-    copiedGameState.players.player3.color = color3;
-    copiedGameState.players.player4.color = color4;
-    setGameState(copiedGameState);
+  useEffect(() => {
+    // if (true) {
+    setPositions();
+    setColors();
     // }
   }, [confirmPosition]);
 
@@ -442,16 +498,9 @@ const Pickleball = () => {
     setGameState(copiedGameState);
   };
 
-  useEffect(() => {
-    let copiedGameState = deepCopyFunction(gameState);
-    copiedGameState.playToScore = parseInt(finishScore);
-    setGameState(copiedGameState);
-  }, [finishScore]);
-
   return (
     <div className="pickle-container">
       {/* <div className="sidebar">wat</div> */}
-      {console.log("%ccopiedGameState: ", "color:ree", gameState)}
       <div className="content">
         {!gameOver && (
           <>
@@ -467,7 +516,32 @@ const Pickleball = () => {
               </div>
             )}
 
-            {gameState.teams !== "" && !confirmPosition && (
+            {gameState.teams !== "" && !confirmFinishScore && (
+              <div className="play-up-to-container">
+                <div className="play-up-to">
+                  <h2>Play up to</h2>
+                  <input
+                    onChange={(e) => setFinishScore(e.target.value)}
+                    value={finishScore}
+                    type="number"
+                  ></input>
+                  <h2>points</h2>
+                </div>
+                <div className="flex-container back-next">
+                  <button
+                    onClick={(e) => handleInput(e)}
+                    id="back-to-team-choice"
+                  >
+                    Back
+                  </button>
+                  <button id="confirmPoints" onClick={(e) => handleInput(e)}>
+                    Next
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {confirmFinishScore && !confirmPosition && (
               <div className="players-input">
                 <div className="flex-container">
                   <div className="name-color">
@@ -540,7 +614,7 @@ const Pickleball = () => {
                 <div className="flex-container back-next">
                   <button
                     onClick={(e) => handleInput(e)}
-                    id="back-to-team-choice"
+                    id="back-to-choose-points"
                   >
                     Back
                   </button>
@@ -574,15 +648,6 @@ const Pickleball = () => {
                       >
                         Switch Server
                       </button>
-                      {/* <div className="play-up-to">
-                        <h2>Play up to</h2>
-                        <input
-                          onChange={(e) => setFinishScore(e.target.value)}
-                          value={finishScore}
-                          type="number"
-                        ></input>
-                        <h2>points</h2>
-                      </div> */}
                     </div>
 
                     {gameState.teams === "doubles" && (
@@ -746,7 +811,7 @@ const Pickleball = () => {
             {gameState.teams === "singles" && (
               <p className="a-winner-is-you">{winners.name}</p>
             )}
-
+            <button onClick={() => playAgain()}>Play Again</button>
             <button onClick={() => reset()}>New Game</button>
           </div>
         )}

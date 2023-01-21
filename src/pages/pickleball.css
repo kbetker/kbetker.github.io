@@ -166,6 +166,8 @@ p {
 }
 
 .players {
+  top: 0;
+  left: 0;
   width: 150px;
   height: 150px;
   position: absolute;
@@ -318,13 +320,15 @@ h1 {
   display: flex;
   justify-content: center;
 }
+.play-up-to-container {
+}
 
 .play-up-to {
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  left: calc(50% - 250px);
+  padding: 0.5rem;
   top: 30%;
   background-color: rgb(45, 45, 45);
   color: white;
