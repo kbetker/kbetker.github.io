@@ -7,6 +7,10 @@
   background-color: rgb(20, 80, 34);
 }
 
+.serve-number {
+  color: rgb(157, 157, 157);
+}
+
 .sidebar {
   /* width: 30%; */
 }
@@ -315,7 +319,46 @@ h1 {
   justify-content: center;
 }
 
+.play-up-to {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: calc(50% - 250px);
+  top: 30%;
+  background-color: rgb(45, 45, 45);
+  color: white;
+  border-radius: 1rem;
+  border-top: 2px solid grey;
+  border-left: 2px solid grey;
+  border-bottom: 2px solid rgb(32, 32, 32);
+  border-right: 2px solid rgb(32, 32, 32);
+}
+
+h2 {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.play-up-to input {
+  width: 5rem;
+}
+
 @media only screen and (max-width: 1390px) {
+  .play-up-to {
+    top: 15%;
+    left: calc(50% - 200px);
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .play-up-to input {
+    width: 5rem;
+    font-size: 2rem;
+  }
+
   .players {
     width: 100px;
     height: 100px;
@@ -523,6 +566,21 @@ h1 {
   .content,
   .pickle-container {
     height: 95vh;
+  }
+  .play-up-to {
+    /* top: 15%; */
+    /* left: calc(50% - 200px); */
+    position: inherit;
+    border-radius: 10px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .play-up-to input {
+    width: 5rem;
+    font-size: 2rem;
   }
 }
 @media only screen and (max-width: 490px) {

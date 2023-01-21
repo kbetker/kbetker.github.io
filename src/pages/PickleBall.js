@@ -18,6 +18,7 @@ const Pickleball = () => {
     serverNumber: 2,
     servingSide: "left",
     serveQuadrent: "quadrent1",
+    playToScore: 11,
   };
   const timeOut = useRef(null);
   const [gameState, setGameState] = useState(gameInitialState);
@@ -31,6 +32,8 @@ const Pickleball = () => {
   const [winners, setWinners] = useState({});
   const scoreButton = useRef(null);
   const faultButton = useRef(null);
+  const [finishScore, setFinishScore] = useState(11);
+
   const quad1 = useRef(null);
   const quad2 = useRef(null);
   const quad3 = useRef(null);
@@ -52,6 +55,7 @@ const Pickleball = () => {
     setStartTheGame(false);
     setConfirmPositions(false);
     setWinners({});
+    setFinishScore(11);
   };
 
   /*
@@ -196,7 +200,7 @@ const Pickleball = () => {
         }
 
         if (
-          copiedGameState.scoreSide1 >= 11 &&
+          copiedGameState.scoreSide1 >= gameState.playToScore &&
           copiedGameState.scoreSide1 - copiedGameState.scoreSide2 >= 2
         ) {
           setGameOver(true);
@@ -216,7 +220,7 @@ const Pickleball = () => {
         }
       }
       if (
-        copiedGameState.scoreSide2 >= 11 &&
+        copiedGameState.scoreSide2 >= gameState.playToScore &&
         copiedGameState.scoreSide2 - copiedGameState.scoreSide1 >= 2
       ) {
         setGameOver(true);
@@ -236,7 +240,7 @@ const Pickleball = () => {
           player2.current.style.top = quad3pos.top;
         }
         if (
-          copiedGameState.scoreSide1 >= 11 &&
+          copiedGameState.scoreSide1 >= gameState.playToScore &&
           copiedGameState.scoreSide1 - copiedGameState.scoreSide2 >= 2
         ) {
           setGameOver(true);
@@ -253,7 +257,7 @@ const Pickleball = () => {
           player2.current.style.top = quad3pos.top;
         }
         if (
-          copiedGameState.scoreSide2 >= 11 &&
+          copiedGameState.scoreSide2 >= gameState.playToScore &&
           copiedGameState.scoreSide2 - copiedGameState.scoreSide1 >= 2
         ) {
           setGameOver(true);
@@ -438,10 +442,16 @@ const Pickleball = () => {
     setGameState(copiedGameState);
   };
 
+  useEffect(() => {
+    let copiedGameState = deepCopyFunction(gameState);
+    copiedGameState.playToScore = parseInt(finishScore);
+    setGameState(copiedGameState);
+  }, [finishScore]);
+
   return (
     <div className="pickle-container">
       {/* <div className="sidebar">wat</div> */}
-
+      {console.log("%ccopiedGameState: ", "color:ree", gameState)}
       <div className="content">
         {!gameOver && (
           <>
@@ -564,6 +574,15 @@ const Pickleball = () => {
                       >
                         Switch Server
                       </button>
+                      <div className="play-up-to">
+                        <h2>Play up to</h2>
+                        <input
+                          onChange={(e) => setFinishScore(e.target.value)}
+                          value={finishScore}
+                          type="number"
+                        ></input>
+                        <h2>points</h2>
+                      </div>
                     </div>
 
                     {gameState.teams === "doubles" && (
@@ -612,7 +631,9 @@ const Pickleball = () => {
                           <span>{gameState.scoreSide2}-</span>
                           <span>{gameState.scoreSide1}</span>
                           {gameState.teams === "doubles" && (
-                            <span>-{gameState.serverNumber}</span>
+                            <span className="serve-number">
+                              -{gameState.serverNumber}
+                            </span>
                           )}
                         </>
                       ) : (
@@ -621,7 +642,9 @@ const Pickleball = () => {
                           <span>{gameState.scoreSide1}-</span>
                           <span>{gameState.scoreSide2}</span>
                           {gameState.teams === "doubles" && (
-                            <span>-{gameState.serverNumber}</span>
+                            <span className="serve-number">
+                              -{gameState.serverNumber}
+                            </span>
                           )}
                         </>
                       )}
@@ -714,7 +737,7 @@ const Pickleball = () => {
         )}
         {gameOver && (
           <div className="game-over-congrats">
-            <h1>Congrats to:</h1>
+            <h1>A wiiner is you!</h1>
             {gameState.teams === "doubles" && (
               <p className="a-winner-is-you">
                 {winners.player1.name} &amp; {winners.player2.name}
