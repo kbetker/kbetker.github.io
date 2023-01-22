@@ -214,6 +214,7 @@ p {
 .red-button {
   position: absolute;
   transition: all 1s;
+  height: 9rem;
 }
 .green-button {
   background-color: rgb(0, 124, 0);
