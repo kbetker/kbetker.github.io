@@ -7,10 +7,34 @@ const Pickleball = () => {
   const gameInitialState = {
     teams: "",
     players: {
-      player1: { name: "", color: "#835020" },
-      player2: { name: "", color: "#145022" },
-      player3: { name: "", color: "#466cb9" },
-      player4: { name: "", color: "#a4a43d" },
+      player1: {
+        name: "",
+        color: "#835020",
+        serving: true,
+        left: "2%",
+        top: "75%",
+      },
+      player2: {
+        name: "",
+        color: "#145022",
+        serving: false,
+        left: "2%",
+        top: "35%",
+      },
+      player3: {
+        name: "",
+        color: "#466cb9",
+        serving: false,
+        left: "88%",
+        top: "75%",
+      },
+      player4: {
+        name: "",
+        color: "#a4a43d",
+        serving: false,
+        left: "88%",
+        top: "35%",
+      },
     },
     serving: "player1",
     scoreSide1: 0,
@@ -34,6 +58,8 @@ const Pickleball = () => {
   const scoreButton = useRef(null);
   const faultButton = useRef(null);
   const [finishScore, setFinishScore] = useState(11);
+  const mouseClickTimeout = useRef("");
+  const clickCount = useRef(0);
 
   const quad1 = useRef(null);
   const quad2 = useRef(null);
@@ -65,29 +91,16 @@ const Pickleball = () => {
     copiedGameState.scoreSide1 = 0;
     copiedGameState.scoreSide2 = 0;
     copiedGameState.serverNumber = 2;
-    copiedGameState.serving = "player1";
+    copiedGameState.players.player1.serving = true;
+    copiedGameState.players.player2.serving = false;
+    copiedGameState.players.player3.serving = false;
+    copiedGameState.players.player4.serving = false;
     copiedGameState.servingSide = "left";
     setGameOver(false);
     setStartTheGame(false);
     setConfirmPositions(true);
     setWinners({});
-    // setConfirmFinishScore(true);
-    setTimeout(() => {
-      player1.current.classList.remove("serving");
-      player2.current.classList.remove("serving");
-      if (copiedGameState.teams === "doubles") {
-        player3.current.classList.remove("serving");
-        player4.current.classList.remove("serving");
-      }
-    }, 10);
-
-    setTimeout(() => {
-      player1.current.classList.add("serving");
-      setGameState(copiedGameState);
-      setPositions();
-    }, 200);
-
-    setPositions();
+    setGameState(copiedGameState);
   };
 
   /*
@@ -122,9 +135,6 @@ const Pickleball = () => {
         break;
       case "player2":
         copiedGameState.players.player2.name = e.target.value;
-        break;
-      case "color2":
-        copiedGameState.players.player2.color = e.value;
         break;
       case "player3":
         copiedGameState.players.player3.name = e.target.value;
@@ -229,94 +239,123 @@ const Pickleball = () => {
     );
   };
 
-  const calcScore = (e) => {
+  const checkScore = (gameState) => {
+    // let copiedGameState = deepCopyFunction(gameState);
+
+    if (gameState.servingSide === "left") {
+      if (
+        gameState.scoreSide1 >= gameState.playToScore &&
+        gameState.scoreSide1 - gameState.scoreSide2 >= 2
+      ) {
+        setGameOver(true);
+        setWinners({
+          winner1: gameState.players.player1.name,
+          winner2: gameState.players.player2.name,
+        });
+      }
+    } else {
+      if (
+        gameState.scoreSide2 >= gameState.playToScore &&
+        gameState.scoreSide2 - gameState.scoreSide1 >= 2
+      ) {
+        setGameOver(true);
+        setWinners({
+          winner1: gameState.players.player3.name,
+          winner2: gameState.players.player4.name,
+        });
+      }
+    }
+  };
+
+  const addScoreDoubles = (gameState) => {
     let copiedGameState = deepCopyFunction(gameState);
+    if (
+      copiedGameState.players.player1.serving ||
+      copiedGameState.players.player2.serving
+    ) {
+      copiedGameState.scoreSide1++;
+    } else {
+      copiedGameState.scoreSide2++;
+    }
+    return copiedGameState;
+  };
+
+  const switchPlayerPositionDoubles = (gameState) => {
+    let copiedGameState = deepCopyFunction(gameState);
+    if (
+      copiedGameState.players.player1.serving ||
+      copiedGameState.players.player2.serving
+    ) {
+      if (copiedGameState.players.player1.top === "75%") {
+        copiedGameState.players.player1.top = quad2pos.top;
+        copiedGameState.players.player2.top = quad1pos.top;
+      } else {
+        copiedGameState.players.player1.top = quad1pos.top;
+        copiedGameState.players.player2.top = quad2pos.top;
+      }
+    } else {
+      if (copiedGameState.players.player3.top === "75%") {
+        copiedGameState.players.player3.top = quad4pos.top;
+        copiedGameState.players.player4.top = quad3pos.top;
+      } else {
+        copiedGameState.players.player3.top = quad3pos.top;
+        copiedGameState.players.player4.top = quad4pos.top;
+      }
+    }
+    return copiedGameState;
+  };
+
+  const handleScoreButton = () => {
+    let copiedGameState = deepCopyFunction(gameState);
+    // prevent double click of score button
     if (scoreButton.current) {
       scoreButton.current.style.pointerEvents = "none";
     }
 
     if (copiedGameState.teams === "doubles") {
-      if (
-        copiedGameState.serving === "player1" ||
-        copiedGameState.serving === "player2"
-      ) {
-        copiedGameState.scoreSide1++;
-
-        if (player1.current.style.top === "75%") {
-          player1.current.style.top = quad2pos.top;
-          player2.current.style.top = quad1pos.top;
-        } else {
-          player1.current.style.top = quad1pos.top;
-          player2.current.style.top = quad2pos.top;
-        }
-
-        if (
-          copiedGameState.scoreSide1 >= gameState.playToScore &&
-          copiedGameState.scoreSide1 - copiedGameState.scoreSide2 >= 2
-        ) {
-          setGameOver(true);
-          setWinners({
-            player1: copiedGameState.players.player1,
-            player2: copiedGameState.players.player2,
-          });
-        }
-      } else {
-        copiedGameState.scoreSide2++;
-        if (player3.current.style.top === "75%") {
-          player3.current.style.top = quad4pos.top;
-          player4.current.style.top = quad3pos.top;
-        } else {
-          player3.current.style.top = quad3pos.top;
-          player4.current.style.top = quad4pos.top;
-        }
-      }
-      if (
-        copiedGameState.scoreSide2 >= gameState.playToScore &&
-        copiedGameState.scoreSide2 - copiedGameState.scoreSide1 >= 2
-      ) {
-        setGameOver(true);
-        setWinners({
-          player1: copiedGameState.players.player3,
-          player2: copiedGameState.players.player4,
-        });
-      }
+      let switchedPlayers = switchPlayerPositionDoubles(gameState);
+      copiedGameState = addScoreDoubles(switchedPlayers);
+      checkScore(copiedGameState);
     } else {
-      if (copiedGameState.serving === "player1") {
+      if (copiedGameState.playsers.player1.serving) {
         copiedGameState.scoreSide1++;
         if (copiedGameState.scoreSide1 % 2 === 0) {
-          player1.current.style.top = quad1pos.top;
-          player2.current.style.top = quad4pos.top;
+          copiedGameState.players.player1.top = quad1pos.top;
+          copiedGameState.players.player2.top = quad4pos.top;
         } else {
-          player1.current.style.top = quad2pos.top;
-          player2.current.style.top = quad3pos.top;
+          copiedGameState.players.player1.top = quad2pos.top;
+          copiedGameState.players.player2.top = quad3pos.top;
         }
         if (
           copiedGameState.scoreSide1 >= gameState.playToScore &&
           copiedGameState.scoreSide1 - copiedGameState.scoreSide2 >= 2
         ) {
           setGameOver(true);
+          startTheGame(false);
           setWinners(copiedGameState.players.player1);
         }
       } else {
         copiedGameState.scoreSide2++;
         if (copiedGameState.scoreSide2 % 2 === 0) {
-          player1.current.style.top = quad1pos.top;
-          player2.current.style.top = quad4pos.top;
+          copiedGameState.players.player1.top = quad1pos.top;
+          copiedGameState.players.player2.top = quad4pos.top;
         } else {
-          player1.current.style.top = quad2pos.top;
-          player2.current.style.top = quad3pos.top;
+          copiedGameState.players.player1.top = quad2pos.top;
+          copiedGameState.players.player2.top = quad3pos.top;
         }
         if (
           copiedGameState.scoreSide2 >= gameState.playToScore &&
           copiedGameState.scoreSide2 - copiedGameState.scoreSide1 >= 2
         ) {
           setGameOver(true);
+          startTheGame(false);
           setWinners(copiedGameState.players.player2);
         }
       }
     }
 
     setGameState(copiedGameState);
+    // re-enable scoreButton
     setTimeout(() => {
       if (scoreButton.current) {
         scoreButton.current.style.pointerEvents = "all";
@@ -324,26 +363,32 @@ const Pickleball = () => {
     }, 1000);
   };
 
-  const calcFault = (e) => {
+  const handleFaultButton = (e) => {
     let copiedGameState = deepCopyFunction(gameState);
     if (faultButton.current) {
       faultButton.current.style.pointerEvents = "none";
     }
+
+    copiedGameState.players.player1.serving = false;
+    copiedGameState.players.player2.serving = false;
+    copiedGameState.players.player3.serving = false;
+    copiedGameState.players.player4.serving = false;
+
     if (gameState.teams === "doubles") {
       if (copiedGameState.serverNumber === 1) {
         copiedGameState.serverNumber++;
         if (copiedGameState.servingSide === "left") {
-          if (copiedGameState.serving === "player1") {
-            copiedGameState.serving = "player2";
+          if (gameState.players.player1.serving) {
+            copiedGameState.players.player2.serving = true;
           } else {
-            copiedGameState.serving = "player1";
+            copiedGameState.players.player1.serving = true;
           }
         } else {
           // if right
-          if (copiedGameState.serving === "player3") {
-            copiedGameState.serving = "player4";
+          if (gameState.players.player3.serving) {
+            copiedGameState.players.player4.serving = true;
           } else {
-            copiedGameState.serving = "player3";
+            copiedGameState.players.player3.serving = true;
           }
         }
       } else {
@@ -356,17 +401,17 @@ const Pickleball = () => {
         }
 
         if (copiedGameState.servingSide === "left") {
-          if (player1.current.style.top === "75%") {
-            copiedGameState.serving = "player1";
+          if (copiedGameState.players.player1.top === "75%") {
+            copiedGameState.players.player1.serving = true;
           } else {
-            copiedGameState.serving = "player2";
+            copiedGameState.players.player2.serving = true;
           }
         } else {
           //if right
-          if (player3.current.style.top === "35%") {
-            copiedGameState.serving = "player3";
+          if (copiedGameState.players.player3.top === "35%") {
+            copiedGameState.players.player3.serving = true;
           } else {
-            copiedGameState.serving = "player4";
+            copiedGameState.players.player4.serving = true;
           }
         }
       }
@@ -404,7 +449,7 @@ const Pickleball = () => {
       if (faultButton.current) {
         faultButton.current.style.pointerEvents = "all";
       }
-    }, 50);
+    }, 1000);
   };
 
   const setColors = () => {
@@ -416,31 +461,31 @@ const Pickleball = () => {
     setGameState(copiedGameState);
   };
 
-  const setPositions = () => {
-    if (gameState.teams === "doubles" && player1.current) {
-      player1.current.style.left = quad1pos.left;
-      player1.current.style.top = quad1pos.top;
+  // const setPositions = () => {
+  //   if (gameState.teams === "doubles" && player1.current) {
+  //     player1.current.style.left = quad1pos.left;
+  //     player1.current.style.top = quad1pos.top;
 
-      player2.current.style.left = quad2pos.left;
-      player2.current.style.top = quad2pos.top;
+  //     player2.current.style.left = quad2pos.left;
+  //     player2.current.style.top = quad2pos.top;
 
-      player3.current.style.left = quad3pos.left;
-      player3.current.style.top = quad3pos.top;
+  //     player3.current.style.left = quad3pos.left;
+  //     player3.current.style.top = quad3pos.top;
 
-      player4.current.style.left = quad4pos.left;
-      player4.current.style.top = quad4pos.top;
-    } else if (player1.current) {
-      player1.current.style.left = quad1pos.left;
-      player1.current.style.top = quad1pos.top;
+  //     player4.current.style.left = quad4pos.left;
+  //     player4.current.style.top = quad4pos.top;
+  //   } else if (player1.current) {
+  //     player1.current.style.left = quad1pos.left;
+  //     player1.current.style.top = quad1pos.top;
 
-      player2.current.style.left = quad4pos.left;
-      player2.current.style.top = quad4pos.top;
-    }
-  };
+  //     player2.current.style.left = quad4pos.left;
+  //     player2.current.style.top = quad4pos.top;
+  //   }
+  // };
 
   useEffect(() => {
     // if (true) {
-    setPositions();
+    // setPositions();
     setColors();
     // }
   }, [confirmPosition]);
@@ -448,6 +493,30 @@ const Pickleball = () => {
   const switchPlayers = (e) => {
     let copiedGameState = deepCopyFunction(gameState);
     let tempGameState = deepCopyFunction(gameState);
+
+    tempGameState.players.player1.top = quad2pos.top;
+    tempGameState.players.player2.top = quad1pos.top;
+    tempGameState.players.player3.top = quad4pos.top;
+    tempGameState.players.player4.top = quad3pos.top;
+
+    if (tempGameState.players.player1.serving) {
+      tempGameState.players.player1.serving = false;
+      tempGameState.players.player2.serving = true;
+    } else if (tempGameState.players.player2.serving) {
+      tempGameState.players.player1.serving = true;
+      tempGameState.players.player2.serving = false;
+    } else if (tempGameState.players.player3.serving) {
+      tempGameState.players.player3.serving = false;
+      tempGameState.players.player4.serving = true;
+    } else {
+      tempGameState.players.player3.serving = true;
+      tempGameState.players.player4.serving = false;
+    }
+
+    // tempGameState.players.player1.serving = false;
+    // tempGameState.players.player2.serving = false;
+    // tempGameState.players.player3.serving = false;
+    // tempGameState.players.player4.serving = false;
 
     if (e.target.id === "switch-players-left") {
       copiedGameState.players.player1 = tempGameState.players.player2;
@@ -464,6 +533,20 @@ const Pickleball = () => {
     let copiedGameState = deepCopyFunction(gameState);
     let tempGameState = deepCopyFunction(gameState);
 
+    tempGameState.players.player1.serving = false;
+    tempGameState.players.player2.serving = false;
+    tempGameState.players.player3.serving = false;
+    tempGameState.players.player4.serving = false;
+
+    tempGameState.players.player1.left = quad3pos.left;
+    tempGameState.players.player1.top = quad1pos.top;
+    tempGameState.players.player2.left = quad4pos.left;
+    tempGameState.players.player2.top = quad2pos.top;
+    tempGameState.players.player3.left = quad1pos.left;
+    tempGameState.players.player3.top = quad3pos.top;
+    tempGameState.players.player4.left = quad2pos.left;
+    tempGameState.players.player4.top = quad4pos.top;
+
     if (copiedGameState.teams === "doubles") {
       copiedGameState.players.player1 = tempGameState.players.player3;
       copiedGameState.players.player2 = tempGameState.players.player4;
@@ -473,33 +556,67 @@ const Pickleball = () => {
       copiedGameState.players.player1 = tempGameState.players.player2;
       copiedGameState.players.player2 = tempGameState.players.player1;
     }
+
+    // serving side??
+    if (copiedGameState.servingSide === "left") {
+      copiedGameState.servingSide = "right";
+      copiedGameState.players.player4.serving = true;
+    } else {
+      copiedGameState.servingSide = "left";
+      copiedGameState.players.player1.serving = true;
+    }
+
     setGameState(copiedGameState);
   };
 
   const switchServer = () => {
     const copiedGameState = deepCopyFunction(gameState);
+
     if (copiedGameState.teams === "doubles") {
-      if (copiedGameState.serving === "player1") {
-        copiedGameState.serving = "player4";
+      if (copiedGameState.players.player1.serving) {
+        copiedGameState.players.player4.serving = true;
+        copiedGameState.players.player1.serving = false;
         copiedGameState.servingSide = "right";
       } else {
-        copiedGameState.serving = "player1";
+        copiedGameState.players.player1.serving = true;
+        copiedGameState.players.player4.serving = false;
         copiedGameState.servingSide = "left";
       }
     } else {
-      if (copiedGameState.serving === "player1") {
-        copiedGameState.serving = "player2";
+      if (copiedGameState.players.player1.serving) {
+        copiedGameState.players.player2.serving = true;
+        copiedGameState.players.player1.serving = false;
         copiedGameState.servingSide = "right";
       } else {
-        copiedGameState.serving = "player1";
+        copiedGameState.players.player2.serving = false;
+        copiedGameState.players.player1.serving = true;
         copiedGameState.servingSide = "left";
       }
     }
     setGameState(copiedGameState);
   };
 
+  const handleClick = (e) => {
+    clickCount.current = clickCount.current + 1;
+    clearTimeout(mouseClickTimeout.current);
+
+    mouseClickTimeout.current = setTimeout(() => {
+      if (clickCount.current === 1) {
+        handleScoreButton();
+      } else if (clickCount.current === 2) {
+        handleFaultButton();
+      } else {
+        console.log("TODO: Undo Button");
+      }
+      clickCount.current = 0;
+    }, 500);
+  };
+
   return (
-    <div className="pickle-container">
+    <div
+      className="pickle-container"
+      onClick={(e) => (startTheGame && !gameOver ? handleClick(e) : null)}
+    >
       {/* <div className="sidebar">wat</div> */}
       <div className="content">
         {!gameOver && (
@@ -674,18 +791,18 @@ const Pickleball = () => {
 
                 {startTheGame && (
                   <div className="top-row">
-                    <button
+                    {/* <button
                       className={`green-button ${
                         gameState.servingSide === "right"
                           ? " button-on-right"
                           : " button-on-left"
                       }`}
                       id="score-button"
-                      onClick={(e) => calcScore(e)}
+                      onClick={(e) => handleScoreButton(e)}
                       ref={scoreButton}
                     >
                       Score
-                    </button>
+                    </button> */}
                     <div className="game-stats">
                       {(gameState.teams === "doubles" &&
                         gameState.servingSide === "right") ||
@@ -715,18 +832,18 @@ const Pickleball = () => {
                       )}
                     </div>
 
-                    <button
+                    {/* <button
                       className={`red-button ${
                         gameState.servingSide === "right"
                           ? " button-on-left"
                           : " button-on-right"
                       }`}
                       id="fault-button"
-                      onClick={(e) => calcFault(e)}
+                      onClick={(e) => handleFaultButton(e)}
                       ref={faultButton}
                     >
                       Fault
-                    </button>
+                    </button> */}
                   </div>
                 )}
 
@@ -746,10 +863,12 @@ const Pickleball = () => {
 
                 <div
                   className={`players player1${
-                    gameState.serving === "player1" ? " serving" : ""
+                    gameState.players.player1.serving ? " serving" : ""
                   }`}
                   style={{
                     backgroundColor: gameState.players.player1.color,
+                    top: gameState.players.player1.top,
+                    left: gameState.players.player1.left,
                   }}
                   ref={player1}
                 >
@@ -758,10 +877,12 @@ const Pickleball = () => {
 
                 <div
                   className={`players player2${
-                    gameState.serving === "player2" ? " serving" : ""
+                    gameState.players.player2.serving ? " serving" : ""
                   }`}
                   style={{
                     backgroundColor: gameState.players.player2.color,
+                    top: gameState.players.player2.top,
+                    left: gameState.players.player2.left,
                   }}
                   ref={player2}
                 >
@@ -773,10 +894,12 @@ const Pickleball = () => {
                     {" "}
                     <div
                       className={`players player3${
-                        gameState.serving === "player3" ? " serving" : ""
+                        gameState.players.player3.serving ? " serving" : ""
                       }`}
                       style={{
                         backgroundColor: gameState.players.player3.color,
+                        top: gameState.players.player3.top,
+                        left: gameState.players.player3.left,
                       }}
                       ref={player3}
                     >
@@ -784,10 +907,12 @@ const Pickleball = () => {
                     </div>
                     <div
                       className={`players player4${
-                        gameState.serving === "player4" ? " serving" : ""
+                        gameState.players.player4.serving ? " serving" : ""
                       }`}
                       style={{
                         backgroundColor: gameState.players.player4.color,
+                        top: gameState.players.player4.top,
+                        left: gameState.players.player4.left,
                       }}
                       ref={player4}
                     >
@@ -805,7 +930,7 @@ const Pickleball = () => {
             <h1>A winner is you!</h1>
             {gameState.teams === "doubles" && (
               <p className="a-winner-is-you">
-                {winners.player1.name} &amp; {winners.player2.name}
+                {winners.winner1} &amp; {winners.winner2}
               </p>
             )}
             {gameState.teams === "singles" && (
