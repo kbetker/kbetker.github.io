@@ -96,6 +96,12 @@ const Pickleball = () => {
     copiedGameState.players.player3.serving = false;
     copiedGameState.players.player4.serving = false;
     copiedGameState.servingSide = "left";
+
+    copiedGameState.players.player1.top = "75%";
+    copiedGameState.players.player2.top = "35%";
+    copiedGameState.players.player3.top = "75%";
+    copiedGameState.players.player4.top = "35%";
+
     setGameOver(false);
     setStartTheGame(false);
     setConfirmPositions(true);
@@ -129,6 +135,8 @@ const Pickleball = () => {
         break;
       case "singles-button":
         copiedGameState.teams = "singles";
+        copiedGameState.players.player2.top = "35%";
+        copiedGameState.players.player2.left = "88%";
         break;
       case "player1":
         copiedGameState.players.player1.name = e.target.value;
@@ -317,7 +325,7 @@ const Pickleball = () => {
       copiedGameState = addScoreDoubles(switchedPlayers);
       checkScore(copiedGameState);
     } else {
-      if (copiedGameState.playsers.player1.serving) {
+      if (copiedGameState.players.player1.serving) {
         copiedGameState.scoreSide1++;
         if (copiedGameState.scoreSide1 % 2 === 0) {
           copiedGameState.players.player1.top = quad1pos.top;
@@ -331,7 +339,7 @@ const Pickleball = () => {
           copiedGameState.scoreSide1 - copiedGameState.scoreSide2 >= 2
         ) {
           setGameOver(true);
-          startTheGame(false);
+          setStartTheGame(false);
           setWinners(copiedGameState.players.player1);
         }
       } else {
@@ -348,7 +356,7 @@ const Pickleball = () => {
           copiedGameState.scoreSide2 - copiedGameState.scoreSide1 >= 2
         ) {
           setGameOver(true);
-          startTheGame(false);
+          setStartTheGame(false);
           setWinners(copiedGameState.players.player2);
         }
       }
@@ -417,29 +425,32 @@ const Pickleball = () => {
       }
     } else {
       //singles
-      if (copiedGameState.serving === "player1") {
-        copiedGameState.serving = "player2";
+
+      if (gameState.players.player1.serving) {
+        copiedGameState.players.player2.serving = true;
+        copiedGameState.players.player1.serving = false;
         copiedGameState.servingSide = "right";
       } else {
-        copiedGameState.serving = "player1";
+        copiedGameState.players.player1.serving = true;
+        copiedGameState.players.player2.serving = false;
         copiedGameState.servingSide = "left";
       }
 
-      if (copiedGameState.serving === "player1") {
+      if (copiedGameState.players.player1.serving) {
         if (copiedGameState.scoreSide1 % 2 === 0) {
-          player1.current.style.top = quad1pos.top;
-          player2.current.style.top = quad4pos.top;
+          copiedGameState.players.player1.top = quad1pos.top;
+          copiedGameState.players.player2.top = quad4pos.top;
         } else {
-          player1.current.style.top = quad2pos.top;
-          player2.current.style.top = quad3pos.top;
+          copiedGameState.players.player1.top = quad2pos.top;
+          copiedGameState.players.player2.top = quad3pos.top;
         }
       } else {
-        if (copiedGameState.scoreSide2 % 2 === 0) {
-          player1.current.style.top = quad1pos.top;
-          player2.current.style.top = quad4pos.top;
+        if (gameState.scoreSide2 % 2 === 0) {
+          copiedGameState.players.player1.top = quad1pos.top;
+          copiedGameState.players.player2.top = quad4pos.top;
         } else {
-          player1.current.style.top = quad2pos.top;
-          player2.current.style.top = quad3pos.top;
+          copiedGameState.players.player1.top = quad2pos.top;
+          copiedGameState.players.player2.top = quad3pos.top;
         }
       }
     }
@@ -462,32 +473,30 @@ const Pickleball = () => {
   };
 
   // const setPositions = () => {
-  //   if (gameState.teams === "doubles" && player1.current) {
-  //     player1.current.style.left = quad1pos.left;
-  //     player1.current.style.top = quad1pos.top;
+  //   if (gameState.teams === "doubles") {
+  //     gameState.players.player1.left = quad1pos.left;
+  //     gameState.players.player1.top = quad1pos.top;
 
-  //     player2.current.style.left = quad2pos.left;
-  //     player2.current.style.top = quad2pos.top;
+  //     gameState.players.player2.left = quad2pos.left;
+  //     gameState.players.player2.top = quad2pos.top;
 
-  //     player3.current.style.left = quad3pos.left;
-  //     player3.current.style.top = quad3pos.top;
+  //     gameState.players.player3.left = quad3pos.left;
+  //     gameState.players.player3.top = quad3pos.top;
 
-  //     player4.current.style.left = quad4pos.left;
-  //     player4.current.style.top = quad4pos.top;
+  //     gameState.players.player4.left = quad4pos.left;
+  //     gameState.players.player4.top = quad4pos.top;
   //   } else if (player1.current) {
-  //     player1.current.style.left = quad1pos.left;
-  //     player1.current.style.top = quad1pos.top;
+  //     gameState.players.player1.left = quad1pos.left;
+  //     gameState.players.player1.top = quad1pos.top;
 
-  //     player2.current.style.left = quad4pos.left;
-  //     player2.current.style.top = quad4pos.top;
+  //     gameState.players.player2.left = quad4pos.left;
+  //     gameState.players.player2.top = quad4pos.top;
   //   }
   // };
 
   useEffect(() => {
-    // if (true) {
     // setPositions();
     setColors();
-    // }
   }, [confirmPosition]);
 
   const switchPlayers = (e) => {
@@ -538,32 +547,46 @@ const Pickleball = () => {
     tempGameState.players.player3.serving = false;
     tempGameState.players.player4.serving = false;
 
-    tempGameState.players.player1.left = quad3pos.left;
-    tempGameState.players.player1.top = quad1pos.top;
-    tempGameState.players.player2.left = quad4pos.left;
-    tempGameState.players.player2.top = quad2pos.top;
-    tempGameState.players.player3.left = quad1pos.left;
-    tempGameState.players.player3.top = quad3pos.top;
-    tempGameState.players.player4.left = quad2pos.left;
-    tempGameState.players.player4.top = quad4pos.top;
-
     if (copiedGameState.teams === "doubles") {
+      tempGameState.players.player1.left = quad3pos.left;
+      tempGameState.players.player1.top = quad1pos.top;
+      tempGameState.players.player2.left = quad4pos.left;
+      tempGameState.players.player2.top = quad2pos.top;
+      tempGameState.players.player3.left = quad1pos.left;
+      tempGameState.players.player3.top = quad3pos.top;
+      tempGameState.players.player4.left = quad2pos.left;
+      tempGameState.players.player4.top = quad4pos.top;
+
       copiedGameState.players.player1 = tempGameState.players.player3;
       copiedGameState.players.player2 = tempGameState.players.player4;
       copiedGameState.players.player3 = tempGameState.players.player1;
       copiedGameState.players.player4 = tempGameState.players.player2;
     } else {
+      tempGameState.players.player1.left = quad4pos.left;
+      tempGameState.players.player1.top = quad4pos.top;
+      tempGameState.players.player2.left = quad1pos.left;
+      tempGameState.players.player2.top = quad1pos.top;
+
       copiedGameState.players.player1 = tempGameState.players.player2;
       copiedGameState.players.player2 = tempGameState.players.player1;
     }
 
-    // serving side??
-    if (copiedGameState.servingSide === "left") {
-      copiedGameState.servingSide = "right";
-      copiedGameState.players.player4.serving = true;
+    if (copiedGameState.teams === "doubles") {
+      if (copiedGameState.servingSide === "left") {
+        copiedGameState.servingSide = "right";
+        copiedGameState.players.player4.serving = true;
+      } else {
+        copiedGameState.servingSide = "left";
+        copiedGameState.players.player1.serving = true;
+      }
     } else {
-      copiedGameState.servingSide = "left";
-      copiedGameState.players.player1.serving = true;
+      if (copiedGameState.servingSide === "left") {
+        copiedGameState.servingSide = "right";
+        copiedGameState.players.player2.serving = true;
+      } else {
+        copiedGameState.servingSide = "left";
+        copiedGameState.players.player1.serving = true;
+      }
     }
 
     setGameState(copiedGameState);
