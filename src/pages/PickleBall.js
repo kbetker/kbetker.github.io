@@ -1,49 +1,59 @@
-// This code was rushed to have it ready for the weekend. Please excuse the mess.
+/*
+ *    _   _       _       _
+ *   | \ | |     | |     | |
+ *   |  \| | ___ | |_ ___| |
+ *   | . ` |/ _ \| __/ _ \ |
+ *   | |\  | (_) | ||  __/_|
+ *   |_| \_|\___/ \__\___(_)
+ *
+ * This code was rushed to have it ready for the weekend. Please excuse the hard coded mess. */
 
 import { useEffect, useRef, useState } from "react";
 import "./pickleball.css";
 
 const Pickleball = () => {
-  const gameInitialState = {
-    teams: "",
-    players: {
-      player1: {
-        name: "",
-        color: "#835020",
-        serving: true,
-        left: "2%",
-        top: "75%",
+  const gameInitialState = [
+    {
+      teams: "",
+      players: {
+        player1: {
+          name: "",
+          color: "#835020",
+          serving: true,
+          left: "2%",
+          top: "75%",
+        },
+        player2: {
+          name: "",
+          color: "#145022",
+          serving: false,
+          left: "2%",
+          top: "35%",
+        },
+        player3: {
+          name: "",
+          color: "#466cb9",
+          serving: false,
+          left: "88%",
+          top: "75%",
+        },
+        player4: {
+          name: "",
+          color: "#a4a43d",
+          serving: false,
+          left: "88%",
+          top: "35%",
+        },
       },
-      player2: {
-        name: "",
-        color: "#145022",
-        serving: false,
-        left: "2%",
-        top: "35%",
-      },
-      player3: {
-        name: "",
-        color: "#466cb9",
-        serving: false,
-        left: "88%",
-        top: "75%",
-      },
-      player4: {
-        name: "",
-        color: "#a4a43d",
-        serving: false,
-        left: "88%",
-        top: "35%",
-      },
+      serving: "player1",
+      scoreSide1: 0,
+      scoreSide2: 0,
+      serverNumber: 2,
+      servingSide: "left",
+      serveQuadrent: "quadrent1",
+      playToScore: 11,
     },
-    serving: "player1",
-    scoreSide1: 0,
-    scoreSide2: 0,
-    serverNumber: 2,
-    servingSide: "left",
-    serveQuadrent: "quadrent1",
-    playToScore: 11,
-  };
+  ];
   const timeOut = useRef(null);
   const [gameState, setGameState] = useState(gameInitialState);
   const [confirmFinishScore, setConfirmFinishScore] = useState(false);
@@ -88,19 +98,20 @@ const Pickleball = () => {
 
   const playAgain = () => {
     let copiedGameState = deepCopyFunction(gameState);
-    copiedGameState.scoreSide1 = 0;
-    copiedGameState.scoreSide2 = 0;
-    copiedGameState.serverNumber = 2;
-    copiedGameState.players.player1.serving = true;
-    copiedGameState.players.player2.serving = false;
-    copiedGameState.players.player3.serving = false;
-    copiedGameState.players.player4.serving = false;
-    copiedGameState.servingSide = "left";
+    let lastState = copiedGameState[copiedGameState.length - 1];
+    lastState.scoreSide1 = 0;
+    lastState.scoreSide2 = 0;
+    lastState.serverNumber = 2;
+    lastState.players.player1.serving = true;
+    lastState.players.player2.serving = false;
+    lastState.players.player3.serving = false;
+    lastState.players.player4.serving = false;
+    lastState.servingSide = "left";
 
-    copiedGameState.players.player1.top = "75%";
-    copiedGameState.players.player2.top = "35%";
-    copiedGameState.players.player3.top = "75%";
-    copiedGameState.players.player4.top = "35%";
+    lastState.players.player1.top = "75%";
+    lastState.players.player2.top = "35%";
+    lastState.players.player3.top = "75%";
+    lastState.players.player4.top = "35%";
 
     setGameOver(false);
     setStartTheGame(false);
@@ -127,28 +138,29 @@ const Pickleball = () => {
 
   const handleInput = (e) => {
     let copiedGameState = deepCopyFunction(gameState);
+    let last = [copiedGameState.length - 1];
     const input = e.target?.id || e.name;
 
     switch (input) {
       case "doubles-button":
-        copiedGameState.teams = "doubles";
+        copiedGameState[last].teams = "doubles";
         break;
       case "singles-button":
-        copiedGameState.teams = "singles";
-        copiedGameState.players.player2.top = "35%";
-        copiedGameState.players.player2.left = "88%";
+        copiedGameState[last].teams = "singles";
+        copiedGameState[last].players.player2.top = "35%";
+        copiedGameState[last].players.player2.left = "88%";
         break;
       case "player1":
-        copiedGameState.players.player1.name = e.target.value;
+        copiedGameState[last].players.player1.name = e.target.value;
         break;
       case "player2":
-        copiedGameState.players.player2.name = e.target.value;
+        copiedGameState[last].players.player2.name = e.target.value;
         break;
       case "player3":
-        copiedGameState.players.player3.name = e.target.value;
+        copiedGameState[last].players.player3.name = e.target.value;
         break;
       case "player4":
-        copiedGameState.players.player4.name = e.target.value;
+        copiedGameState[last].players.player4.name = e.target.value;
         break;
       case "back-to-team-choice":
         copiedGameState = gameInitialState;
@@ -169,32 +181,31 @@ const Pickleball = () => {
           return;
         }
 
-        copiedGameState.playToScore = parseInt(finishScore);
+        copiedGameState[last].playToScore = parseInt(finishScore);
         setConfirmFinishScore(true);
         break;
       case "confirmPosition":
-        // const singlesNames =
-        //   copiedGameState.players.player1.name.length > 1 &&
-        //   copiedGameState.players.player2.name.length > 1;
-        // const doublesNames =
-        //   copiedGameState.players.player3.name.length > 1 &&
-        //   copiedGameState.players.player4.name.length > 1;
+        const singlesNames =
+          copiedGameState[last].players.player1.name.length >= 1 &&
+          copiedGameState[last].players.player2.name.length >= 1;
+        const doublesNames =
+          copiedGameState[last].players.player3.name.length >= 1 &&
+          copiedGameState[last].players.player4.name.length >= 1;
 
-        // if (
-        //   copiedGameState.teams === "doubles" &&
-        //   singlesNames &&
-        //   doublesNames
-        // ) {
-        //   copiedGameState.confirmPosition = true;
-        // } else if (copiedGameState.teams === "singles" && singlesNames) {
-        //   copiedGameState.confirmPosition = true;
-        // } else {
-        //   alert("Input some names bruh!");
-        // }
-        // let copiedGameState = deepCopyFunction(gameState);
+        if (
+          copiedGameState[last].teams === "doubles" &&
+          singlesNames &&
+          doublesNames
+        ) {
+          setConfirmPositions(true);
+          setGameState(copiedGameState);
+        } else if (copiedGameState[last].teams === "singles" && singlesNames) {
+          setConfirmPositions(true);
+          setGameState(copiedGameState);
+        } else {
+          alert("Give me some names!!!");
+        }
 
-        // setGameState(copiedGameState);
-        setConfirmPositions(true);
         break;
       default:
         break;
@@ -248,28 +259,28 @@ const Pickleball = () => {
   };
 
   const checkScore = (gameState) => {
-    // let copiedGameState = deepCopyFunction(gameState);
+    let copiedGameState = deepCopyFunction(gameState);
 
-    if (gameState.servingSide === "left") {
+    if (copiedGameState.servingSide === "left") {
       if (
-        gameState.scoreSide1 >= gameState.playToScore &&
-        gameState.scoreSide1 - gameState.scoreSide2 >= 2
+        copiedGameState.scoreSide1 >= copiedGameState.playToScore &&
+        copiedGameState.scoreSide1 - copiedGameState.scoreSide2 >= 2
       ) {
         setGameOver(true);
         setWinners({
-          winner1: gameState.players.player1.name,
-          winner2: gameState.players.player2.name,
+          winner1: copiedGameState.players.player1.name,
+          winner2: copiedGameState.players.player2.name,
         });
       }
     } else {
       if (
-        gameState.scoreSide2 >= gameState.playToScore &&
-        gameState.scoreSide2 - gameState.scoreSide1 >= 2
+        copiedGameState.scoreSide2 >= copiedGameState.playToScore &&
+        copiedGameState.scoreSide2 - copiedGameState.scoreSide1 >= 2
       ) {
         setGameOver(true);
         setWinners({
-          winner1: gameState.players.player3.name,
-          winner2: gameState.players.player4.name,
+          winner1: copiedGameState.players.player3.name,
+          winner2: copiedGameState.players.player4.name,
         });
       }
     }
@@ -277,6 +288,7 @@ const Pickleball = () => {
 
   const addScoreDoubles = (gameState) => {
     let copiedGameState = deepCopyFunction(gameState);
+
     if (
       copiedGameState.players.player1.serving ||
       copiedGameState.players.player2.serving
@@ -290,6 +302,7 @@ const Pickleball = () => {
 
   const switchPlayerPositionDoubles = (gameState) => {
     let copiedGameState = deepCopyFunction(gameState);
+
     if (
       copiedGameState.players.player1.serving ||
       copiedGameState.players.player2.serving
@@ -315,53 +328,60 @@ const Pickleball = () => {
 
   const handleScoreButton = () => {
     let copiedGameState = deepCopyFunction(gameState);
+    let lastState = deepCopyFunction(
+      copiedGameState[copiedGameState.length - 1]
+    );
     // prevent double click of score button
     if (scoreButton.current) {
       scoreButton.current.style.pointerEvents = "none";
     }
 
-    if (copiedGameState.teams === "doubles") {
-      let switchedPlayers = switchPlayerPositionDoubles(gameState);
-      copiedGameState = addScoreDoubles(switchedPlayers);
-      checkScore(copiedGameState);
+    if (lastState.teams === "doubles") {
+      let switchedPlayers = switchPlayerPositionDoubles(lastState);
+      lastState = addScoreDoubles(switchedPlayers);
+      checkScore(lastState);
     } else {
-      if (copiedGameState.players.player1.serving) {
-        copiedGameState.scoreSide1++;
-        if (copiedGameState.scoreSide1 % 2 === 0) {
-          copiedGameState.players.player1.top = quad1pos.top;
-          copiedGameState.players.player2.top = quad4pos.top;
+      if (lastState.players.player1.serving) {
+        lastState.scoreSide1++;
+        if (lastState.scoreSide1 % 2 === 0) {
+          lastState.players.player1.top = quad1pos.top;
+          lastState.players.player2.top = quad4pos.top;
         } else {
-          copiedGameState.players.player1.top = quad2pos.top;
-          copiedGameState.players.player2.top = quad3pos.top;
+          lastState.players.player1.top = quad2pos.top;
+          lastState.players.player2.top = quad3pos.top;
         }
         if (
-          copiedGameState.scoreSide1 >= gameState.playToScore &&
-          copiedGameState.scoreSide1 - copiedGameState.scoreSide2 >= 2
+          lastState.scoreSide1 >= lastState.playToScore &&
+          lastState.scoreSide1 - lastState.scoreSide2 >= 2
         ) {
           setGameOver(true);
           setStartTheGame(false);
-          setWinners(copiedGameState.players.player1);
+          setWinners(lastState.players.player1);
         }
       } else {
-        copiedGameState.scoreSide2++;
-        if (copiedGameState.scoreSide2 % 2 === 0) {
-          copiedGameState.players.player1.top = quad1pos.top;
-          copiedGameState.players.player2.top = quad4pos.top;
+        lastState.scoreSide2++;
+        if (lastState.scoreSide2 % 2 === 0) {
+          lastState.players.player1.top = quad1pos.top;
+          lastState.players.player2.top = quad4pos.top;
         } else {
-          copiedGameState.players.player1.top = quad2pos.top;
-          copiedGameState.players.player2.top = quad3pos.top;
+          lastState.players.player1.top = quad2pos.top;
+          lastState.players.player2.top = quad3pos.top;
         }
         if (
-          copiedGameState.scoreSide2 >= gameState.playToScore &&
-          copiedGameState.scoreSide2 - copiedGameState.scoreSide1 >= 2
+          lastState.scoreSide2 >= lastState.playToScore &&
+          lastState.scoreSide2 - lastState.scoreSide1 >= 2
         ) {
           setGameOver(true);
           setStartTheGame(false);
-          setWinners(copiedGameState.players.player2);
+          setWinners(lastState.players.player2);
         }
       }
     }
 
+    if (copiedGameState.length >= 15) {
+      copiedGameState.shift();
+    }
+    copiedGameState.push(lastState);
     setGameState(copiedGameState);
     // re-enable scoreButton
     setTimeout(() => {
@@ -373,102 +393,108 @@ const Pickleball = () => {
 
   const handleFaultButton = (e) => {
     let copiedGameState = deepCopyFunction(gameState);
+    let lastState = deepCopyFunction(
+      copiedGameState[copiedGameState.length - 1]
+    );
     if (faultButton.current) {
       faultButton.current.style.pointerEvents = "none";
     }
 
-    copiedGameState.players.player1.serving = false;
-    copiedGameState.players.player2.serving = false;
-    copiedGameState.players.player3.serving = false;
-    copiedGameState.players.player4.serving = false;
+    lastState.players.player1.serving = false;
+    lastState.players.player2.serving = false;
+    lastState.players.player3.serving = false;
+    lastState.players.player4.serving = false;
 
-    if (gameState.teams === "doubles") {
-      if (copiedGameState.serverNumber === 1) {
-        copiedGameState.serverNumber++;
-        if (copiedGameState.servingSide === "left") {
-          if (gameState.players.player1.serving) {
-            copiedGameState.players.player2.serving = true;
+    if (gameState[gameState.length - 1].teams === "doubles") {
+      if (lastState.serverNumber === 1) {
+        lastState.serverNumber++;
+        if (lastState.servingSide === "left") {
+          if (gameState[gameState.length - 1].players.player1.serving) {
+            lastState.players.player2.serving = true;
           } else {
-            copiedGameState.players.player1.serving = true;
+            lastState.players.player1.serving = true;
           }
         } else {
           // if right
-          if (gameState.players.player3.serving) {
-            copiedGameState.players.player4.serving = true;
+          if (gameState[gameState.length - 1].players.player3.serving) {
+            lastState.players.player4.serving = true;
           } else {
-            copiedGameState.players.player3.serving = true;
+            lastState.players.player3.serving = true;
           }
         }
       } else {
         //switch sides
-        copiedGameState.serverNumber = 1;
-        if (copiedGameState.servingSide === "left") {
-          copiedGameState.servingSide = "right";
+        lastState.serverNumber = 1;
+        if (lastState.servingSide === "left") {
+          lastState.servingSide = "right";
         } else {
-          copiedGameState.servingSide = "left";
+          lastState.servingSide = "left";
         }
 
-        if (copiedGameState.servingSide === "left") {
-          if (copiedGameState.players.player1.top === "75%") {
-            copiedGameState.players.player1.serving = true;
+        if (lastState.servingSide === "left") {
+          if (lastState.players.player1.top === "75%") {
+            lastState.players.player1.serving = true;
           } else {
-            copiedGameState.players.player2.serving = true;
+            lastState.players.player2.serving = true;
           }
         } else {
           //if right
-          if (copiedGameState.players.player3.top === "35%") {
-            copiedGameState.players.player3.serving = true;
+          if (lastState.players.player3.top === "35%") {
+            lastState.players.player3.serving = true;
           } else {
-            copiedGameState.players.player4.serving = true;
+            lastState.players.player4.serving = true;
           }
         }
       }
     } else {
       //singles
 
-      if (gameState.players.player1.serving) {
-        copiedGameState.players.player2.serving = true;
-        copiedGameState.players.player1.serving = false;
-        copiedGameState.servingSide = "right";
+      if (gameState[gameState.length - 1].players.player1.serving) {
+        lastState.players.player2.serving = true;
+        lastState.players.player1.serving = false;
+        lastState.servingSide = "right";
       } else {
-        copiedGameState.players.player1.serving = true;
-        copiedGameState.players.player2.serving = false;
-        copiedGameState.servingSide = "left";
+        lastState.players.player1.serving = true;
+        lastState.players.player2.serving = false;
+        lastState.servingSide = "left";
       }
 
-      if (copiedGameState.players.player1.serving) {
-        if (copiedGameState.scoreSide1 % 2 === 0) {
-          copiedGameState.players.player1.top = quad1pos.top;
-          copiedGameState.players.player2.top = quad4pos.top;
+      if (lastState.players.player1.serving) {
+        if (lastState.scoreSide1 % 2 === 0) {
+          lastState.players.player1.top = quad1pos.top;
+          lastState.players.player2.top = quad4pos.top;
         } else {
-          copiedGameState.players.player1.top = quad2pos.top;
-          copiedGameState.players.player2.top = quad3pos.top;
+          lastState.players.player1.top = quad2pos.top;
+          lastState.players.player2.top = quad3pos.top;
         }
       } else {
-        if (gameState.scoreSide2 % 2 === 0) {
-          copiedGameState.players.player1.top = quad1pos.top;
-          copiedGameState.players.player2.top = quad4pos.top;
+        if (gameState[gameState.length - 1].scoreSide2 % 2 === 0) {
+          lastState.players.player1.top = quad1pos.top;
+          lastState.players.player2.top = quad4pos.top;
         } else {
-          copiedGameState.players.player1.top = quad2pos.top;
-          copiedGameState.players.player2.top = quad3pos.top;
+          lastState.players.player1.top = quad2pos.top;
+          lastState.players.player2.top = quad3pos.top;
         }
       }
     }
-
+    if (copiedGameState.length >= 15) {
+      copiedGameState.shift();
+    }
+    copiedGameState.push(lastState);
     setGameState(copiedGameState);
-    setTimeout(() => {
-      if (faultButton.current) {
-        faultButton.current.style.pointerEvents = "all";
-      }
-    }, 1000);
+    // setTimeout(() => {
+    //   if (faultButton.current) {
+    //     faultButton.current.style.pointerEvents = "all";
+    //   }
+    // }, 1000);
   };
 
   const setColors = () => {
     let copiedGameState = deepCopyFunction(gameState);
-    copiedGameState.players.player1.color = color1;
-    copiedGameState.players.player2.color = color2;
-    copiedGameState.players.player3.color = color3;
-    copiedGameState.players.player4.color = color4;
+    copiedGameState[copiedGameState.length - 1].players.player1.color = color1;
+    copiedGameState[copiedGameState.length - 1].players.player2.color = color2;
+    copiedGameState[copiedGameState.length - 1].players.player3.color = color3;
+    copiedGameState[copiedGameState.length - 1].players.player4.color = color4;
     setGameState(copiedGameState);
   };
 
@@ -502,37 +528,34 @@ const Pickleball = () => {
   const switchPlayers = (e) => {
     let copiedGameState = deepCopyFunction(gameState);
     let tempGameState = deepCopyFunction(gameState);
+    let lastState = copiedGameState[copiedGameState.length - 1];
+    let lastStateTemp = tempGameState[tempGameState.length - 1];
 
-    tempGameState.players.player1.top = quad2pos.top;
-    tempGameState.players.player2.top = quad1pos.top;
-    tempGameState.players.player3.top = quad4pos.top;
-    tempGameState.players.player4.top = quad3pos.top;
+    lastStateTemp.players.player1.top = quad2pos.top;
+    lastStateTemp.players.player2.top = quad1pos.top;
+    lastStateTemp.players.player3.top = quad4pos.top;
+    lastStateTemp.players.player4.top = quad3pos.top;
 
-    if (tempGameState.players.player1.serving) {
-      tempGameState.players.player1.serving = false;
-      tempGameState.players.player2.serving = true;
-    } else if (tempGameState.players.player2.serving) {
-      tempGameState.players.player1.serving = true;
-      tempGameState.players.player2.serving = false;
-    } else if (tempGameState.players.player3.serving) {
-      tempGameState.players.player3.serving = false;
-      tempGameState.players.player4.serving = true;
+    if (lastStateTemp.players.player1.serving) {
+      lastStateTemp.players.player1.serving = false;
+      lastStateTemp.players.player2.serving = true;
+    } else if (lastStateTemp.players.player2.serving) {
+      lastStateTemp.players.player1.serving = true;
+      lastStateTemp.players.player2.serving = false;
+    } else if (lastStateTemp.players.player3.serving) {
+      lastStateTemp.players.player3.serving = false;
+      lastStateTemp.players.player4.serving = true;
     } else {
-      tempGameState.players.player3.serving = true;
-      tempGameState.players.player4.serving = false;
+      lastStateTemp.players.player3.serving = true;
+      lastStateTemp.players.player4.serving = false;
     }
 
-    // tempGameState.players.player1.serving = false;
-    // tempGameState.players.player2.serving = false;
-    // tempGameState.players.player3.serving = false;
-    // tempGameState.players.player4.serving = false;
-
     if (e.target.id === "switch-players-left") {
-      copiedGameState.players.player1 = tempGameState.players.player2;
-      copiedGameState.players.player2 = tempGameState.players.player1;
+      lastState.players.player1 = lastStateTemp.players.player2;
+      lastState.players.player2 = lastStateTemp.players.player1;
     } else {
-      copiedGameState.players.player3 = tempGameState.players.player4;
-      copiedGameState.players.player4 = tempGameState.players.player3;
+      lastState.players.player3 = lastStateTemp.players.player4;
+      lastState.players.player4 = lastStateTemp.players.player3;
     }
 
     setGameState(copiedGameState);
@@ -541,51 +564,53 @@ const Pickleball = () => {
   const switchSides = (e) => {
     let copiedGameState = deepCopyFunction(gameState);
     let tempGameState = deepCopyFunction(gameState);
+    let lastState = copiedGameState[copiedGameState.length - 1];
+    let lastStateTemp = tempGameState[tempGameState.length - 1];
 
-    tempGameState.players.player1.serving = false;
-    tempGameState.players.player2.serving = false;
-    tempGameState.players.player3.serving = false;
-    tempGameState.players.player4.serving = false;
+    lastStateTemp.players.player1.serving = false;
+    lastStateTemp.players.player2.serving = false;
+    lastStateTemp.players.player3.serving = false;
+    lastStateTemp.players.player4.serving = false;
 
-    if (copiedGameState.teams === "doubles") {
-      tempGameState.players.player1.left = quad3pos.left;
-      tempGameState.players.player1.top = quad1pos.top;
-      tempGameState.players.player2.left = quad4pos.left;
-      tempGameState.players.player2.top = quad2pos.top;
-      tempGameState.players.player3.left = quad1pos.left;
-      tempGameState.players.player3.top = quad3pos.top;
-      tempGameState.players.player4.left = quad2pos.left;
-      tempGameState.players.player4.top = quad4pos.top;
+    if (lastState.teams === "doubles") {
+      lastStateTemp.players.player1.left = quad3pos.left;
+      lastStateTemp.players.player1.top = quad1pos.top;
+      lastStateTemp.players.player2.left = quad4pos.left;
+      lastStateTemp.players.player2.top = quad2pos.top;
+      lastStateTemp.players.player3.left = quad1pos.left;
+      lastStateTemp.players.player3.top = quad3pos.top;
+      lastStateTemp.players.player4.left = quad2pos.left;
+      lastStateTemp.players.player4.top = quad4pos.top;
 
-      copiedGameState.players.player1 = tempGameState.players.player3;
-      copiedGameState.players.player2 = tempGameState.players.player4;
-      copiedGameState.players.player3 = tempGameState.players.player1;
-      copiedGameState.players.player4 = tempGameState.players.player2;
+      lastState.players.player1 = lastStateTemp.players.player3;
+      lastState.players.player2 = lastStateTemp.players.player4;
+      lastState.players.player3 = lastStateTemp.players.player1;
+      lastState.players.player4 = lastStateTemp.players.player2;
     } else {
-      tempGameState.players.player1.left = quad4pos.left;
-      tempGameState.players.player1.top = quad4pos.top;
-      tempGameState.players.player2.left = quad1pos.left;
-      tempGameState.players.player2.top = quad1pos.top;
+      lastStateTemp.players.player1.left = quad4pos.left;
+      lastStateTemp.players.player1.top = quad4pos.top;
+      lastStateTemp.players.player2.left = quad1pos.left;
+      lastStateTemp.players.player2.top = quad1pos.top;
 
-      copiedGameState.players.player1 = tempGameState.players.player2;
-      copiedGameState.players.player2 = tempGameState.players.player1;
+      lastState.players.player1 = lastStateTemp.players.player2;
+      lastState.players.player2 = lastStateTemp.players.player1;
     }
 
-    if (copiedGameState.teams === "doubles") {
-      if (copiedGameState.servingSide === "left") {
-        copiedGameState.servingSide = "right";
-        copiedGameState.players.player4.serving = true;
+    if (lastState.teams === "doubles") {
+      if (lastState.servingSide === "left") {
+        lastState.servingSide = "right";
+        lastState.players.player4.serving = true;
       } else {
-        copiedGameState.servingSide = "left";
-        copiedGameState.players.player1.serving = true;
+        lastState.servingSide = "left";
+        lastState.players.player1.serving = true;
       }
     } else {
-      if (copiedGameState.servingSide === "left") {
-        copiedGameState.servingSide = "right";
-        copiedGameState.players.player2.serving = true;
+      if (lastState.servingSide === "left") {
+        lastState.servingSide = "right";
+        lastState.players.player2.serving = true;
       } else {
-        copiedGameState.servingSide = "left";
-        copiedGameState.players.player1.serving = true;
+        lastState.servingSide = "left";
+        lastState.players.player1.serving = true;
       }
     }
 
@@ -594,29 +619,38 @@ const Pickleball = () => {
 
   const switchServer = () => {
     const copiedGameState = deepCopyFunction(gameState);
+    let lastState = copiedGameState[copiedGameState.length - 1];
 
-    if (copiedGameState.teams === "doubles") {
-      if (copiedGameState.players.player1.serving) {
-        copiedGameState.players.player4.serving = true;
-        copiedGameState.players.player1.serving = false;
-        copiedGameState.servingSide = "right";
+    if (lastState.teams === "doubles") {
+      if (lastState.players.player1.serving) {
+        lastState.players.player4.serving = true;
+        lastState.players.player1.serving = false;
+        lastState.servingSide = "right";
       } else {
-        copiedGameState.players.player1.serving = true;
-        copiedGameState.players.player4.serving = false;
-        copiedGameState.servingSide = "left";
+        lastState.players.player1.serving = true;
+        lastState.players.player4.serving = false;
+        lastState.servingSide = "left";
       }
     } else {
-      if (copiedGameState.players.player1.serving) {
-        copiedGameState.players.player2.serving = true;
-        copiedGameState.players.player1.serving = false;
-        copiedGameState.servingSide = "right";
+      if (lastState.players.player1.serving) {
+        lastState.players.player2.serving = true;
+        lastState.players.player1.serving = false;
+        lastState.servingSide = "right";
       } else {
-        copiedGameState.players.player2.serving = false;
-        copiedGameState.players.player1.serving = true;
-        copiedGameState.servingSide = "left";
+        lastState.players.player2.serving = false;
+        lastState.players.player1.serving = true;
+        lastState.servingSide = "left";
       }
     }
     setGameState(copiedGameState);
+  };
+
+  const undo = () => {
+    if (gameState.length > 1) {
+      let copiedGameState = deepCopyFunction(gameState);
+      copiedGameState.pop();
+      setGameState(copiedGameState);
+    }
   };
 
   const handleClick = (e) => {
@@ -629,10 +663,16 @@ const Pickleball = () => {
       } else if (clickCount.current === 2) {
         handleFaultButton();
       } else {
-        console.log("TODO: Undo Button");
+        undo();
       }
       clickCount.current = 0;
     }, 500);
+  };
+
+  const startTheGameAlready = () => {
+    let copiedGameState = deepCopyFunction(gameState);
+    setGameState(copiedGameState);
+    setStartTheGame(true);
   };
 
   return (
@@ -645,7 +685,7 @@ const Pickleball = () => {
         {!gameOver && (
           <>
             {/* Singles or Doubles Selection */}
-            {gameState.teams === "" && (
+            {gameState[gameState.length - 1].teams === "" && (
               <div className="teams-or-single">
                 <button id="doubles-button" onClick={(e) => handleInput(e)}>
                   Doubles
@@ -655,31 +695,31 @@ const Pickleball = () => {
                 </button>
               </div>
             )}
-
-            {gameState.teams !== "" && !confirmFinishScore && (
-              <div className="play-up-to-container">
-                <div className="play-up-to">
-                  <h2>Play up to</h2>
-                  <input
-                    onChange={(e) => setFinishScore(e.target.value)}
-                    value={finishScore}
-                    type="number"
-                  ></input>
-                  <h2>points</h2>
+            {gameState[gameState.length - 1].teams !== "" &&
+              !confirmFinishScore && (
+                <div className="play-up-to-container">
+                  <div className="play-up-to">
+                    <h2>Play up to</h2>
+                    <input
+                      onChange={(e) => setFinishScore(e.target.value)}
+                      value={finishScore}
+                      type="number"
+                    ></input>
+                    <h2>points</h2>
+                  </div>
+                  <div className="flex-container back-next">
+                    <button
+                      onClick={(e) => handleInput(e)}
+                      id="back-to-team-choice"
+                    >
+                      Back
+                    </button>
+                    <button id="confirmPoints" onClick={(e) => handleInput(e)}>
+                      Next
+                    </button>
+                  </div>
                 </div>
-                <div className="flex-container back-next">
-                  <button
-                    onClick={(e) => handleInput(e)}
-                    id="back-to-team-choice"
-                  >
-                    Back
-                  </button>
-                  <button id="confirmPoints" onClick={(e) => handleInput(e)}>
-                    Next
-                  </button>
-                </div>
-              </div>
-            )}
+              )}
 
             {confirmFinishScore && !confirmPosition && (
               <div className="players-input">
@@ -698,7 +738,9 @@ const Pickleball = () => {
                       onChange={(e) => setColor1(e.target.value)}
                     ></input>
                   </div>
-                  {gameState.teams === "singles" && <p>Vs.</p>}
+                  {gameState[gameState.length - 1].teams === "singles" && (
+                    <p>Vs.</p>
+                  )}
                   <div className="name-color">
                     <input
                       onChange={(e) => debounce(e)}
@@ -715,7 +757,7 @@ const Pickleball = () => {
                   </div>
                 </div>
                 {/* Doubles Name Input*/}
-                {gameState.teams === "doubles" && (
+                {gameState[gameState.length - 1].teams === "doubles" && (
                   <>
                     <p className="flex-container">Vs.</p>
 
@@ -778,7 +820,7 @@ const Pickleball = () => {
                       </button>
                       <button
                         className="play-ball"
-                        onClick={() => setStartTheGame(true)}
+                        onClick={() => startTheGameAlready()}
                       >
                         Play Ball!
                       </button>
@@ -790,7 +832,7 @@ const Pickleball = () => {
                       </button>
                     </div>
 
-                    {gameState.teams === "doubles" && (
+                    {gameState[gameState.length - 1].teams === "doubles" && (
                       <>
                         {" "}
                         <button
@@ -816,7 +858,7 @@ const Pickleball = () => {
                   <div className="top-row">
                     {/* <button
                       className={`green-button ${
-                        gameState.servingSide === "right"
+                        gameState[gameState.length - 1].servingSide === "right"
                           ? " button-on-right"
                           : " button-on-left"
                       }`}
@@ -827,28 +869,40 @@ const Pickleball = () => {
                       Score
                     </button> */}
                     <div className="game-stats">
-                      {(gameState.teams === "doubles" &&
-                        gameState.servingSide === "right") ||
-                      (gameState.teams === "singles" &&
-                        gameState.serving === "player2") ? (
+                      {(gameState[gameState.length - 1].teams === "doubles" &&
+                        gameState[gameState.length - 1].servingSide ===
+                          "right") ||
+                      (gameState[gameState.length - 1].teams === "singles" &&
+                        gameState[gameState.length - 1].serving ===
+                          "player2") ? (
                         <>
                           {" "}
-                          <span>{gameState.scoreSide2}-</span>
-                          <span>{gameState.scoreSide1}</span>
-                          {gameState.teams === "doubles" && (
+                          <span>
+                            {gameState[gameState.length - 1].scoreSide2}-
+                          </span>
+                          <span>
+                            {gameState[gameState.length - 1].scoreSide1}
+                          </span>
+                          {gameState[gameState.length - 1].teams ===
+                            "doubles" && (
                             <span className="serve-number">
-                              -{gameState.serverNumber}
+                              -{gameState[gameState.length - 1].serverNumber}
                             </span>
                           )}
                         </>
                       ) : (
                         <>
                           {" "}
-                          <span>{gameState.scoreSide1}-</span>
-                          <span>{gameState.scoreSide2}</span>
-                          {gameState.teams === "doubles" && (
+                          <span>
+                            {gameState[gameState.length - 1].scoreSide1}-
+                          </span>
+                          <span>
+                            {gameState[gameState.length - 1].scoreSide2}
+                          </span>
+                          {gameState[gameState.length - 1].teams ===
+                            "doubles" && (
                             <span className="serve-number">
-                              -{gameState.serverNumber}
+                              -{gameState[gameState.length - 1].serverNumber}
                             </span>
                           )}
                         </>
@@ -857,7 +911,7 @@ const Pickleball = () => {
 
                     {/* <button
                       className={`red-button ${
-                        gameState.servingSide === "right"
+                        gameState[gameState.length - 1].servingSide === "right"
                           ? " button-on-left"
                           : " button-on-right"
                       }`}
@@ -886,60 +940,84 @@ const Pickleball = () => {
 
                 <div
                   className={`players player1${
-                    gameState.players.player1.serving ? " serving" : ""
+                    gameState[gameState.length - 1].players.player1.serving
+                      ? " serving"
+                      : ""
                   }`}
                   style={{
-                    backgroundColor: gameState.players.player1.color,
-                    top: gameState.players.player1.top,
-                    left: gameState.players.player1.left,
+                    backgroundColor:
+                      gameState[gameState.length - 1].players.player1.color,
+                    top: gameState[gameState.length - 1].players.player1.top,
+                    left: gameState[gameState.length - 1].players.player1.left,
                   }}
                   ref={player1}
                 >
-                  {styleName(gameState.players.player1.name)}
+                  {styleName(
+                    gameState[gameState.length - 1].players.player1.name
+                  )}
                 </div>
 
                 <div
                   className={`players player2${
-                    gameState.players.player2.serving ? " serving" : ""
+                    gameState[gameState.length - 1].players.player2.serving
+                      ? " serving"
+                      : ""
                   }`}
                   style={{
-                    backgroundColor: gameState.players.player2.color,
-                    top: gameState.players.player2.top,
-                    left: gameState.players.player2.left,
+                    backgroundColor:
+                      gameState[gameState.length - 1].players.player2.color,
+                    top: gameState[gameState.length - 1].players.player2.top,
+                    left: gameState[gameState.length - 1].players.player2.left,
                   }}
                   ref={player2}
                 >
-                  {styleName(gameState.players.player2.name)}
+                  {styleName(
+                    gameState[gameState.length - 1].players.player2.name
+                  )}
                 </div>
 
-                {gameState.teams === "doubles" && (
+                {gameState[gameState.length - 1].teams === "doubles" && (
                   <>
                     {" "}
                     <div
                       className={`players player3${
-                        gameState.players.player3.serving ? " serving" : ""
+                        gameState[gameState.length - 1].players.player3.serving
+                          ? " serving"
+                          : ""
                       }`}
                       style={{
-                        backgroundColor: gameState.players.player3.color,
-                        top: gameState.players.player3.top,
-                        left: gameState.players.player3.left,
+                        backgroundColor:
+                          gameState[gameState.length - 1].players.player3.color,
+                        top: gameState[gameState.length - 1].players.player3
+                          .top,
+                        left: gameState[gameState.length - 1].players.player3
+                          .left,
                       }}
                       ref={player3}
                     >
-                      {styleName(gameState.players.player3.name)}
+                      {styleName(
+                        gameState[gameState.length - 1].players.player3.name
+                      )}
                     </div>
                     <div
                       className={`players player4${
-                        gameState.players.player4.serving ? " serving" : ""
+                        gameState[gameState.length - 1].players.player4.serving
+                          ? " serving"
+                          : ""
                       }`}
                       style={{
-                        backgroundColor: gameState.players.player4.color,
-                        top: gameState.players.player4.top,
-                        left: gameState.players.player4.left,
+                        backgroundColor:
+                          gameState[gameState.length - 1].players.player4.color,
+                        top: gameState[gameState.length - 1].players.player4
+                          .top,
+                        left: gameState[gameState.length - 1].players.player4
+                          .left,
                       }}
                       ref={player4}
                     >
-                      {styleName(gameState.players.player4.name)}
+                      {styleName(
+                        gameState[gameState.length - 1].players.player4.name
+                      )}
                     </div>
                   </>
                 )}
@@ -951,12 +1029,12 @@ const Pickleball = () => {
         {gameOver && (
           <div className="game-over-congrats">
             <h1>A winner is you!</h1>
-            {gameState.teams === "doubles" && (
+            {gameState[gameState.length - 1].teams === "doubles" && (
               <p className="a-winner-is-you">
                 {winners.winner1} &amp; {winners.winner2}
               </p>
             )}
-            {gameState.teams === "singles" && (
+            {gameState[gameState.length - 1].teams === "singles" && (
               <p className="a-winner-is-you">{winners.name}</p>
             )}
             <button onClick={() => playAgain()}>Play Again</button>
