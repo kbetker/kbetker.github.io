@@ -606,3 +606,52 @@ h2 {
       6px 6px 0 #000;
   }
 }
+
+@media only screen and (max-width: 400px) {
+  .color-input {
+    display: none;
+  }
+  .players {
+    width: 50px;
+    height: 50px;
+    transform: translate(-1rem, 0.5rem);
+    font-size: 1rem;
+  }
+  .first-letter + span {
+    display: none;
+  }
+  .swith-players-text {
+    display: none;
+  }
+  .switch-players-left,
+  .switch-players-right {
+    padding: 1.4rem;
+    transform: translate(0, 0.7rem);
+  }
+
+  .switch-players-right::before,
+  .switch-players-left::before {
+    content: "\2191";
+    font-size: 2rem;
+    transform: translateY(-0.5rem);
+  }
+
+  .switch-players-right::after,
+  .switch-players-left::after {
+    content: "\2193";
+    font-size: 2rem;
+    transform: translateY(-0.2rem);
+  }
+  .top-row-position-options {
+    flex-direction: row;
+    transform: translate(0);
+    margin-left: -1.5rem;
+  }
+  .game-stats {
+    font-size: 6rem;
+    font-weight: 900;
+    transform: translateY(-1.5rem);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      8px 8px 0 #000;
+  }
+}

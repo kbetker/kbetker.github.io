@@ -10,8 +10,16 @@
 
 import { useEffect, useRef, useState } from "react";
 import "./pickleball.css";
+import useSound from "use-sound";
+import beep1 from "../sounds/beep1.mp3";
+import beep2 from "../sounds/beep2.mp3";
+import beep3 from "../sounds/beep3.mp3";
 
 const Pickleball = () => {
+  const [play1] = useSound(beep1);
+  const [play2] = useSound(beep2);
+  const [play3] = useSound(beep3);
+
   const gameInitialState = [
     {
       teams: "",
@@ -253,7 +261,7 @@ const Pickleball = () => {
     return (
       <>
         <span className="first-letter">{name.slice(0, 1)}</span>
-        {name.slice(1)}
+        <span>{name.slice(1)}</span>
       </>
     );
   };
@@ -657,6 +665,16 @@ const Pickleball = () => {
     clickCount.current = clickCount.current + 1;
     clearTimeout(mouseClickTimeout.current);
 
+    if (clickCount.current === 1) {
+      play1();
+    }
+    if (clickCount.current === 2) {
+      play2();
+    }
+    if (clickCount.current === 3) {
+      play3();
+    }
+
     mouseClickTimeout.current = setTimeout(() => {
       if (clickCount.current === 1) {
         handleScoreButton();
@@ -816,19 +834,19 @@ const Pickleball = () => {
                         className="switch-sides"
                         onClick={() => switchSides()}
                       >
-                        Switch Sides
+                        <span class="swith-players-text">Switch</span> Sides
                       </button>
                       <button
                         className="play-ball"
                         onClick={() => startTheGameAlready()}
                       >
-                        Play Ball!
+                        Play <span class="swith-players-text">Ball!</span>
                       </button>
                       <button
                         className="switch-server"
                         onClick={() => switchServer()}
                       >
-                        Switch Server
+                        <span class="swith-players-text">Switch</span> Server
                       </button>
                     </div>
 
@@ -840,14 +858,14 @@ const Pickleball = () => {
                           id="switch-players-left"
                           onClick={(e) => switchPlayers(e)}
                         >
-                          Switch Players
+                          <span class="swith-players-text">Switch Players</span>
                         </button>
                         <button
                           className="switch-players-right"
                           id="switch-players-right"
                           onClick={(e) => switchPlayers(e)}
                         >
-                          Switch Players
+                          <span class="swith-players-text">Switch Players</span>
                         </button>
                       </>
                     )}
