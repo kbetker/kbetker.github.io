@@ -722,7 +722,24 @@ const Pickleball = () => {
                       onChange={(e) => setFinishScore(e.target.value)}
                       value={finishScore}
                       type="number"
+                      className="number-input"
                     ></input>
+
+                    <select
+                      name="number-options"
+                      className="point-dropdown"
+                      defaultValue={11}
+                      onChange={(e) => setFinishScore(e.target.value)}
+                    >
+                      <option value="3">3</option>
+                      <option value="5">5</option>
+                      <option value="7">7</option>
+                      <option value="9">9</option>
+                      <option value="11">11</option>
+                      <option value="13">13</option>
+                      <option value="15">15</option>
+                    </select>
+
                     <h2>points</h2>
                   </div>
                   <div className="flex-container back-next">
@@ -834,19 +851,20 @@ const Pickleball = () => {
                         className="switch-sides"
                         onClick={() => switchSides()}
                       >
-                        <span class="swith-players-text">Switch</span> Sides
+                        <span className="swith-players-text">Switch</span> Sides
                       </button>
                       <button
                         className="play-ball"
                         onClick={() => startTheGameAlready()}
                       >
-                        Play <span class="swith-players-text">Ball!</span>
+                        Play <span className="swith-players-text">Ball!</span>
                       </button>
                       <button
                         className="switch-server"
                         onClick={() => switchServer()}
                       >
-                        <span class="swith-players-text">Switch</span> Server
+                        <span className="swith-players-text">Switch</span>{" "}
+                        Server
                       </button>
                     </div>
 
@@ -858,14 +876,18 @@ const Pickleball = () => {
                           id="switch-players-left"
                           onClick={(e) => switchPlayers(e)}
                         >
-                          <span class="swith-players-text">Switch Players</span>
+                          <span className="swith-players-text">
+                            Switch Players
+                          </span>
                         </button>
                         <button
                           className="switch-players-right"
                           id="switch-players-right"
                           onClick={(e) => switchPlayers(e)}
                         >
-                          <span class="swith-players-text">Switch Players</span>
+                          <span className="swith-players-text">
+                            Switch Players
+                          </span>
                         </button>
                       </>
                     )}
