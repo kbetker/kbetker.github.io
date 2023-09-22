@@ -68,10 +68,10 @@ const Pickleball = () => {
   const [confirmPosition, setConfirmPositions] = useState(false);
   const [startTheGame, setStartTheGame] = useState(false);
   const [gameOver, setGameOver] = useState(false);
-  const [color1, setColor1] = useState("#835020");
-  const [color2, setColor2] = useState("#145022");
-  const [color3, setColor3] = useState("#466cb9");
-  const [color4, setColor4] = useState("#a4a43d");
+  const [color1, setColor1] = useState("#00ff00");
+  const [color2, setColor2] = useState("green");
+  const [color3, setColor3] = useState("#ff0000");
+  const [color4, setColor4] = useState("maroon");
   const [winners, setWinners] = useState({});
   const scoreButton = useRef(null);
   const faultButton = useRef(null);
