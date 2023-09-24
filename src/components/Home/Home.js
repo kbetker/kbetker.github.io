@@ -50,8 +50,10 @@ function Home() {
 
   const changeTitle = async () => {
     let currTitle = titlesArray[count];
-    homeImage.current.src = images[count];
-    homeImage.current.classList.remove("hidden");
+    if (homeImage.current) {
+      homeImage.current.src = images[count];
+      homeImage.current.classList.remove("hidden");
+    }
 
     // const titleDiv = document.getElementById("colors")
     for (let i = 0; i < currTitle.length; i++) {
@@ -64,23 +66,29 @@ function Home() {
       } else {
         title.current += char;
       }
-      titleDiv.current.innerHTML = `${title.current}`;
+      if (titleDiv.current) {
+        titleDiv.current.innerHTML = `${title.current}`;
+      }
     }
 
     if (count === titlesArray.length - 1) {
       count = 0;
       setTimeout(async () => {
-        backGroundImage.current.style.backgroundImage = `url(${img0})`;
-        homeImage.current.classList.add("hidden");
-        clearTitle(title.current);
+        if (backGroundImage.current && homeImage.current) {
+          backGroundImage.current.style.backgroundImage = `url(${img0})`;
+          homeImage.current.classList.add("hidden");
+          clearTitle(title.current);
+        }
       }, 3000);
     } else {
       count++;
       setTimeout(() => {
-        homeImage.current.classList.add("hidden");
-        backGroundImage.current.style.backgroundImage = `url(${
-          images[count - 1]
-        })`;
+        if (homeImage.current && backGroundImage.current) {
+          homeImage.current.classList.add("hidden");
+          backGroundImage.current.style.backgroundImage = `url(${
+            images[count - 1]
+          })`;
+        }
       }, 2000);
 
       setTimeout(async () => {
