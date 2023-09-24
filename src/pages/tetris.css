@@ -1,0 +1,36 @@
+.tetris-wrapper {
+  background-color: rgb(77, 77, 77);
+  margin: 0;
+  padding: 1rem;
+}
+
+.tetris-matrix-container {
+  box-sizing: border-box;
+  border: solid 8px rgb(7, 7, 7);
+  box-shadow: 4px 4px 15px black;
+  max-width: 500px;
+}
+
+.tetris-column {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.tetris-row {
+  aspect-ratio: 1;
+  width: 20px;
+  max-width: 20px;
+  background-color: #333333;
+  list-style-type: none;
+  box-shadow: 1px 1px 3px black inset;
+  margin: 0;
+  padding: 0;
+}
+
+.tetris-shape {
+  box-sizing: border-box;
+  box-shadow: -2px -2px 4px black inset;
+  /* border-top: solid 1px rgb(255, 255, 255, 0.2); */
+  /* border-left: solid 1px rgb(255, 255, 255, 0.2); */
+}

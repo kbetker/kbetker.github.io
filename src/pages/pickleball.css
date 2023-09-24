@@ -11,10 +11,6 @@
   color: rgb(157, 157, 157);
 }
 
-.sidebar {
-  /* width: 30%; */
-}
-
 .top-row-position-options {
   display: flex;
   justify-content: space-between;
@@ -103,40 +99,46 @@ p {
 
 .court {
   width: 100%;
-  height: 80%;
-  display: flex;
-  justify-content: center;
+  height: 100%;
+
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-between; */
+  display: grid;
+  grid-template-rows: 4fr 3fr 4fr;
 }
 
 .right-court,
 .left-court {
   display: flex;
-  flex-direction: column;
-  width: 25%;
+  /* height: 100%; */
+  /* flex-direction: column; */
+  /* width: 100%; */
 }
 
 .quads {
   border: solid 5px white;
   box-sizing: border-box;
   width: 100%;
-  height: 50%;
+  height: 100%;
   background-color: rgb(102, 143, 102);
 }
 
 .kitchen {
-  width: 20%;
+  width: 100%;
+  height: 100%;
   display: flex;
-  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
-  border: 10px solid orange;
+  border: 5px solid rgb(226, 132, 1);
   background-color: rgb(98, 116, 77);
   box-shadow: 0 0 90px rgba(0, 0, 0, 0.3) inset;
 }
 .net {
-  width: 5px;
-  height: 100%;
+  width: 100%;
+  height: 2px;
   background-color: white;
-  border-right: 2px solid black;
+  border-bottom: 2px solid black;
   border-style: dashed;
   box-shadow: 10px 0 10px rgba(0, 0, 0, 0.538);
 }
@@ -156,7 +158,7 @@ p {
 .game-stats {
   /* justify-content: center; */
   /* padding-top: 1rem; */
-  font-size: 8rem;
+  font-size: 6rem;
   font-weight: 900;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
     8px 8px 0 #000;
@@ -325,8 +327,6 @@ h1 {
   display: flex;
   justify-content: center;
 }
-.play-up-to-container {
-}
 
 .play-up-to {
   position: absolute;
@@ -385,7 +385,7 @@ h2 {
   }
 
   .switch-server {
-    font-size: 2rem;
+    font-size: 1rem;
   }
 
   .switch-players-left,
@@ -401,7 +401,7 @@ h2 {
   .game-stats {
     /* justify-content: center; */
     padding-top: 1rem;
-    font-size: 6rem;
+    font-size: 4rem;
     font-weight: 900;
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
       8px 8px 0 #000;
@@ -409,34 +409,34 @@ h2 {
   button {
     font-size: 3rem;
   }
-  .court {
+  /* .court {
     width: 95%;
     height: 70%;
     margin-bottom: 2rem;
-  }
+  } */
 
-  .right-court,
+  /* .right-court,
   .left-court {
-    width: 25%;
-  }
+    width: 100%;
+  } */
 
-  .quads {
+  /* .quads {
     width: 100%;
     height: 50%;
-  }
+  } */
 
-  .kitchen {
+  /* .kitchen {
     width: 20%;
     box-shadow: 0 0 90px rgba(0, 0, 0, 0.3) inset;
-  }
-  .net {
+  } */
+  /* .net {
     width: 5px;
     height: 100%;
     background-color: white;
     border-right: 2px solid black;
     border-style: dashed;
     box-shadow: 10px 0 10px rgba(0, 0, 0, 0.538);
-  }
+  } */
   .first-letter {
     font-size: 3.5rem;
   }
@@ -455,14 +455,9 @@ h2 {
     font-size: 2rem;
     padding: 0.5rem;
   }
-  .switch-sides {
-    font-size: 2rem;
-    /* position: absolute; */
-    left: 1%;
-  }
 
   .switch-server {
-    font-size: 2rem;
+    font-size: 1rem;
   }
 
   .switch-players-left,
@@ -488,7 +483,7 @@ h2 {
     /* justify-content: center; */
     /* padding-top: 1rem; */
     margin: 0;
-    font-size: 5rem;
+    font-size: 3rem;
     font-weight: 900;
     /* transform: translateY(-3rem); */
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
@@ -497,36 +492,36 @@ h2 {
   button {
     font-size: 3rem;
   }
-  .court {
+  /* .court {
     width: 95%;
     height: 60%;
     margin-bottom: 1rem;
-  }
+  } */
 
-  .right-court,
+  /* .right-court,
   .left-court {
     width: 25%;
-  }
+  } */
 
-  .quads {
+  /* .quads {
     border: solid 3px white;
     width: 100%;
     height: 50%;
-  }
+  } */
 
-  .kitchen {
+  /* .kitchen {
     width: 20%;
     border: 5px solid orange;
     box-shadow: 0 0 90px rgba(0, 0, 0, 0.3) inset;
-  }
-  .net {
+  } */
+  /* .net {
     width: 2px;
     height: 100%;
     background-color: white;
     border-right: 2px solid black;
     border-style: dashed;
     box-shadow: 5px 0 5px rgba(0, 0, 0, 0.538);
-  }
+  } */
 
   button {
     font-size: 1.5rem;
@@ -603,7 +598,7 @@ h2 {
     /* justify-content: center; */
     /* padding-top: 1rem; */
     margin: 0;
-    font-size: 5rem;
+    font-size: 3rem;
     font-weight: 900;
     transform: translateY(-3rem);
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
@@ -652,7 +647,7 @@ h2 {
     margin-left: -1.5rem;
   }
   .game-stats {
-    font-size: 6rem;
+    font-size: 3rem;
     font-weight: 900;
     transform: translateY(-1.5rem);
     text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
