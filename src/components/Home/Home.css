@@ -1,10 +1,10 @@
-.homeContainter{
+.homeContainter {
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-.homeImage{
+.homeImage {
   width: 500px;
   height: 350px;
   background-color: blue;
@@ -12,80 +12,79 @@
   border-radius: 10px;
 }
 
-.image{
+.image {
   transition: all 1s ease-in-out;
   border-radius: 10px;
-
 }
 
-.hidden{
+.hidden {
   opacity: 0;
 }
 
-.homeText{
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    align-items: flex-start;
-    color: white;
-    font-size: 30px;
-    font-weight: 200;
-    width: 520px;
-    margin: 0 20px;
-    /* text-align: justify; */
-  }
-
-  @media screen and (max-width: 930px){
-      .homeContainter{
-        flex-direction: column;
-        align-items: center;
-      }
-      .homeText{
-        font-size: 25px;
-      }
-  }
-
-  @media screen and (max-width: 530px){
-    .homeContainter{
-      flex-direction: column;
-      align-items: center;
-    }
-    .homeText{
-      font-size: 20px;
-      width: 375px;
-    }
-    .homeImage{
-      width: 375px;
-      height: 262px;
-      background-size: cover;
-      /* background-color: blue; */
-      margin: 10px;
-    }
-
-    .image{
-      width: 375px;
-      height: 262px;
-      /* transition: all 1s ease-in-out; */
-    }
+.homeText {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: flex-start;
+  color: white;
+  font-size: 30px;
+  font-weight: 200;
+  width: 520px;
+  margin: 0 20px;
+  /* text-align: justify; */
 }
 
-@media screen and (max-width: 400px){
-  .homeContainter{
+@media screen and (max-width: 930px) {
+  .homeContainter {
     flex-direction: column;
     align-items: center;
   }
-  .homeText{
+  .homeText {
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .homeContainter {
+    flex-direction: column;
+    align-items: center;
+  }
+  .homeText {
+    font-size: 20px;
+    width: 375px;
+  }
+  .homeImage {
+    width: 375px;
+    height: 262px;
+    background-size: cover;
+    /* background-color: blue; */
+    margin: 10px;
+  }
+
+  .image {
+    width: 375px;
+    height: 262px;
+    /* transition: all 1s ease-in-out; */
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .homeContainter {
+    flex-direction: column;
+    align-items: center;
+  }
+  .homeText {
     font-size: 18px;
     width: 315px;
   }
-  .homeImage{
+  .homeImage {
     width: 315px;
     height: 220px;
     background-size: cover;
     margin: 10px;
   }
 
-  .image{
+  .image {
     width: 315px;
     height: 220px;
   }
