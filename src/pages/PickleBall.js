@@ -9,7 +9,7 @@
  * This code was rushed to have it ready for the weekend. Please excuse the hard coded mess. */
 
 import { useRef, useState } from "react";
-import "./pickleball.css";
+// import "./pickleball.css";
 import useSound from "use-sound";
 import point from "../sounds/point.mp3";
 import sideOut from "../sounds/side-out.mp3";
