@@ -7,6 +7,7 @@ import "./index.css";
 import App from "./App";
 import Pickleball from "./pages/PickleBall";
 import Tetris from "./pages/Tetris";
+import DragonSfx from "./components/dragon-sfx";
 import configureStore from "./components/store";
 import { Route, Switch, HashRouter, BrowserRouter } from "react-router-dom";
 
@@ -22,6 +23,9 @@ ReactDOM.render(
           </Route>
           <Route exact path="/tetris">
             <Tetris />
+          </Route>
+          <Route exact path="/dragon-sfx">
+            <DragonSfx />
           </Route>
           <Route exact path="/">
             <App />
