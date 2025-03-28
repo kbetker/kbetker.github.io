@@ -1,0 +1,21 @@
+.dragon-sfx-container {
+    width: 100dvw;
+    height: 100dvh;
+    background-color: rgb(74, 34, 69);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.dragon-sfx-container button {
+    border: 1px solid rgb(255, 0, 221);
+    border-radius: 10px;
+    background-color: rgb(68, 19, 68);
+    color: white;
+}
+
+.dragon-sfx-container button:active {
+    border: 1px solid rgb(255, 0, 221);
+    border-radius: 10px;
+    background-color: rgb(106, 30, 106);
+    color: white;
+}
