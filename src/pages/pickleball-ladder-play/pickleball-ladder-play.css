@@ -33,6 +33,17 @@
 
   .court-waiting {
     opacity: 0.5;
+    h1 {
+      margin-left: 2rem;
+    }
+    button {
+      font-size: small;
+      padding: 0.25rem;
+    }
+  }
+
+  .court-quad-outer-container {
+    display: flex;
   }
 
   .court-outer-container {
@@ -42,8 +53,8 @@
   .court-waiting-area,
   .court-quads-container {
     background-color: rgb(35, 78, 35);
-    height: 9.375rem;
-    width: 18.75rem;
+    height: 7.375rem;
+    width: 22.75rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     position: relative;
@@ -54,11 +65,68 @@
     }
   }
 
+  .winner-buttons {
+    display: flex;
+    gap: 1rem;
+    button {
+      font-size: small;
+      padding: 0.25rem;
+    }
+  }
+
+  .court-waiting-area {
+    width: 14.75rem;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    /* align-items: flex-start; */
+    box-sizing: border-box;
+    /* padding: 2rem; */
+    p {
+      margin: 0;
+    }
+  }
+
+  .wait-room {
+    border: 1px solid rgb(39, 39, 39);
+    height: calc(7.175rem / 2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+      max-width: 6rem;
+      overflow: hidden;
+      padding: 0.1875rem;
+      justify-content: flex-start;
+      &:hover {
+        background-color: rgb(55, 119, 55);
+      }
+    }
+  }
+
   .court-quad {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     border: solid 1px white;
+    height: calc(7.175rem / 2);
+    &:nth-child(even) {
+      padding-left: 1rem;
+    }
+    p {
+      background-color: rgb(35, 78, 35);
+      justify-content: flex-start;
+      margin-left: 1rem;
+      width: 8rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 0.1875rem;
+      cursor: pointer;
+      &:hover {
+        background-color: rgb(55, 119, 55);
+      }
+    }
   }
 
   .kitchen {
@@ -66,7 +134,7 @@
     position: absolute;
     top: 0;
     left: calc(50% - (1.875rem / 2));
-    height: 9.375rem;
+    height: 7.375rem;
     width: 1.875rem;
   }
 
@@ -75,7 +143,7 @@
     position: absolute;
     top: 0;
     left: calc(50% - (0.3125rem / 2));
-    height: 9.375rem;
+    height: 7.375rem;
     width: 0.3125rem;
   }
 
