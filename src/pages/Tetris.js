@@ -40,6 +40,7 @@ const Tetris = () => {
       matrixArray.push({ [i]: rows });
     }
     setMatrix(matrixArray);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -71,6 +72,7 @@ const Tetris = () => {
     return () => {
       clearInterval(wat);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

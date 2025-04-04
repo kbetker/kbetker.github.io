@@ -89,7 +89,7 @@ function Contact() {
     return (
         <div className="page_element" style={{ width: `${window.innerWidth}px` }} id="page-3" >
             { loadingAnim && <div className="loading" style={{ width: `${window.innerWidth}px` }}>
-                <img src={loading} className="loadingImg"></img>
+                <img src={loading} alt='loading' className="loadingImg"></img>
             </div>}
             <div className="contactContainer" style={{filter: `brightness(${loadingAnim ? 0 : 1})`}}>
 

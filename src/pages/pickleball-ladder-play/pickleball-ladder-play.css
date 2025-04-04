@@ -15,7 +15,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     padding: 1rem 4rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
     overflow-y: auto;
@@ -95,6 +95,7 @@
     align-items: center;
     p {
       max-width: 6rem;
+      min-width: 6rem;
       overflow: hidden;
       padding: 0.1875rem;
       justify-content: flex-start;
@@ -127,6 +128,37 @@
         background-color: rgb(55, 119, 55);
       }
     }
+  }
+
+  .start-button {
+    margin: 1rem 0;
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  .random-checkbox-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    input {
+      &:focus {
+        outline: none;
+        outline-offset: 0;
+      }
+    }
+  }
+  .disabled {
+    opacity: 0.5;
+  }
+
+  .manual-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .kitchen {
@@ -168,6 +200,7 @@
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
+      pointer-events: none;
     }
     button {
       width: 1.5rem;

@@ -4,7 +4,7 @@ import { myWorkFunc } from "../../../store/myWork";
 import colorSlider from "./colorSlider2.png"
 import drawingApp from "./drawingApp.png"
 import homepage01 from "./homepage01.png"
-import homepage02 from "./homepage02.png"
+// import homepage02 from "./homepage02.png"
 import "./retrogfx2.css"
 
 import {css_png, express_png, html5_png, js_png, react_png, redux_png, sequelize_png } from "../../ImageExport.js"
