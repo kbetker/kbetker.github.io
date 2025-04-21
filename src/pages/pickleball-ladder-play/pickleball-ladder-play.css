@@ -9,7 +9,13 @@
   height: 100dvh;
   width: 100dvw;
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 1fr 55px;
+  overflow: hidden;
+
+  h1 {
+    margin-left: 0;
+  }
 
   .queue {
     background-color: rgba(0, 0, 0, 0.5);
@@ -19,11 +25,12 @@
     align-items: center;
     flex-direction: column;
     overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .courts {
     align-items: center;
-    border-left: 1px solid white;
+    border-left: 1px solid rgb(174, 174, 174);
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
@@ -34,7 +41,7 @@
   .court-waiting {
     opacity: 0.5;
     h1 {
-      margin-left: 2rem;
+      margin-left: 1rem;
     }
     button {
       font-size: small;
@@ -74,8 +81,219 @@
     }
   }
 
+  .button-container {
+    display: flex;
+  }
+
+  .modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .delete-player-container {
+    button {
+      margin-block: 0.5rem;
+      &:nth-child(3) {
+        color: red;
+      }
+    }
+    h1 {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .edit-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .settings-button-container {
+    display: flex;
+    margin-block: 2rem;
+    gap: 1rem;
+  }
+
+  .settings-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 5px black inset;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    input {
+      max-width: 2.5rem;
+    }
+  }
+
+  .bottom-row {
+    /* width: 100%; */
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.807);
+    grid-column: span 2;
+    display: flex;
+    gap: 1rem;
+    padding: 0.3125rem;
+    justify-content: space-between;
+    align-items: center;
+    button {
+      max-width: 12.5rem;
+    }
+  }
+
+  .leader-board-container {
+    width: 80rem;
+    background-color: rgb(17, 37, 71);
+    height: 45px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 15px inset black;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .stats-outer-container {
+    /* height: 45px; */
+    overflow: hidden;
+    /* text-overflow: clip; */
+    height: 19px;
+    position: relative;
+    /* width: 300px; */
+  }
+
+  .leader-name-container {
+    padding-left: 10px;
+    display: flex;
+  }
+
+  .player-stats-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: -35px;
+    left: 0;
+    transition: all 1s ease-in-out;
+  }
+
+  .position-0 {
+    top: 0;
+  }
+
+  .position-1 {
+    top: -19px;
+  }
+
+  .position-2 {
+    top: -38px;
+  }
+
+  .position-3 {
+    top: -58px;
+  }
+
+  .player-leaderboard {
+    background-color: rgb(25, 74, 121);
+    padding: 5px 12px;
+    margin-right: 1.875rem;
+    border-radius: 10px;
+    display: flex;
+    gap: 0.5rem;
+    /* animation: all 2s ease-in-out forwards; */
+    /* width: 14.5rem; */
+    /* display: inline-block; */
+  }
+
+  .leader-fade {
+    background: linear-gradient(
+      0.25turn,
+      rgba(17, 37, 71, 0),
+      rgba(17, 37, 71, 0),
+      rgba(17, 37, 71, 0),
+      rgba(17, 37, 71, 0),
+      rgb(6, 13, 24)
+    );
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .help {
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  .help-info {
+    max-width: 550px;
+  }
+
+  .bolder {
+    font-weight: bolder;
+  }
+
+  .input-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-inner-container {
+    min-width: 20rem;
+    min-height: 20rem;
+    max-width: 50rem;
+    background-color: rgb(16, 26, 44);
+    border-radius: 1rem;
+    border: 1px solid white;
+    box-shadow: 0 0 40px 5px black;
+    padding: 1rem;
+    outline: 1px solid rgba(255, 153, 0, 0.281);
+    outline-offset: 5px;
+    button {
+      max-width: 18rem;
+      align-self: center;
+    }
+  }
+
+  .confirm-setting {
+    display: flex;
+    flex-direction: column;
+    max-width: 30rem;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .delete-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      /* transform: translate(-25%, -30%); */
+      /* color: rgb(231, 172, 172); */
+    }
+  }
+
   .court-waiting-area {
-    width: 14.75rem;
+    width: 16.75rem;
     /* display: flex; */
     /* flex-direction: column; */
     /* justify-content: center; */
@@ -151,6 +369,7 @@
       }
     }
   }
+
   .disabled {
     opacity: 0.5;
   }
@@ -185,6 +404,10 @@
     gap: 0.625rem;
     margin-bottom: 1rem;
   }
+
+  /* .leaderStats {
+
+  } */
 
   .player-name {
     height: 1.75rem;

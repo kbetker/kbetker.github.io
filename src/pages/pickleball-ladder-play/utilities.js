@@ -1,3 +1,27 @@
+export const initialGameState = {
+  cycleKings: false,
+  numToCycleOut: 3,
+  currentMenu: "set-court-num",
+  queue: [],
+  courts: {},
+  leaderBoard: [],
+};
+
+export const isEmpty = (obj) => {
+  if (obj) {
+    return Object.keys(obj)?.length === 0;
+  }
+};
+
+export const deepCopy = (obj) => {
+  try {
+    const copiedObject = JSON.parse(JSON.stringify(obj));
+    return copiedObject;
+  } catch (error) {
+    console.warn(error);
+  }
+};
+
 export const addKingWin = (obj, courtData, winner) => {
   obj.courts[courtData.courtNum][winner].kingWins++;
 };
