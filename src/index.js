@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import "./index.css";
 import App from "./App";
 import Pickleball from "./pages/PickleBall";
+import PickleBallLaderPlay from "./pages/pickleball-ladder-play/pickleball-ladder-play";
 import Tetris from "./pages/Tetris";
 import DragonSfx from "./components/dragon-sfx";
 import configureStore from "./components/store";
@@ -26,6 +27,9 @@ ReactDOM.render(
           </Route>
           <Route exact path="/dragon-sfx">
             <DragonSfx />
+          </Route>
+          <Route exact path="/pickleball-ladder-play">
+            <PickleBallLaderPlay />
           </Route>
           <Route exact path="/">
             <App />
