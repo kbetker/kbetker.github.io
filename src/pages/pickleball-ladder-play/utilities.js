@@ -22,6 +22,9 @@ export const deepCopy = (obj) => {
   }
 };
 
+export const numberToArray = (num) =>
+  Array.from({ length: num }, (_, index) => index + 1);
+
 export const addKingWin = (obj, courtData, winner) => {
   obj.courts[courtData.courtNum][winner].kingWins++;
 };

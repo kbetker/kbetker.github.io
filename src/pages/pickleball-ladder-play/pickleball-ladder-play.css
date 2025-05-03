@@ -13,6 +13,12 @@
   grid-template-rows: 1fr 55px;
   overflow: hidden;
 
+  @media only screen and (max-width: 1600px) {
+    .courts {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
   h1 {
     margin-left: 0;
   }
@@ -26,6 +32,7 @@
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
+    min-width: 150px;
   }
 
   .courts {
@@ -372,6 +379,7 @@
 
   .disabled {
     opacity: 0.5;
+    cursor: not-allowed;
   }
 
   .manual-text {

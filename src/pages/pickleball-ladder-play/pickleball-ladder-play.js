@@ -4,7 +4,12 @@ import DeletedComponent from "./deleted";
 import Edit from "./edit";
 import SettingsSVG from "./settings-svg";
 import HelpSVG from "./help";
-import { initialGameState, deepCopy, isEmpty } from "./utilities";
+import {
+  initialGameState,
+  deepCopy,
+  isEmpty,
+  numberToArray,
+} from "./utilities";
 //todo: Refactor the #@$&! out of this spaghetti mess
 
 const PickleBallLaderPlay = () => {
@@ -29,13 +34,13 @@ const PickleBallLaderPlay = () => {
     playerData: "",
   });
 
-  // /**
-  //  * Handle Drag End
-  //  */
-  // function handleDragEnd() {
-  //   // may not need this function
-  //   setDragging({ isDragging: false, playerData: "", draggingFrom: "" });
-  // }
+  /**
+   * Handle Drag End
+   */
+  function handleDragEnd() {
+    // may not need this function
+    setDragging({ isDragging: false, playerData: "", draggingFrom: "" });
+  }
 
   /**
    * Handle Drag Start
@@ -97,11 +102,11 @@ const PickleBallLaderPlay = () => {
       // remove player from current location if in court
       if (copiedDragging.draggingFrom !== "queue") {
         deletePlayerForReal(copiedDragging, copiedGameState, courtNum);
-        // handleDragEnd();
+        handleDragEnd();
         return;
       }
 
-      // handleDragEnd();
+      handleDragEnd();
       setGameState(copiedGameState);
       handleHistory(copiedGameState);
     }
@@ -126,7 +131,7 @@ const PickleBallLaderPlay = () => {
         copiedDragging.playerData;
       deletePlayerForReal(dragging, copiedGameState, court);
     }
-    // handleDragEnd();
+    handleDragEnd();
   }
 
   /**
@@ -334,7 +339,7 @@ const PickleBallLaderPlay = () => {
     const leaders = buildLeaderBoard(copiedGameState);
     copiedGameState.leaderBoard = leaders;
 
-    // handleDragEnd();
+    handleDragEnd();
     setGameState(copiedGameState);
     handleHistory(copiedGameState);
   }
@@ -1074,7 +1079,7 @@ const PickleBallLaderPlay = () => {
                   draggable={true}
                   className="player-name"
                   key={`${player}-${i}`}
-                  // onDragEnd={handleDragEnd}
+                  onDragEnd={handleDragEnd}
                   onDragStart={handleDragStart}
                   data-player={playerData}
                   data-current-location={"queue"}
@@ -1118,8 +1123,10 @@ const PickleBallLaderPlay = () => {
                       setRandom(!random);
                     }}
                     defaultChecked={true}
+                    id="random-start"
+                    name="random-start"
                   />
-                  Random start
+                  <label htmlFor="random-start">Random start</label>
                 </div>
                 <button
                   className="start-button"
@@ -1153,25 +1160,21 @@ const PickleBallLaderPlay = () => {
                   <input
                     type="checkbox"
                     id="cycleKings"
+                    name="cycle-kings"
                     value={tempSettingObj?.cycleKings}
                     checked={tempSettingObj?.cycleKings}
                     onChange={updateSettings}
                   />
-                  <span>Cycle Kings?</span>
+                  <label htmlFor="cycle-kings">Cycle Kings?</label>
                 </div>
                 <div className="input-container">
-                  {tempSettingsCheck && (
-                    <>
-                      {" "}
-                      <input
-                        type="number"
-                        value={tempSettingObj?.numToCycleOut}
-                        onChange={updateSettings}
-                        id="numToCycleOut"
-                      />
-                      <span># to cycle</span>
-                    </>
-                  )}
+                  <input
+                    type="number"
+                    value={tempSettingObj?.numToCycleOut}
+                    onChange={updateSettings}
+                    id="numToCycleOut"
+                  />
+                  <span># to cycle</span>
                 </div>
                 <div className="input-container">
                   <input
@@ -1202,80 +1205,44 @@ const PickleBallLaderPlay = () => {
             wait4,
             waitStatus,
           } = gameState.courts[courtNum];
-          const num = parseInt(courtNum);
+          const courtNumber = parseInt(courtNum);
           return (
-            <div key={`court-key-${num}`} className="court-outer-container">
+            <div
+              key={`court-key-${courtNumber}`}
+              className="court-outer-container"
+            >
               <div className="active-court">
-                <h1>#{num}</h1>
+                <h1>#{courtNumber}</h1>
                 <div className="court-quads-container">
-                  <div
-                    onDragOver={handleDragOver}
-                    onDrop={(e) => dropToCourt(e, "quad")}
-                    className={`court-quad ${num}-1`}
-                  >
-                    {quad1?.name && (
-                      <p
-                        draggable={true}
-                        // onDragEnd={handleDragEnd}
-                        onDragStart={handleDragStart}
-                        data-player={JSON.stringify(quad1)}
-                        data-current-location={`quad-${num}-1`}
+                  {numberToArray(4).map((quadNumber) => {
+                    return (
+                      <div
+                        onDragOver={handleDragOver}
+                        onDrop={(e) => dropToCourt(e, "quad")}
+                        className={`court-quad ${courtNumber}-${quadNumber}`}
+                        key={`quad-num-${quadNumber}`}
                       >
-                        {quad1?.name}
-                      </p>
-                    )}
-                  </div>
-                  <div
-                    onDragOver={handleDragOver}
-                    onDrop={(e) => dropToCourt(e, "quad")}
-                    className={`court-quad ${num}-2`}
-                  >
-                    {quad2?.name && (
-                      <p
-                        draggable={true}
-                        // onDragEnd={handleDragEnd}
-                        onDragStart={handleDragStart}
-                        data-player={JSON.stringify(quad2)}
-                        data-current-location={`quad-${num}-2`}
-                      >
-                        {quad2?.name}
-                      </p>
-                    )}
-                  </div>
-                  <div
-                    onDragOver={handleDragOver}
-                    onDrop={(e) => dropToCourt(e, "quad")}
-                    className={`court-quad ${num}-3`}
-                  >
-                    {quad3?.name && (
-                      <p
-                        draggable={true}
-                        // onDragEnd={handleDragEnd}
-                        onDragStart={handleDragStart}
-                        data-player={JSON.stringify(quad3)}
-                        data-current-location={`quad-${num}-3`}
-                      >
-                        {quad3?.name}
-                      </p>
-                    )}
-                  </div>
-                  <div
-                    onDragOver={handleDragOver}
-                    onDrop={(e) => dropToCourt(e, "quad")}
-                    className={`court-quad ${num}-4`}
-                  >
-                    {quad4?.name && (
-                      <p
-                        draggable={true}
-                        // onDragEnd={handleDragEnd}
-                        onDragStart={handleDragStart}
-                        data-player={JSON.stringify(quad4)}
-                        data-current-location={`quad-${num}-4`}
-                      >
-                        {quad4?.name}
-                      </p>
-                    )}
-                  </div>
+                        {gameState.courts[courtNumber][`quad${quadNumber}`]
+                          ?.name && (
+                          <p
+                            draggable={true}
+                            onDragEnd={handleDragEnd}
+                            onDragStart={handleDragStart}
+                            data-player={JSON.stringify(
+                              gameState.courts[courtNumber][`quad${quadNumber}`]
+                            )}
+                            data-current-location={`quad-${courtNumber}-${quadNumber}`}
+                          >
+                            {
+                              gameState.courts[courtNumber][`quad${quadNumber}`]
+                                ?.name
+                            }
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
+
                   <div className="kitchen"></div>
                   <div className="net"></div>
                 </div>
@@ -1286,7 +1253,7 @@ const PickleBallLaderPlay = () => {
                       handleWinner({
                         winners: { quad1, quad3 },
                         losers: { quad2, quad4 },
-                        courtNum: num,
+                        courtNum: courtNumber,
                       })
                     }
                   >
@@ -1298,7 +1265,7 @@ const PickleBallLaderPlay = () => {
                       handleWinner({
                         winners: { quad2, quad4 },
                         losers: { quad1, quad3 },
-                        courtNum: num,
+                        courtNum: courtNumber,
                       })
                     }
                   >
@@ -1312,19 +1279,19 @@ const PickleBallLaderPlay = () => {
               */}
               <div className="court-waiting">
                 <h1>{waitStatus}</h1>
-                <div className={`court-waiting-area ${num}`}>
+                <div className={`court-waiting-area ${courtNumber}`}>
                   <div
                     onDragOver={handleDragOver}
                     onDrop={(e) => dropToCourt(e, "wait")}
-                    className={`wait-room ${num}-1`}
+                    className={`wait-room ${courtNumber}-1`}
                   >
                     {wait1?.name && (
                       <p
                         draggable={true}
-                        // onDragEnd={handleDragEnd}
+                        onDragEnd={handleDragEnd}
                         onDragStart={handleDragStart}
                         data-player={JSON.stringify(wait1)}
-                        data-current-location={`wait-${num}-1`}
+                        data-current-location={`wait-${courtNumber}-1`}
                       >
                         {wait1?.name}
                       </p>
@@ -1333,15 +1300,15 @@ const PickleBallLaderPlay = () => {
                   <div
                     onDragOver={handleDragOver}
                     onDrop={(e) => dropToCourt(e, "wait")}
-                    className={`wait-room ${num}-2`}
+                    className={`wait-room ${courtNumber}-2`}
                   >
                     {wait2?.name && (
                       <p
                         draggable={true}
-                        // onDragEnd={handleDragEnd}
+                        onDragEnd={handleDragEnd}
                         onDragStart={handleDragStart}
                         data-player={JSON.stringify(wait2)}
-                        data-current-location={`wait-${num}-2`}
+                        data-current-location={`wait-${courtNumber}-2`}
                       >
                         {wait2?.name}
                       </p>
@@ -1350,15 +1317,15 @@ const PickleBallLaderPlay = () => {
                   <div
                     onDragOver={handleDragOver}
                     onDrop={(e) => dropToCourt(e, "wait")}
-                    className={`wait-room ${num}-3`}
+                    className={`wait-room ${courtNumber}-3`}
                   >
                     {wait3?.name && (
                       <p
                         draggable={true}
-                        // onDragEnd={handleDragEnd}
+                        onDragEnd={handleDragEnd}
                         onDragStart={handleDragStart}
                         data-player={JSON.stringify(wait3)}
-                        data-current-location={`wait-${num}-3`}
+                        data-current-location={`wait-${courtNumber}-3`}
                       >
                         {wait3?.name}
                       </p>
@@ -1367,15 +1334,15 @@ const PickleBallLaderPlay = () => {
                   <div
                     onDragOver={handleDragOver}
                     onDrop={(e) => dropToCourt(e, "wait")}
-                    className={`wait-room ${num}-4`}
+                    className={`wait-room ${courtNumber}-4`}
                   >
                     {wait4?.name && (
                       <p
                         draggable={true}
-                        // onDragEnd={handleDragEnd}
+                        onDragEnd={handleDragEnd}
                         onDragStart={handleDragStart}
                         data-player={JSON.stringify(wait4)}
-                        data-current-location={`wait-${num}-4`}
+                        data-current-location={`wait-${courtNumber}-4`}
                       >
                         {wait4?.name}
                       </p>
@@ -1391,46 +1358,52 @@ const PickleBallLaderPlay = () => {
         })}
       </div>
       <div className="bottom-row">
-        {gameState.currentMenu === "game-on" && (
-          <>
-            <button className="help" onClick={handleHelp}>
-              <HelpSVG />
-            </button>
-            <button onClick={handleUndo}>Undo</button>
-            <button onClick={handleRedo}>Redo</button>
-            <div className="leader-board-container">
-              <div className="leader-name-container">
-                {gameState.leaderBoard.map((player, rank) => {
-                  const { crowns, name, totalLosses, totalScore, totalWins } =
-                    player;
+        <>
+          <button className="help" onClick={handleHelp}>
+            <HelpSVG />
+          </button>
+          <button
+            className={`${undoHistory.length > 2 ? "" : "disabled"}`}
+            onClick={handleUndo}
+          >
+            Undo
+          </button>
+          <button
+            className={`${redoHistory.length > 0 ? "" : "disabled"}`}
+            onClick={handleRedo}
+          >
+            Redo
+          </button>
+          <div className="leader-board-container">
+            <div className="leader-name-container">
+              {gameState.leaderBoard.map((player, rank) => {
+                const { crowns, name, totalLosses, totalScore, totalWins } =
+                  player;
 
-                  return (
-                    <div
-                      className="player-leaderboard"
-                      key={`key-leaderboard-${rank}`}
-                    >
-                      <div className="player-rank">{rank + 1}: </div>
-                      <div className="bolder leader-name">{name}</div> -{" "}
-                      <div className="stats-outer-container">
-                        <div
-                          className={`player-stats-container position-${leaderDataCount}`}
-                        >
-                          <div className="leaderStats">wins: {totalWins}</div>
-                          <div className="leaderStats">crowns: {crowns}</div>
-                          <div className="leaderStats">
-                            losses: {totalLosses}
-                          </div>
-                          <div className="leaderStats">total: {totalScore}</div>
-                        </div>
+                return (
+                  <div
+                    className="player-leaderboard"
+                    key={`key-leaderboard-${rank}`}
+                  >
+                    <div className="player-rank">{rank + 1}: </div>
+                    <div className="bolder leader-name">{name}</div> -{" "}
+                    <div className="stats-outer-container">
+                      <div
+                        className={`player-stats-container position-${leaderDataCount}`}
+                      >
+                        <div className="leaderStats">wins: {totalWins}</div>
+                        <div className="leaderStats">crowns: {crowns}</div>
+                        <div className="leaderStats">losses: {totalLosses}</div>
+                        <div className="leaderStats">total: {totalScore}</div>
                       </div>
                     </div>
-                  );
-                })}
-              </div>
-              <div className="leader-fade"> </div>
+                  </div>
+                );
+              })}
             </div>
-          </>
-        )}
+            <div className="leader-fade"> </div>
+          </div>
+        </>
       </div>
     </div>
   );
