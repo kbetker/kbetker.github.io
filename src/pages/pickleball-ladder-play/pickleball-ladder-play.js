@@ -238,45 +238,45 @@ const PickleBallLaderPlay = () => {
     const copiedGameState = deepCopy(gameState);
 
     //for testing
-    const emojis = [
-      "Kevin B",
-      "Zhen",
-      "Dan",
-      "Eric",
-      "Jason",
-      "YiFie",
-      "Mike",
-      "Bernie",
-      "Elrond",
-      "Kevin Yu",
-      "Desheng",
-      "Bobert",
-      "Vladimir",
-      "Ack",
-      "Dillup",
-      "Johl",
-      "Lollerp",
-      "Yabble",
-      "Wonka",
-      "Derf",
-      "Muthro",
-      "Jammit",
-    ];
+    // const emojis = [
+    //   "Kevin B",
+    //   "Zhen",
+    //   "Dan",
+    //   "Eric",
+    //   "Jason",
+    //   "YiFie",
+    //   "Mike",
+    //   "Bernie",
+    //   "Elrond",
+    //   "Kevin Yu",
+    //   "Desheng",
+    //   "Bobert",
+    //   "Vladimir",
+    //   "Ack",
+    //   "Dillup",
+    //   "Johl",
+    //   "Lollerp",
+    //   "Yabble",
+    //   "Wonka",
+    //   "Derf",
+    //   "Muthro",
+    //   "Jammit",
+    // ];
 
     // for testing
-    if (copiedGameState.queue.length === 0) {
-      for (let i = 0; i < emojis.length; i++) {
-        copiedGameState.queue.push({
-          name: emojis[i],
-          quad: 0,
-          numToCycleOut: 0,
-          crowns: 0,
-          totalWins: 0,
-          totalLosses: 0,
-          totalScore: 0,
-        });
-      }
-    }
+    // if (copiedGameState.queue.length === 0) {
+    //   for (let i = 0; i < emojis.length; i++) {
+    //     copiedGameState.queue.push({
+    //       name: emojis[i],
+    //       quad: 0,
+    //       numToCycleOut: 0,
+    //       crowns: 0,
+    //       totalWins: 0,
+    //       totalLosses: 0,
+    //       totalScore: 0,
+    //     });
+    //   }
+    // }
 
     // check if name exists
     const alreadyExists = copiedGameState.queue.filter(
