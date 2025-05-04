@@ -419,15 +419,17 @@
   }
 
   .highlight-empty-court {
+    cursor: pointer;
     box-sizing: border-box;
-    border: 1px solid rgb(252, 244, 16) !important;
-    box-shadow: 0 0 4px inset rgb(225, 228, 62);
+    border: 1px solid rgb(252, 244, 16);
+    animation: animate-court-outline 1s ease-in-out infinite;
   }
 
   .highlight-empty-wait {
     box-sizing: border-box;
-    border: 1px solid rgb(16, 248, 252) !important;
-    box-shadow: 0 0 4px inset rgb(62, 117, 228);
+    border: 1px solid rgb(16, 248, 252);
+    cursor: pointer;
+    animation: animate-wait-outline 1s ease-in-out infinite;
   }
 
   .player-name {
@@ -507,5 +509,31 @@
     &:hover:active {
       outline: none;
     }
+  }
+}
+
+@keyframes animate-court-outline {
+  0% {
+    box-shadow: 0 0 4px 2px inset rgb(225, 228, 62);
+  }
+
+  50% {
+    box-shadow: 0 0 6px 4px inset rgb(225, 228, 62);
+  }
+  100% {
+    box-shadow: 0 0 4px 2px inset rgb(225, 228, 62);
+  }
+}
+
+@keyframes animate-wait-outline {
+  0% {
+    box-shadow: 0 0 4px 2px inset rgb(62, 153, 228);
+  }
+
+  50% {
+    box-shadow: 0 0 6px 4px inset rgb(62, 153, 228);
+  }
+  100% {
+    box-shadow: 0 0 4px 2px inset rgb(62, 153, 228);
   }
 }

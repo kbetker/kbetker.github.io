@@ -36,7 +36,7 @@ const PickleBallLaderPlay = () => {
   });
   const touchCount = useRef(0);
   const doubleTouchCountdown = useRef(null);
-  const [doubleTouched, setDoubleTouched] = useState({});
+  const [doubleTouched, setDoubleTouched] = useState(null);
 
   /**
    * Handle Drag End
@@ -129,13 +129,13 @@ const PickleBallLaderPlay = () => {
     const getQuad = e.target.className.split(" ")[1];
     const [court, quad] = getQuad.split("-");
     const empty = isEmpty(copiedGameState.courts[court][`${type}${quad}`]);
-
     if (empty && dragging.playerData?.name) {
       copiedGameState.courts[court][`${type}${quad}`] =
         copiedDragging.playerData;
       deletePlayerForReal(dragging, copiedGameState, court);
     }
     handleDragEnd();
+    resetDoubleTouch();
   }
 
   /**
@@ -1023,14 +1023,20 @@ const PickleBallLaderPlay = () => {
    * Selecte Player to Move
    */
   function selectPlayerToMove(e) {
-    const player = JSON.parse(e.target.dataset.player);
-    console.log("%cplayer:", "color: red", player);
-    setDoubleTouched(player);
+    const playerData = JSON.parse(e.target.dataset.player);
+    setDoubleTouched(playerData);
+
+    const wat = {
+      isDragging: true,
+      playerData,
+      draggingFrom: e.target.dataset.currentLocation,
+    };
+    setDragging(wat);
 
     // reset
-    // doubleTouchCountdown.current = setTimeout(() => {
-    //   resetDoubleTouch();
-    // }, 5000);
+    doubleTouchCountdown.current = setTimeout(() => {
+      resetDoubleTouch();
+    }, 5000);
   }
 
   /**
@@ -1040,7 +1046,7 @@ const PickleBallLaderPlay = () => {
     clearTimeout(doubleTouchCountdown.current);
     doubleTouchCountdown.current = setTimeout(() => {
       touchCount.current = 0;
-      setDoubleTouched({});
+      setDoubleTouched(null);
     }, 500);
 
     touchCount.current = touchCount.current + 1;
@@ -1055,7 +1061,7 @@ const PickleBallLaderPlay = () => {
    */
   function resetDoubleTouch() {
     touchCount.current = 0;
-    setDoubleTouched({});
+    setDoubleTouched(null);
   }
 
   /**
@@ -1272,6 +1278,9 @@ const PickleBallLaderPlay = () => {
                       <div
                         onDragOver={handleDragOver}
                         onDrop={(e) => dropToCourt(e, "quad")}
+                        onClick={(e) =>
+                          doubleTouched ? dropToCourt(e, "quad") : null
+                        }
                         className={`court-quad ${courtNumber}-${quadNumber} ${
                           !quad?.name && doubleTouched?.name
                             ? "highlight-empty-court"
