@@ -1019,28 +1019,45 @@ const PickleBallLaderPlay = () => {
     );
   }
 
-  function handleTOUCH(e) {
+  /**
+   * Selecte Player to Move
+   */
+  function selectPlayerToMove(e) {
+    const player = JSON.parse(e.target.dataset.player);
+    console.log("%cplayer:", "color: red", player);
+    setDoubleTouched(player);
+
+    // reset
+    // doubleTouchCountdown.current = setTimeout(() => {
+    //   resetDoubleTouch();
+    // }, 5000);
+  }
+
+  /**
+   * Handle Double Touch
+   */
+  function handleDoubleTouch(e) {
     clearTimeout(doubleTouchCountdown.current);
     doubleTouchCountdown.current = setTimeout(() => {
       touchCount.current = 0;
-      setDoubleTouched(false);
+      setDoubleTouched({});
     }, 500);
 
     touchCount.current = touchCount.current + 1;
     if (touchCount.current === 2) {
-      const player = JSON.parse(e.target.dataset.player);
-      console.log("%cplayer:", "color: red", player);
-      setDoubleTouched(player);
       clearTimeout(doubleTouchCountdown.current);
+      selectPlayerToMove(e);
     }
   }
 
+  /**
+   * Reset Double Touch
+   */
   function resetDoubleTouch() {
     touchCount.current = 0;
-    setDoubleTouched(false);
+    setDoubleTouched({});
   }
 
-  console.log("%cdoubleTouched:", "color: lime", doubleTouched);
   /**
    * Render
    */
@@ -1113,7 +1130,8 @@ const PickleBallLaderPlay = () => {
                   onDragStart={handleDragStart}
                   data-player={playerData}
                   data-current-location={"queue"}
-                  onTouchStart={handleTOUCH}
+                  onTouchStart={handleDoubleTouch}
+                  onDoubleClick={selectPlayerToMove}
                   id={name}
                 >
                   <span>{name}</span>
@@ -1247,29 +1265,36 @@ const PickleBallLaderPlay = () => {
                 <h1>#{courtNumber}</h1>
                 <div className="court-quads-container">
                   {numberToArray(4).map((quadNumber) => {
+                    const quad =
+                      gameState.courts[courtNumber][`quad${quadNumber}`] ??
+                      null;
                     return (
                       <div
                         onDragOver={handleDragOver}
                         onDrop={(e) => dropToCourt(e, "quad")}
-                        className={`court-quad ${courtNumber}-${quadNumber}`}
+                        className={`court-quad ${courtNumber}-${quadNumber} ${
+                          !quad?.name && doubleTouched?.name
+                            ? "highlight-empty-court"
+                            : ""
+                        }`}
                         key={`quad-num-${quadNumber}`}
                       >
-                        {gameState.courts[courtNumber][`quad${quadNumber}`]
-                          ?.name && (
+                        {quad?.name && (
                           <p
+                            className={`${
+                              doubleTouched?.name === quad?.name
+                                ? " highlight-player-queue"
+                                : ""
+                            }`}
                             draggable={true}
                             onDragEnd={handleDragEnd}
                             onDragStart={handleDragStart}
-                            onTouchStart={handleTOUCH}
-                            data-player={JSON.stringify(
-                              gameState.courts[courtNumber][`quad${quadNumber}`]
-                            )}
+                            onTouchStart={handleDoubleTouch}
+                            onDoubleClick={selectPlayerToMove}
+                            data-player={JSON.stringify(quad)}
                             data-current-location={`quad-${courtNumber}-${quadNumber}`}
                           >
-                            {
-                              gameState.courts[courtNumber][`quad${quadNumber}`]
-                                ?.name
-                            }
+                            {quad.name}
                           </p>
                         )}
                       </div>
@@ -1316,14 +1341,24 @@ const PickleBallLaderPlay = () => {
                   <div
                     onDragOver={handleDragOver}
                     onDrop={(e) => dropToCourt(e, "wait")}
-                    className={`wait-room ${courtNumber}-1`}
+                    className={`wait-room ${courtNumber}-1 ${
+                      doubleTouched?.name && !wait1?.name
+                        ? "highlight-empty-wait"
+                        : ""
+                    }`}
                   >
                     {wait1?.name && (
                       <p
+                        className={`${
+                          doubleTouched?.name === wait1?.name
+                            ? " highlight-player-queue"
+                            : ""
+                        }`}
                         draggable={true}
                         onDragEnd={handleDragEnd}
                         onDragStart={handleDragStart}
-                        onTouchStart={handleTOUCH}
+                        onTouchStart={handleDoubleTouch}
+                        onDoubleClick={selectPlayerToMove}
                         data-player={JSON.stringify(wait1)}
                         data-current-location={`wait-${courtNumber}-1`}
                       >
@@ -1334,14 +1369,24 @@ const PickleBallLaderPlay = () => {
                   <div
                     onDragOver={handleDragOver}
                     onDrop={(e) => dropToCourt(e, "wait")}
-                    className={`wait-room ${courtNumber}-2`}
+                    className={`wait-room ${courtNumber}-2 ${
+                      doubleTouched?.name && !wait2?.name
+                        ? "highlight-empty-wait"
+                        : ""
+                    }`}
                   >
                     {wait2?.name && (
                       <p
+                        className={`${
+                          doubleTouched?.name === wait2?.name
+                            ? " highlight-player-queue"
+                            : ""
+                        }`}
                         draggable={true}
                         onDragEnd={handleDragEnd}
                         onDragStart={handleDragStart}
-                        onTouchStart={handleTOUCH}
+                        onTouchStart={handleDoubleTouch}
+                        onDoubleClick={selectPlayerToMove}
                         data-player={JSON.stringify(wait2)}
                         data-current-location={`wait-${courtNumber}-2`}
                       >
@@ -1352,14 +1397,24 @@ const PickleBallLaderPlay = () => {
                   <div
                     onDragOver={handleDragOver}
                     onDrop={(e) => dropToCourt(e, "wait")}
-                    className={`wait-room ${courtNumber}-3`}
+                    className={`wait-room ${courtNumber}-3 ${
+                      doubleTouched?.name && !wait3?.name
+                        ? "highlight-empty-wait"
+                        : ""
+                    }`}
                   >
                     {wait3?.name && (
                       <p
+                        className={`${
+                          doubleTouched?.name === wait3?.name
+                            ? " highlight-player-queue"
+                            : ""
+                        }`}
                         draggable={true}
                         onDragEnd={handleDragEnd}
                         onDragStart={handleDragStart}
-                        onTouchStart={handleTOUCH}
+                        onTouchStart={handleDoubleTouch}
+                        onDoubleClick={selectPlayerToMove}
                         data-player={JSON.stringify(wait3)}
                         data-current-location={`wait-${courtNumber}-3`}
                       >
@@ -1370,14 +1425,24 @@ const PickleBallLaderPlay = () => {
                   <div
                     onDragOver={handleDragOver}
                     onDrop={(e) => dropToCourt(e, "wait")}
-                    className={`wait-room ${courtNumber}-4`}
+                    className={`wait-room ${courtNumber}-4 ${
+                      doubleTouched?.name && !wait4?.name
+                        ? "highlight-empty-wait"
+                        : ""
+                    }`}
                   >
                     {wait4?.name && (
                       <p
+                        className={`${
+                          doubleTouched?.name === wait4?.name
+                            ? " highlight-player-queue"
+                            : ""
+                        }`}
                         draggable={true}
                         onDragEnd={handleDragEnd}
                         onDragStart={handleDragStart}
-                        onTouchStart={handleTOUCH}
+                        onTouchStart={handleDoubleTouch}
+                        onDoubleClick={selectPlayerToMove}
                         data-player={JSON.stringify(wait4)}
                         data-current-location={`wait-${courtNumber}-4`}
                       >

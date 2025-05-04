@@ -414,14 +414,21 @@
   }
 
   .highlight-player-queue {
-    box-sizing: border-box;
     border: 1px solid white !important;
     box-shadow: 0 0 4px inset white;
   }
 
-  /* .leaderStats {
+  .highlight-empty-court {
+    box-sizing: border-box;
+    border: 1px solid rgb(252, 244, 16) !important;
+    box-shadow: 0 0 4px inset rgb(225, 228, 62);
+  }
 
-  } */
+  .highlight-empty-wait {
+    box-sizing: border-box;
+    border: 1px solid rgb(16, 248, 252) !important;
+    box-shadow: 0 0 4px inset rgb(62, 117, 228);
+  }
 
   .player-name {
     box-sizing: border-box;
