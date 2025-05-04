@@ -413,11 +413,18 @@
     margin-bottom: 1rem;
   }
 
+  .highlight-player-queue {
+    box-sizing: border-box;
+    border: 1px solid white !important;
+    box-shadow: 0 0 4px inset white;
+  }
+
   /* .leaderStats {
 
   } */
 
   .player-name {
+    box-sizing: border-box;
     height: 1.75rem;
     display: flex;
     justify-content: space-between;

@@ -11,6 +11,7 @@ import {
   numberToArray,
 } from "./utilities";
 //todo: Refactor the #@$&! out of this spaghetti mess
+// or... implement tablet touch.
 
 const PickleBallLaderPlay = () => {
   const [redoHistory, setRedoHistory] = useState([]);
@@ -33,6 +34,9 @@ const PickleBallLaderPlay = () => {
     isDragging: false,
     playerData: "",
   });
+  const touchCount = useRef(0);
+  const doubleTouchCountdown = useRef(null);
+  const [doubleTouched, setDoubleTouched] = useState({});
 
   /**
    * Handle Drag End
@@ -238,45 +242,45 @@ const PickleBallLaderPlay = () => {
     const copiedGameState = deepCopy(gameState);
 
     //for testing
-    // const emojis = [
-    //   "Kevin B",
-    //   "Zhen",
-    //   "Dan",
-    //   "Eric",
-    //   "Jason",
-    //   "YiFie",
-    //   "Mike",
-    //   "Bernie",
-    //   "Elrond",
-    //   "Kevin Yu",
-    //   "Desheng",
-    //   "Bobert",
-    //   "Vladimir",
-    //   "Ack",
-    //   "Dillup",
-    //   "Johl",
-    //   "Lollerp",
-    //   "Yabble",
-    //   "Wonka",
-    //   "Derf",
-    //   "Muthro",
-    //   "Jammit",
-    // ];
+    const emojis = [
+      "Kevin B",
+      "Zhen",
+      "Dan",
+      "Eric",
+      "Jason",
+      "YiFie",
+      "Mike",
+      "Bernie",
+      "Elrond",
+      "Kevin Yu",
+      "Desheng",
+      "Bobert",
+      "Vladimir",
+      "Ack",
+      "Dillup",
+      "Johl",
+      "Lollerp",
+      "Yabble",
+      "Wonka",
+      "Derf",
+      "Muthro",
+      "Jammit",
+    ];
 
     // for testing
-    // if (copiedGameState.queue.length === 0) {
-    //   for (let i = 0; i < emojis.length; i++) {
-    //     copiedGameState.queue.push({
-    //       name: emojis[i],
-    //       quad: 0,
-    //       numToCycleOut: 0,
-    //       crowns: 0,
-    //       totalWins: 0,
-    //       totalLosses: 0,
-    //       totalScore: 0,
-    //     });
-    //   }
-    // }
+    if (copiedGameState.queue.length === 0) {
+      for (let i = 0; i < emojis.length; i++) {
+        copiedGameState.queue.push({
+          name: emojis[i],
+          quad: 0,
+          numToCycleOut: 0,
+          crowns: 0,
+          totalWins: 0,
+          totalLosses: 0,
+          totalScore: 0,
+        });
+      }
+    }
 
     // check if name exists
     const alreadyExists = copiedGameState.queue.filter(
@@ -1015,6 +1019,28 @@ const PickleBallLaderPlay = () => {
     );
   }
 
+  function handleTOUCH(e) {
+    clearTimeout(doubleTouchCountdown.current);
+    doubleTouchCountdown.current = setTimeout(() => {
+      touchCount.current = 0;
+      setDoubleTouched(false);
+    }, 500);
+
+    touchCount.current = touchCount.current + 1;
+    if (touchCount.current === 2) {
+      const player = JSON.parse(e.target.dataset.player);
+      console.log("%cplayer:", "color: red", player);
+      setDoubleTouched(player);
+      clearTimeout(doubleTouchCountdown.current);
+    }
+  }
+
+  function resetDoubleTouch() {
+    touchCount.current = 0;
+    setDoubleTouched(false);
+  }
+
+  console.log("%cdoubleTouched:", "color: lime", doubleTouched);
   /**
    * Render
    */
@@ -1077,12 +1103,18 @@ const PickleBallLaderPlay = () => {
               return (
                 <div
                   draggable={true}
-                  className="player-name"
+                  className={`player-name${
+                    doubleTouched?.name === name
+                      ? " highlight-player-queue"
+                      : ""
+                  }`}
                   key={`${player}-${i}`}
                   onDragEnd={handleDragEnd}
                   onDragStart={handleDragStart}
                   data-player={playerData}
                   data-current-location={"queue"}
+                  onTouchStart={handleTOUCH}
+                  id={name}
                 >
                   <span>{name}</span>
                   {!dragging.isDragging && (
@@ -1228,6 +1260,7 @@ const PickleBallLaderPlay = () => {
                             draggable={true}
                             onDragEnd={handleDragEnd}
                             onDragStart={handleDragStart}
+                            onTouchStart={handleTOUCH}
                             data-player={JSON.stringify(
                               gameState.courts[courtNumber][`quad${quadNumber}`]
                             )}
@@ -1290,6 +1323,7 @@ const PickleBallLaderPlay = () => {
                         draggable={true}
                         onDragEnd={handleDragEnd}
                         onDragStart={handleDragStart}
+                        onTouchStart={handleTOUCH}
                         data-player={JSON.stringify(wait1)}
                         data-current-location={`wait-${courtNumber}-1`}
                       >
@@ -1307,6 +1341,7 @@ const PickleBallLaderPlay = () => {
                         draggable={true}
                         onDragEnd={handleDragEnd}
                         onDragStart={handleDragStart}
+                        onTouchStart={handleTOUCH}
                         data-player={JSON.stringify(wait2)}
                         data-current-location={`wait-${courtNumber}-2`}
                       >
@@ -1324,6 +1359,7 @@ const PickleBallLaderPlay = () => {
                         draggable={true}
                         onDragEnd={handleDragEnd}
                         onDragStart={handleDragStart}
+                        onTouchStart={handleTOUCH}
                         data-player={JSON.stringify(wait3)}
                         data-current-location={`wait-${courtNumber}-3`}
                       >
@@ -1341,6 +1377,7 @@ const PickleBallLaderPlay = () => {
                         draggable={true}
                         onDragEnd={handleDragEnd}
                         onDragStart={handleDragStart}
+                        onTouchStart={handleTOUCH}
                         data-player={JSON.stringify(wait4)}
                         data-current-location={`wait-${courtNumber}-4`}
                       >
