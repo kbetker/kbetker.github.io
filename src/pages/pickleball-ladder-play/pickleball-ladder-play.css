@@ -13,16 +13,6 @@
   grid-template-rows: 1fr 55px;
   overflow: hidden;
 
-  @media only screen and (max-width: 1600px) {
-    .courts {
-      grid-template-columns: 1fr !important;
-    }
-  }
-
-  h1 {
-    margin-left: 0;
-  }
-
   .queue {
     background-color: rgba(0, 0, 0, 0.5);
     padding: 1rem 4rem;
@@ -62,13 +52,17 @@
 
   .court-outer-container {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
   }
 
   .court-waiting-area,
   .court-quads-container {
+    box-sizing: border-box;
     background-color: rgb(35, 78, 35);
-    height: 7.375rem;
-    width: 22.75rem;
+    height: 10rem;
+    width: 20rem;
     display: grid;
     grid-template-columns: 1fr 1fr;
     position: relative;
@@ -152,6 +146,9 @@
     padding: 0.3125rem;
     justify-content: space-between;
     align-items: center;
+    &.span-1 {
+      grid-column: span 1;
+    }
     button {
       max-width: 12.5rem;
     }
@@ -269,7 +266,7 @@
     outline: 1px solid rgba(255, 153, 0, 0.281);
     outline-offset: 5px;
     button {
-      max-width: 18rem;
+      max-width: 20rem;
       align-self: center;
     }
   }
@@ -300,7 +297,7 @@
   }
 
   .court-waiting-area {
-    width: 16.75rem;
+    width: 20rem;
     /* display: flex; */
     /* flex-direction: column; */
     /* justify-content: center; */
@@ -313,8 +310,10 @@
   }
 
   .wait-room {
+    box-sizing: border-box;
     border: 1px solid rgb(39, 39, 39);
-    height: calc(7.175rem / 2);
+    height: calc(10rem / 2);
+    width: calc(20rem / 2);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -331,11 +330,13 @@
   }
 
   .court-quad {
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     border: solid 1px white;
-    height: calc(7.175rem / 2);
+    height: calc(10rem / 2);
+    width: calc(20rem / 2);
     &:nth-child(even) {
       padding-left: 1rem;
     }
@@ -393,7 +394,7 @@
     position: absolute;
     top: 0;
     left: calc(50% - (1.875rem / 2));
-    height: 7.375rem;
+    height: 10rem;
     width: 1.875rem;
   }
 
@@ -402,7 +403,7 @@
     position: absolute;
     top: 0;
     left: calc(50% - (0.3125rem / 2));
-    height: 7.375rem;
+    height: 10rem;
     width: 0.3125rem;
   }
 
@@ -416,6 +417,9 @@
   .highlight-player-queue {
     border: 1px solid white !important;
     box-shadow: 0 0 4px inset white;
+    &:hover {
+      filter: brightness(2);
+    }
   }
 
   .highlight-empty-court {
@@ -508,6 +512,86 @@
     }
     &:hover:active {
       outline: none;
+    }
+  }
+  h1 {
+    margin-left: 0;
+  }
+
+  @media only screen and (max-width: 1600px) {
+    .court-waiting-area,
+    .court-quads-container {
+      height: 7.5rem;
+      width: 15rem;
+    }
+    .queue {
+      min-width: 120px;
+    }
+    .court-quad,
+    .wait-room {
+      height: calc(7.5rem / 2);
+      width: calc(15rem / 2);
+    }
+    .kitchen,
+    .net {
+      height: 7.5rem;
+    }
+  }
+
+  @media only screen and (max-width: 1400px) {
+    .courts {
+      grid-template-columns: 1fr;
+    }
+    .court-waiting-area,
+    .court-quads-container {
+      height: 10rem;
+      width: 20rem;
+    }
+    .queue {
+      min-width: 175px;
+    }
+    .court-quad,
+    .wait-room {
+      height: calc(10rem / 2);
+      width: calc(20rem / 2);
+    }
+    .kitchen,
+    .net {
+      height: 10rem;
+    }
+  }
+
+  @media only screen and (max-width: 1080px) {
+    /* .courts {
+      grid-template-columns: 1fr;
+    } */
+    .court-waiting-area,
+    .court-quads-container {
+      height: 7.5rem;
+      width: 15rem;
+    }
+    .queue {
+      min-width: 120px;
+    }
+    .court-quad,
+    .wait-room {
+      height: calc(7.5rem / 2);
+      width: calc(15rem / 2);
+    }
+    .kitchen,
+    .net {
+      height: 7.5rem;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    .queue {
+      min-width: 220px;
+    }
+  }
+  @media only screen and (max-width: 650px) {
+    .court-outer-container {
+      display: grid;
     }
   }
 }

@@ -37,6 +37,9 @@ const PickleBallLaderPlay = () => {
   const touchCount = useRef(0);
   const doubleTouchCountdown = useRef(null);
   const [doubleTouched, setDoubleTouched] = useState(null);
+  const windowWidthDebounce = useRef(null);
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [showqueue, setShowQueue] = useState(true);
 
   /**
    * Handle Drag End
@@ -45,6 +48,27 @@ const PickleBallLaderPlay = () => {
     // may not need this function
     setDragging({ isDragging: false, playerData: "", draggingFrom: "" });
   }
+
+  /**
+   *  Sets windowWidth
+   */
+  function handleWindowResize() {
+    clearTimeout(windowWidthDebounce.current);
+    windowWidthDebounce.current = setTimeout(() => {
+      setWindowWidth(window.innerWidth);
+    }, 300);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      handleWindowResize();
+    });
+    return () => {
+      window.removeEventListener("resize", () => {
+        handleWindowResize();
+      });
+    };
+  }, []);
 
   /**
    * Handle Drag Start
@@ -71,6 +95,7 @@ const PickleBallLaderPlay = () => {
    * Handle Queue Drop
    */
   function dropToQueue(e) {
+    resetDoubleTouch();
     const copiedGameState = deepCopy(gameState);
     const copiedDragging = deepCopy(dragging);
     const courtNum = dragging.draggingFrom.split("-")[1];
@@ -136,6 +161,7 @@ const PickleBallLaderPlay = () => {
     }
     handleDragEnd();
     resetDoubleTouch();
+    clearTimeout(doubleTouchCountdown.current);
   }
 
   /**
@@ -309,7 +335,6 @@ const PickleBallLaderPlay = () => {
   /**
    * Handle Delete Player (for real)
    */
-
   function deletePlayerForReal(playerToDelete, copiedState, courtNum = null) {
     const copiedGameState = copiedState ?? deepCopy(gameState);
     const courts = copiedGameState.courts;
@@ -1023,6 +1048,7 @@ const PickleBallLaderPlay = () => {
    * Selecte Player to Move
    */
   function selectPlayerToMove(e) {
+    clearTimeout(doubleTouchCountdown.current);
     const playerData = JSON.parse(e.target.dataset.player);
     setDoubleTouched(playerData);
 
@@ -1079,174 +1105,189 @@ const PickleBallLaderPlay = () => {
           <div className="modal-inner-container">{modalJsx}</div>
         </div>
       )}
+      {!showqueue && <div>QUEUE</div>}
+      {showqueue && (
+        <div
+          className="queue"
+          onDragOver={handleDragOver}
+          onDrop={(e) => dropToQueue(e)}
+          onClick={(e) =>
+            doubleTouched
+              ? [
+                  dropToQueue(e),
+                  setDragging({
+                    isDragging: true,
+                    playerData: doubleTouched,
+                    draggingFrom: "queue",
+                  }),
+                ]
+              : null
+          }
+          // here
+        >
+          {gameState.currentMenu !== "set-court-num" && <h1>Queue</h1>}
 
-      <div
-        className="queue"
-        onDragOver={handleDragOver}
-        onDrop={(e) => dropToQueue(e)}
-      >
-        {gameState.currentMenu !== "set-court-num" && <h1>Queue</h1>}
-
-        {/* 
+          {/* 
       Set Number of Courts 
       */}
-        {gameState.currentMenu === "set-court-num" && (
-          <div className="set-court-num">
-            <h1 className="size-sm"># of courts</h1>
-            <input
-              type="number"
-              value={courtNumInput}
-              onChange={(e) => setCourtNumInput(e.target.value)}
-            />
-            <button onClick={handleCourtSubmit}>Submit</button>
-          </div>
-        )}
+          {gameState.currentMenu === "set-court-num" && (
+            <div className="set-court-num">
+              <h1 className="size-sm"># of courts</h1>
+              <input
+                type="number"
+                value={courtNumInput}
+                onChange={(e) => setCourtNumInput(e.target.value)}
+              />
+              <button onClick={handleCourtSubmit}>Submit</button>
+            </div>
+          )}
 
-        {/* 
+          {/* 
       Add Players 
       */}
-        {(gameState.currentMenu === "add-players" ||
-          gameState.currentMenu === "game-on") && (
-          <div className="add-players">
-            <div className="add-player-input">
-              <input
-                onChange={(e) => setPlayerInput(e.target.value)}
-                value={playerInput}
-              />
-              <button onClick={handleAddPlayer}>add</button>
-            </div>
-            {gameState.queue.map((player, i) => {
-              const playerData = JSON.stringify(player);
-              const { name } = player;
-              const deleteData = {
-                isDragging: false,
-                playerData: player,
-                draggingFrom: "queue",
-              };
-              return (
-                <div
-                  draggable={true}
-                  className={`player-name${
-                    doubleTouched?.name === name
-                      ? " highlight-player-queue"
-                      : ""
-                  }`}
-                  key={`${player}-${i}`}
-                  onDragEnd={handleDragEnd}
-                  onDragStart={handleDragStart}
-                  data-player={playerData}
-                  data-current-location={"queue"}
-                  onTouchStart={handleDoubleTouch}
-                  onDoubleClick={selectPlayerToMove}
-                  id={name}
-                >
-                  <span>{name}</span>
-                  {!dragging.isDragging && (
-                    <>
-                      <div className="button-container">
-                        <button
-                          className="delete-button"
-                          onClick={() => [
-                            handleEditClick(player),
-                            setShowModal(true),
-                          ]}
-                        >
-                          <Edit />
-                        </button>
-                        <button
-                          className="delete-button"
-                          onClick={() => deletePlayer(deleteData)}
-                        >
-                          <DeletedComponent />
-                        </button>
-                      </div>
-                    </>
-                  )}
-                </div>
-              );
-            })}
-            {gameState.currentMenu === "add-players" && (
-              <>
-                <div
-                  className={`random-checkbox-container${
-                    gameState.queue?.length < 8 ? " disabled" : ""
-                  }`}
-                >
-                  <input
-                    type="checkbox"
-                    value={random}
-                    onClick={() => {
-                      setRandom(!random);
-                    }}
-                    defaultChecked={true}
-                    id="random-start"
-                    name="random-start"
-                  />
-                  <label htmlFor="random-start">Random start</label>
-                </div>
-                <button
-                  className="start-button"
-                  onClick={handleStart}
-                  disabled={gameState.queue?.length < 8}
-                >
-                  {gameState.queue?.length < 8
-                    ? "Need at least 8 players"
-                    : "Start"}
-                </button>
-                <span className="manual-text">
-                  {!(gameState.queue?.length < 8) &&
-                    "(or manually place players)"}
-                </span>
-              </>
-            )}
-            {gameState.currentMenu === "game-on" && (
-              <div
-                className={`settings-button-container${
-                  editSettings ? " disabled" : ""
-                }`}
-              >
-                <SettingsSVG />
-                <button onClick={handleEditSettings}>Settings</button>
+          {(gameState.currentMenu === "add-players" ||
+            gameState.currentMenu === "game-on") && (
+            <div className="add-players">
+              <div className="add-player-input">
+                <input
+                  onChange={(e) => setPlayerInput(e.target.value)}
+                  value={playerInput}
+                />
+                <button onClick={handleAddPlayer}>add</button>
               </div>
-            )}
+              {gameState.queue.map((player, i) => {
+                const playerData = JSON.stringify(player);
+                const { name } = player;
+                const deleteData = {
+                  isDragging: false,
+                  playerData: player,
+                  draggingFrom: "queue",
+                };
+                return (
+                  <div
+                    draggable={true}
+                    className={`player-name${
+                      doubleTouched?.name === name
+                        ? " highlight-player-queue"
+                        : ""
+                    }`}
+                    key={`${player}-${i}`}
+                    onDragEnd={handleDragEnd}
+                    onDragStart={handleDragStart}
+                    data-player={playerData}
+                    data-current-location={"queue"}
+                    onTouchStart={handleDoubleTouch}
+                    onDoubleClick={selectPlayerToMove}
+                    id={name}
+                  >
+                    <span>{name}</span>
+                    {!dragging.isDragging && (
+                      <>
+                        <div className="button-container">
+                          <button
+                            className="delete-button"
+                            onClick={() => [
+                              handleEditClick(player),
+                              setShowModal(true),
+                            ]}
+                          >
+                            <Edit />
+                          </button>
+                          <button
+                            className="delete-button"
+                            onClick={() => deletePlayer(deleteData)}
+                          >
+                            <DeletedComponent />
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                );
+              })}
+              {gameState.currentMenu === "add-players" && (
+                <>
+                  <div
+                    className={`random-checkbox-container${
+                      gameState.queue?.length < 8 ? " disabled" : ""
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      value={random}
+                      onClick={() => {
+                        setRandom(!random);
+                      }}
+                      defaultChecked={true}
+                      id="random-start"
+                      name="random-start"
+                    />
+                    <label htmlFor="random-start">Random start</label>
+                  </div>
+                  <button
+                    className="start-button"
+                    onClick={handleStart}
+                    disabled={gameState.queue?.length < 8}
+                  >
+                    {gameState.queue?.length < 8
+                      ? "Need at least 8 players"
+                      : "Start"}
+                  </button>
+                  <span className="manual-text">
+                    {!(gameState.queue?.length < 8) &&
+                      "(or manually place players)"}
+                  </span>
+                </>
+              )}
+              {gameState.currentMenu === "game-on" && (
+                <div
+                  className={`settings-button-container${
+                    editSettings ? " disabled" : ""
+                  }`}
+                >
+                  <SettingsSVG />
+                  <button onClick={handleEditSettings}>Settings</button>
+                </div>
+              )}
 
-            {editSettings && tempSettingObj !== null && (
-              <div className="settings-container">
-                <div className="input-container">
-                  <input
-                    type="checkbox"
-                    id="cycleKings"
-                    name="cycle-kings"
-                    value={tempSettingObj?.cycleKings}
-                    checked={tempSettingObj?.cycleKings}
-                    onChange={updateSettings}
-                  />
-                  <label htmlFor="cycle-kings">Cycle Kings?</label>
+              {editSettings && tempSettingObj !== null && (
+                <div className="settings-container">
+                  <div className="input-container">
+                    <input
+                      type="checkbox"
+                      id="cycleKings"
+                      name="cycle-kings"
+                      value={tempSettingObj?.cycleKings}
+                      checked={tempSettingObj?.cycleKings}
+                      onChange={updateSettings}
+                    />
+                    <label htmlFor="cycle-kings">Cycle Kings?</label>
+                  </div>
+                  <div className="input-container">
+                    <input
+                      type="number"
+                      value={tempSettingObj?.numToCycleOut}
+                      onChange={updateSettings}
+                      id="numToCycleOut"
+                    />
+                    <span># to cycle</span>
+                  </div>
+                  <div className="input-container">
+                    <input
+                      type="number"
+                      value={tempSettingObj?.numOfCourts}
+                      onChange={updateSettings}
+                      id="numOfCourts"
+                    />
+                    <span># of courts</span>
+                  </div>
+                  <button onClick={confirmCourtReduction}>Submit</button>
                 </div>
-                <div className="input-container">
-                  <input
-                    type="number"
-                    value={tempSettingObj?.numToCycleOut}
-                    onChange={updateSettings}
-                    id="numToCycleOut"
-                  />
-                  <span># to cycle</span>
-                </div>
-                <div className="input-container">
-                  <input
-                    type="number"
-                    value={tempSettingObj?.numOfCourts}
-                    onChange={updateSettings}
-                    id="numOfCourts"
-                  />
-                  <span># of courts</span>
-                </div>
-                <button onClick={confirmCourtReduction}>Submit</button>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="courts">
         {Object.keys(gameState?.courts).map((courtNum) => {
@@ -1350,6 +1391,9 @@ const PickleBallLaderPlay = () => {
                   <div
                     onDragOver={handleDragOver}
                     onDrop={(e) => dropToCourt(e, "wait")}
+                    onClick={(e) =>
+                      doubleTouched ? dropToCourt(e, "wait") : null
+                    }
                     className={`wait-room ${courtNumber}-1 ${
                       doubleTouched?.name && !wait1?.name
                         ? "highlight-empty-wait"
@@ -1378,6 +1422,9 @@ const PickleBallLaderPlay = () => {
                   <div
                     onDragOver={handleDragOver}
                     onDrop={(e) => dropToCourt(e, "wait")}
+                    onClick={(e) =>
+                      doubleTouched ? dropToCourt(e, "wait") : null
+                    }
                     className={`wait-room ${courtNumber}-2 ${
                       doubleTouched?.name && !wait2?.name
                         ? "highlight-empty-wait"
@@ -1406,6 +1453,9 @@ const PickleBallLaderPlay = () => {
                   <div
                     onDragOver={handleDragOver}
                     onDrop={(e) => dropToCourt(e, "wait")}
+                    onClick={(e) =>
+                      doubleTouched ? dropToCourt(e, "wait") : null
+                    }
                     className={`wait-room ${courtNumber}-3 ${
                       doubleTouched?.name && !wait3?.name
                         ? "highlight-empty-wait"
@@ -1434,6 +1484,9 @@ const PickleBallLaderPlay = () => {
                   <div
                     onDragOver={handleDragOver}
                     onDrop={(e) => dropToCourt(e, "wait")}
+                    onClick={(e) =>
+                      doubleTouched ? dropToCourt(e, "wait") : null
+                    }
                     className={`wait-room ${courtNumber}-4 ${
                       doubleTouched?.name && !wait4?.name
                         ? "highlight-empty-wait"
@@ -1468,11 +1521,17 @@ const PickleBallLaderPlay = () => {
           );
         })}
       </div>
-      <div className="bottom-row">
+      <div
+        className={`bottom-row${
+          windowWidth < 400 && showqueue ? " span-1" : ""
+        }`}
+      >
         <>
-          <button className="help" onClick={handleHelp}>
-            <HelpSVG />
-          </button>
+          {windowWidth >= 400 && (
+            <button className="help" onClick={handleHelp}>
+              <HelpSVG />
+            </button>
+          )}
           <button
             className={`${undoHistory.length > 2 ? "" : "disabled"}`}
             onClick={handleUndo}
@@ -1485,35 +1544,42 @@ const PickleBallLaderPlay = () => {
           >
             Redo
           </button>
-          <div className="leader-board-container">
-            <div className="leader-name-container">
-              {gameState.leaderBoard.map((player, rank) => {
-                const { crowns, name, totalLosses, totalScore, totalWins } =
-                  player;
+          {windowWidth < 800 && (
+            <button onClick={() => setShowQueue(!showqueue)}>queue</button>
+          )}
+          {windowWidth >= 800 && (
+            <div className="leader-board-container">
+              <div className="leader-name-container">
+                {gameState.leaderBoard.map((player, rank) => {
+                  const { crowns, name, totalLosses, totalScore, totalWins } =
+                    player;
 
-                return (
-                  <div
-                    className="player-leaderboard"
-                    key={`key-leaderboard-${rank}`}
-                  >
-                    <div className="player-rank">{rank + 1}: </div>
-                    <div className="bolder leader-name">{name}</div> -{" "}
-                    <div className="stats-outer-container">
-                      <div
-                        className={`player-stats-container position-${leaderDataCount}`}
-                      >
-                        <div className="leaderStats">wins: {totalWins}</div>
-                        <div className="leaderStats">crowns: {crowns}</div>
-                        <div className="leaderStats">losses: {totalLosses}</div>
-                        <div className="leaderStats">total: {totalScore}</div>
+                  return (
+                    <div
+                      className="player-leaderboard"
+                      key={`key-leaderboard-${rank}`}
+                    >
+                      <div className="player-rank">{rank + 1}: </div>
+                      <div className="bolder leader-name">{name}</div> -{" "}
+                      <div className="stats-outer-container">
+                        <div
+                          className={`player-stats-container position-${leaderDataCount}`}
+                        >
+                          <div className="leaderStats">wins: {totalWins}</div>
+                          <div className="leaderStats">crowns: {crowns}</div>
+                          <div className="leaderStats">
+                            losses: {totalLosses}
+                          </div>
+                          <div className="leaderStats">total: {totalScore}</div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
+              <div className="leader-fade"> </div>
             </div>
-            <div className="leader-fade"> </div>
-          </div>
+          )}
         </>
       </div>
     </div>
