@@ -10,6 +10,11 @@ import {
   isEmpty,
   numberToArray,
 } from "./utilities";
+import AddPlayers from "./components/add-players";
+import WaitingRoom from "./components/waiting-room";
+import BottomRow from "./components/bottom-row";
+import ActiveCourt from "./components/active-court";
+import Settings from "./components/settings";
 //todo: Refactor the #@$&! out of this spaghetti mess
 // or... implement tablet touch.
 
@@ -1205,40 +1210,16 @@ const PickleBallLaderPlay = () => {
                   </div>
                 );
               })}
+              {/* {console.log("%crandom:", "color: lime", random)} */}
               {gameState.currentMenu === "add-players" && (
-                <>
-                  <div
-                    className={`random-checkbox-container${
-                      gameState.queue?.length < 8 ? " disabled" : ""
-                    }`}
-                  >
-                    <input
-                      type="checkbox"
-                      value={random}
-                      onClick={() => {
-                        setRandom(!random);
-                      }}
-                      defaultChecked={true}
-                      id="random-start"
-                      name="random-start"
-                    />
-                    <label htmlFor="random-start">Random start</label>
-                  </div>
-                  <button
-                    className="start-button"
-                    onClick={handleStart}
-                    disabled={gameState.queue?.length < 8}
-                  >
-                    {gameState.queue?.length < 8
-                      ? "Need at least 8 players"
-                      : "Start"}
-                  </button>
-                  <span className="manual-text">
-                    {!(gameState.queue?.length < 8) &&
-                      "(or manually place players)"}
-                  </span>
-                </>
+                <AddPlayers
+                  gameState={gameState}
+                  setRandom={setRandom}
+                  handleStart={handleStart}
+                  random={random}
+                />
               )}
+
               {gameState.currentMenu === "game-on" && (
                 <div
                   className={`settings-button-container${
@@ -1251,38 +1232,11 @@ const PickleBallLaderPlay = () => {
               )}
 
               {editSettings && tempSettingObj !== null && (
-                <div className="settings-container">
-                  <div className="input-container">
-                    <input
-                      type="checkbox"
-                      id="cycleKings"
-                      name="cycle-kings"
-                      value={tempSettingObj?.cycleKings}
-                      checked={tempSettingObj?.cycleKings}
-                      onChange={updateSettings}
-                    />
-                    <label htmlFor="cycle-kings">Cycle Kings?</label>
-                  </div>
-                  <div className="input-container">
-                    <input
-                      type="number"
-                      value={tempSettingObj?.numToCycleOut}
-                      onChange={updateSettings}
-                      id="numToCycleOut"
-                    />
-                    <span># to cycle</span>
-                  </div>
-                  <div className="input-container">
-                    <input
-                      type="number"
-                      value={tempSettingObj?.numOfCourts}
-                      onChange={updateSettings}
-                      id="numOfCourts"
-                    />
-                    <span># of courts</span>
-                  </div>
-                  <button onClick={confirmCourtReduction}>Submit</button>
-                </div>
+                <Settings
+                  tempSettingObj={tempSettingObj}
+                  updateSettings={updateSettings}
+                  confirmCourtReduction={confirmCourtReduction}
+                />
               )}
             </div>
           )}
@@ -1291,24 +1245,31 @@ const PickleBallLaderPlay = () => {
 
       <div className="courts">
         {Object.keys(gameState?.courts).map((courtNum) => {
-          const {
-            quad1,
-            quad2,
-            quad3,
-            quad4,
-            wait1,
-            wait2,
-            wait3,
-            wait4,
-            waitStatus,
-          } = gameState.courts[courtNum];
+          const { quad1, quad2, quad3, quad4, waitStatus } =
+            gameState.courts[courtNum];
           const courtNumber = parseInt(courtNum);
           return (
             <div
               key={`court-key-${courtNumber}`}
               className="court-outer-container"
             >
-              <div className="active-court">
+              <ActiveCourt
+                gameState={gameState}
+                handleDragOver={handleDragOver}
+                dropToCourt={dropToCourt}
+                doubleTouched={doubleTouched}
+                handleDragEnd={handleDragEnd}
+                handleDragStart={handleDragStart}
+                handleDoubleTouch={handleDoubleTouch}
+                selectPlayerToMove={selectPlayerToMove}
+                handleWinner={handleWinner}
+                quad2={quad2}
+                quad4={quad4}
+                quad1={quad1}
+                quad3={quad3}
+                courtNumber={courtNumber}
+              />
+              {/* <div className="active-court">
                 <h1>#{courtNumber}</h1>
                 <div className="court-quads-container">
                   {numberToArray(4).map((quadNumber) => {
@@ -1380,208 +1341,39 @@ const PickleBallLaderPlay = () => {
                     Winner
                   </button>
                 </div>
-              </div>
+              </div> */}
 
               {/* 
               Waiting Room 
               */}
-              <div className="court-waiting">
-                <h1>{waitStatus}</h1>
-                <div className={`court-waiting-area ${courtNumber}`}>
-                  <div
-                    onDragOver={handleDragOver}
-                    onDrop={(e) => dropToCourt(e, "wait")}
-                    onClick={(e) =>
-                      doubleTouched ? dropToCourt(e, "wait") : null
-                    }
-                    className={`wait-room ${courtNumber}-1 ${
-                      doubleTouched?.name && !wait1?.name
-                        ? "highlight-empty-wait"
-                        : ""
-                    }`}
-                  >
-                    {wait1?.name && (
-                      <p
-                        className={`${
-                          doubleTouched?.name === wait1?.name
-                            ? " highlight-player-queue"
-                            : ""
-                        }`}
-                        draggable={true}
-                        onDragEnd={handleDragEnd}
-                        onDragStart={handleDragStart}
-                        onTouchStart={handleDoubleTouch}
-                        onDoubleClick={selectPlayerToMove}
-                        data-player={JSON.stringify(wait1)}
-                        data-current-location={`wait-${courtNumber}-1`}
-                      >
-                        {wait1?.name}
-                      </p>
-                    )}
-                  </div>
-                  <div
-                    onDragOver={handleDragOver}
-                    onDrop={(e) => dropToCourt(e, "wait")}
-                    onClick={(e) =>
-                      doubleTouched ? dropToCourt(e, "wait") : null
-                    }
-                    className={`wait-room ${courtNumber}-2 ${
-                      doubleTouched?.name && !wait2?.name
-                        ? "highlight-empty-wait"
-                        : ""
-                    }`}
-                  >
-                    {wait2?.name && (
-                      <p
-                        className={`${
-                          doubleTouched?.name === wait2?.name
-                            ? " highlight-player-queue"
-                            : ""
-                        }`}
-                        draggable={true}
-                        onDragEnd={handleDragEnd}
-                        onDragStart={handleDragStart}
-                        onTouchStart={handleDoubleTouch}
-                        onDoubleClick={selectPlayerToMove}
-                        data-player={JSON.stringify(wait2)}
-                        data-current-location={`wait-${courtNumber}-2`}
-                      >
-                        {wait2?.name}
-                      </p>
-                    )}
-                  </div>
-                  <div
-                    onDragOver={handleDragOver}
-                    onDrop={(e) => dropToCourt(e, "wait")}
-                    onClick={(e) =>
-                      doubleTouched ? dropToCourt(e, "wait") : null
-                    }
-                    className={`wait-room ${courtNumber}-3 ${
-                      doubleTouched?.name && !wait3?.name
-                        ? "highlight-empty-wait"
-                        : ""
-                    }`}
-                  >
-                    {wait3?.name && (
-                      <p
-                        className={`${
-                          doubleTouched?.name === wait3?.name
-                            ? " highlight-player-queue"
-                            : ""
-                        }`}
-                        draggable={true}
-                        onDragEnd={handleDragEnd}
-                        onDragStart={handleDragStart}
-                        onTouchStart={handleDoubleTouch}
-                        onDoubleClick={selectPlayerToMove}
-                        data-player={JSON.stringify(wait3)}
-                        data-current-location={`wait-${courtNumber}-3`}
-                      >
-                        {wait3?.name}
-                      </p>
-                    )}
-                  </div>
-                  <div
-                    onDragOver={handleDragOver}
-                    onDrop={(e) => dropToCourt(e, "wait")}
-                    onClick={(e) =>
-                      doubleTouched ? dropToCourt(e, "wait") : null
-                    }
-                    className={`wait-room ${courtNumber}-4 ${
-                      doubleTouched?.name && !wait4?.name
-                        ? "highlight-empty-wait"
-                        : ""
-                    }`}
-                  >
-                    {wait4?.name && (
-                      <p
-                        className={`${
-                          doubleTouched?.name === wait4?.name
-                            ? " highlight-player-queue"
-                            : ""
-                        }`}
-                        draggable={true}
-                        onDragEnd={handleDragEnd}
-                        onDragStart={handleDragStart}
-                        onTouchStart={handleDoubleTouch}
-                        onDoubleClick={selectPlayerToMove}
-                        data-player={JSON.stringify(wait4)}
-                        data-current-location={`wait-${courtNumber}-4`}
-                      >
-                        {wait4?.name}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                <button onClick={() => handleStartGame(courtNum)}>
-                  Start Game
-                </button>
-              </div>
+              <WaitingRoom
+                gameState={gameState}
+                waitStatus={waitStatus}
+                courtNumber={courtNumber}
+                handleDragOver={handleDragOver}
+                handleDragEnd={handleDragEnd}
+                handleDragStart={handleDragStart}
+                handleDoubleTouch={handleDoubleTouch}
+                selectPlayerToMove={selectPlayerToMove}
+                handleStartGame={handleStartGame}
+              />
             </div>
           );
         })}
       </div>
-      <div
-        className={`bottom-row${
-          windowWidth < 400 && showqueue ? " span-1" : ""
-        }`}
-      >
-        <>
-          {windowWidth >= 400 && (
-            <button className="help" onClick={handleHelp}>
-              <HelpSVG />
-            </button>
-          )}
-          <button
-            className={`${undoHistory.length > 2 ? "" : "disabled"}`}
-            onClick={handleUndo}
-          >
-            Undo
-          </button>
-          <button
-            className={`${redoHistory.length > 0 ? "" : "disabled"}`}
-            onClick={handleRedo}
-          >
-            Redo
-          </button>
-          {windowWidth < 800 && (
-            <button onClick={() => setShowQueue(!showqueue)}>queue</button>
-          )}
-          {windowWidth >= 800 && (
-            <div className="leader-board-container">
-              <div className="leader-name-container">
-                {gameState.leaderBoard.map((player, rank) => {
-                  const { crowns, name, totalLosses, totalScore, totalWins } =
-                    player;
-
-                  return (
-                    <div
-                      className="player-leaderboard"
-                      key={`key-leaderboard-${rank}`}
-                    >
-                      <div className="player-rank">{rank + 1}: </div>
-                      <div className="bolder leader-name">{name}</div> -{" "}
-                      <div className="stats-outer-container">
-                        <div
-                          className={`player-stats-container position-${leaderDataCount}`}
-                        >
-                          <div className="leaderStats">wins: {totalWins}</div>
-                          <div className="leaderStats">crowns: {crowns}</div>
-                          <div className="leaderStats">
-                            losses: {totalLosses}
-                          </div>
-                          <div className="leaderStats">total: {totalScore}</div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="leader-fade"> </div>
-            </div>
-          )}
-        </>
-      </div>
+      <BottomRow
+        handleHelp={handleHelp}
+        HelpSVG={HelpSVG}
+        undoHistory={undoHistory}
+        handleUndo={handleUndo}
+        redoHistory={redoHistory}
+        handleRedo={handleRedo}
+        setShowQueue={setShowQueue}
+        showqueue={showqueue}
+        windowWidth={windowWidth}
+        gameState={gameState}
+        leaderDataCount={leaderDataCount}
+      />
     </div>
   );
 };
