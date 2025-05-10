@@ -25,6 +25,7 @@ const PickleBallLaderPlay = () => {
   const [editSettings, setEditSettings] = useState(false);
   const [tempSettingObj, setTempSettingsObj] = useState(null);
   const [tempSettingsCheck, setTempSettingsCheck] = useState(false);
+  const [tempShowScoreCheck, setTempShowScoreCheck] = useState(true);
   const [leaderDataCount, setLeaderDataCount] = useState(0);
   const currentLeaderCount = useRef(0);
   const [gameState, setGameState] = useState(initialGameState);
@@ -55,7 +56,7 @@ const PickleBallLaderPlay = () => {
   function handleWindowResize() {
     clearTimeout(windowWidthDebounce.current);
     windowWidthDebounce.current = setTimeout(() => {
-      if (window.innerWidth >= 800) {
+      if (window.innerWidth <= 800) {
         setShowQueue(true);
       }
       setWindowWidth(window.innerWidth);
@@ -718,7 +719,9 @@ const PickleBallLaderPlay = () => {
         }
       }
     }
-    setShowQueue(false);
+    if (windowWidth <= 800) {
+      setShowQueue(false);
+    }
     setGameState(copiedGameState);
     handleHistory(copiedGameState);
   }
@@ -886,6 +889,7 @@ const PickleBallLaderPlay = () => {
             value={editPlayerData?.numToCycleOut}
             id="edit-numToCycleOut"
             name="cycle-out"
+            type="number"
           />
         </div>
         <button onClick={submitEditPlayer}>Submit</button>
@@ -926,10 +930,10 @@ const PickleBallLaderPlay = () => {
   function handleEditSettings() {
     setTempSettingsObj({
       cycleKings: tempSettingsCheck,
+      showScore: tempShowScoreCheck,
       numToCycleOut: gameState.numToCycleOut,
       numOfCourts: Object.keys(gameState.courts).length,
     });
-    // setEditSettings(true);
     setEditSettings(!editSettings);
   }
 
@@ -939,11 +943,14 @@ const PickleBallLaderPlay = () => {
     const value = e.target.value;
     if (id === "cycleKings") {
       tempObjCopy[id] = !tempSettingsCheck;
+      setTempSettingsCheck(!tempSettingsCheck);
+    } else if (id === "showScore") {
+      tempObjCopy[id] = !tempShowScoreCheck;
+      setTempShowScoreCheck(!tempShowScoreCheck);
     } else {
       tempObjCopy[id] = parseInt(value);
     }
     setTempSettingsObj(tempObjCopy);
-    setTempSettingsCheck(!tempSettingsCheck);
   }
 
   function confirmCourtReduction(num) {
@@ -966,8 +973,8 @@ const PickleBallLaderPlay = () => {
 
   function submitUpdateSettings() {
     const newNumOfCourts = tempSettingObj.numOfCourts;
-    if (newNumOfCourts < 2) {
-      alert("Nope");
+    if (newNumOfCourts < 1) {
+      alert("Nope. You need at least one court man.");
       return;
     }
     const copiedGameState = deepCopy(gameState);
@@ -1010,6 +1017,7 @@ const PickleBallLaderPlay = () => {
 
     copiedGameState.cycleKings = tempSettingObj.cycleKings;
     copiedGameState.numToCycleOut = tempSettingObj.numToCycleOut;
+    copiedGameState.showScore = tempSettingObj.showScore;
 
     setGameState(copiedGameState);
     handleHistory(copiedGameState);
@@ -1066,14 +1074,16 @@ const PickleBallLaderPlay = () => {
       draggingFrom: e.target.dataset.currentLocation,
     };
     setDragging(wat);
-    setTimeout(() => {
-      setShowQueue(false);
-    }, 500);
+    if (windowWidth <= 800) {
+      setTimeout(() => {
+        setShowQueue(false);
+      }, 500);
+    }
 
     // reset
     doubleTouchCountdown.current = setTimeout(() => {
       resetDoubleTouch();
-    }, 5000);
+    }, 6000);
   }
 
   /**
@@ -1273,6 +1283,8 @@ const PickleBallLaderPlay = () => {
                   tempSettingObj={tempSettingObj}
                   updateSettings={updateSettings}
                   confirmCourtReduction={confirmCourtReduction}
+                  setTempSettingsObj={setTempSettingsObj}
+                  setEditSettings={setEditSettings}
                 />
               )}
             </div>

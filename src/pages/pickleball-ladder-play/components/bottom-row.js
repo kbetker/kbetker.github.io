@@ -43,32 +43,36 @@ const BottomRow = ({
         )}
         {windowWidth >= 800 && (
           <div className="leader-board-container">
-            <div className="leader-name-container">
-              {gameState.leaderBoard.map((player, rank) => {
-                const { crowns, name, totalLosses, totalScore, totalWins } =
-                  player;
+            {gameState.showScore && (
+              <div className="leader-name-container">
+                {gameState.leaderBoard.map((player, rank) => {
+                  const { crowns, name, totalLosses, totalScore, totalWins } =
+                    player;
 
-                return (
-                  <div
-                    className="player-leaderboard"
-                    key={`key-leaderboard-${rank}`}
-                  >
-                    <div className="player-rank">{rank + 1}: </div>
-                    <div className="bolder leader-name">{name}</div> -{" "}
-                    <div className="stats-outer-container">
-                      <div
-                        className={`player-stats-container position-${leaderDataCount}`}
-                      >
-                        <div className="leaderStats">wins: {totalWins}</div>
-                        <div className="leaderStats">crowns: {crowns}</div>
-                        <div className="leaderStats">losses: {totalLosses}</div>
-                        <div className="leaderStats">total: {totalScore}</div>
+                  return (
+                    <div
+                      className="player-leaderboard"
+                      key={`key-leaderboard-${rank}`}
+                    >
+                      <div className="player-rank">{rank + 1}: </div>
+                      <div className="bolder leader-name">{name}</div> -{" "}
+                      <div className="stats-outer-container">
+                        <div
+                          className={`player-stats-container position-${leaderDataCount}`}
+                        >
+                          <div className="leaderStats">wins: {totalWins}</div>
+                          <div className="leaderStats">crowns: {crowns}</div>
+                          <div className="leaderStats">
+                            losses: {totalLosses}
+                          </div>
+                          <div className="leaderStats">total: {totalScore}</div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
             <div className="leader-fade"> </div>
           </div>
         )}

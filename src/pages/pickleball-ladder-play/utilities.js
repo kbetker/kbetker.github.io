@@ -5,6 +5,7 @@ export const initialGameState = {
   queue: [],
   courts: {},
   leaderBoard: [],
+  showScore: true,
 };
 
 export const isEmpty = (obj) => {

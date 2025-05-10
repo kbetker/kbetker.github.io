@@ -4,7 +4,7 @@ const AddPlayers = ({ gameState, setRandom, handleStart, random }) => {
     <>
       <div
         className={`random-checkbox-container${
-          gameState.queue?.length < 6 ? " disabled" : ""
+          gameState.queue?.length < 5 ? " disabled" : ""
         }`}
       >
         <input
@@ -22,12 +22,12 @@ const AddPlayers = ({ gameState, setRandom, handleStart, random }) => {
       <button
         className="start-button"
         onClick={handleStart}
-        disabled={gameState.queue?.length < 8}
+        disabled={gameState.queue?.length < 5}
       >
-        {gameState.queue?.length < 8 ? "Need at least 5 players" : "Start"}
+        {gameState.queue?.length < 5 ? "Need at least 5 players" : "Start"}
       </button>
       <span className="manual-text">
-        {!(gameState.queue?.length < 8) && "(or manually place players)"}
+        {!(gameState.queue?.length < 5) && "(or manually place players)"}
       </span>
     </>
   );

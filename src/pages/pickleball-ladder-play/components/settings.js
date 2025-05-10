@@ -2,6 +2,8 @@ const Settings = ({
   tempSettingObj,
   updateSettings,
   confirmCourtReduction,
+  setTempSettingsObj,
+  setEditSettings,
 }) => {
   return (
     <div className="settings-container">
@@ -15,6 +17,17 @@ const Settings = ({
           onChange={updateSettings}
         />
         <label htmlFor="cycle-kings">Cycle Kings?</label>
+      </div>
+      <div className="input-container">
+        <input
+          type="checkbox"
+          id="showScore"
+          name="show-score"
+          value={tempSettingObj?.showScore}
+          checked={tempSettingObj?.showScore}
+          onChange={updateSettings}
+        />
+        <label htmlFor="show-score">Show score?</label>
       </div>
       <div className="input-container">
         <input
@@ -35,6 +48,11 @@ const Settings = ({
         <span># of courts</span>
       </div>
       <button onClick={confirmCourtReduction}>Submit</button>
+      <button
+        onClick={() => [setTempSettingsObj(null), setEditSettings(false)]}
+      >
+        Cancel
+      </button>
     </div>
   );
 };
