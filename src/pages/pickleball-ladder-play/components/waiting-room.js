@@ -20,7 +20,7 @@ const WaitingRoom = ({
       <h1>{waitStatus}</h1>
       <div className={`court-waiting-area ${courtNumber}`}>
         {numberToArray(4).map((waitNumber) => {
-          const quad =
+          const wait =
             gameState.courts[courtNumber][`wait${waitNumber}`] ?? null;
           return (
             <div
@@ -29,13 +29,13 @@ const WaitingRoom = ({
               onDrop={(e) => dropToCourt(e, "wait")}
               onClick={(e) => (doubleTouched ? dropToCourt(e, "wait") : null)}
               className={`wait-room ${courtNumber}-${waitNumber} ${
-                doubleTouched?.name && !quad.name ? "highlight-empty-wait" : ""
+                doubleTouched?.name && !wait?.name ? "highlight-empty-wait" : ""
               }`}
             >
-              {quad.name && (
+              {wait?.name && (
                 <p
                   className={`${
-                    doubleTouched?.name === quad.name
+                    doubleTouched?.name === wait?.name
                       ? " highlight-player-queue"
                       : ""
                   }`}
@@ -44,10 +44,10 @@ const WaitingRoom = ({
                   onDragStart={handleDragStart}
                   onTouchStart={handleDoubleTouch}
                   onDoubleClick={selectPlayerToMove}
-                  data-player={JSON.stringify(quad)}
+                  data-player={JSON.stringify(wait)}
                   data-current-location={`wait-${courtNumber}-${waitNumber}`}
                 >
-                  {quad.name}
+                  {wait.name}
                 </p>
               )}
             </div>

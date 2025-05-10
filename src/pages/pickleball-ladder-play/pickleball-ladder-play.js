@@ -49,7 +49,6 @@ const PickleBallLaderPlay = () => {
     // may not need this function
     setDragging({ isDragging: false, playerData: "", draggingFrom: "" });
   }
-
   /**
    *  Sets windowWidth
    */
@@ -345,7 +344,6 @@ const PickleBallLaderPlay = () => {
   function deletePlayerForReal(playerToDelete, copiedState, courtNum = null) {
     const copiedGameState = copiedState ?? deepCopy(gameState);
     const courts = copiedGameState.courts;
-
     if (playerToDelete.draggingFrom === "queue") {
       const newQueue = copiedGameState.queue.filter(
         (el) => el.name !== playerToDelete.playerData.name
@@ -439,7 +437,6 @@ const PickleBallLaderPlay = () => {
     const courtNum = Object.keys(copiedGameState.courts).length;
     const allPlayers = [];
     allPlayers.push(...copiedGameState.queue);
-
     for (let court = 1; court <= courtNum; court++) {
       for (let area = 1; area <= 4; area++) {
         const quad = copiedGameState.courts[court][`quad${area}`];
@@ -599,7 +596,6 @@ const PickleBallLaderPlay = () => {
     theLosers.forEach((loserQuad, index) => {
       const loser = copiedGameState.courts?.[courtData.courtNum]?.[loserQuad];
       const quadNum = loserQuad.split("quad")[1];
-
       // helper function. not the best name
       const delTacoed = (player) =>
         deletePlayerForReal(
@@ -625,7 +621,6 @@ const PickleBallLaderPlay = () => {
           delTacoed(player);
         }
       };
-
       //helper function: add newcomer to bottom court
       const addNewcomerToTop = (court, newComer) => {
         if (index === 0 && isEmpty(court.wait1)) {
@@ -636,10 +631,25 @@ const PickleBallLaderPlay = () => {
         }
       };
 
+      //helper function: add newcomer to bottom court
+      const addNewcomerToBottom = (court, newComer) => {
+        if (index === 0 && isEmpty(court.wait3)) {
+          court.wait3 = newComer;
+        }
+        if (index === 1 && isEmpty(court.wait4)) {
+          court.wait4 = newComer;
+        }
+      };
+
       if (courtNum === totalNumOfCourts && !isEmpty(loser)) {
         if (copiedGameState.queue.length >= 1) {
           const newComer = copiedGameState.queue.shift();
-          addNewcomerToTop(courts, newComer);
+          if (totalNumOfCourts === 1) {
+            addNewcomerToBottom(courts, newComer);
+          } else {
+            addNewcomerToTop(courts, newComer);
+          }
+
           loser.totalLosses++;
           copiedGameState.queue.push(loser);
         } else {
