@@ -39,6 +39,7 @@ const PickleBallLaderPlay = () => {
   const windowWidthDebounce = useRef(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [showqueue, setShowQueue] = useState(true);
+  const playerNameInput = useRef(null);
 
   /**
    * Handle Drag End
@@ -329,6 +330,9 @@ const PickleBallLaderPlay = () => {
       totalScore: 0,
     });
     setPlayerInput("");
+    if (playerNameInput.current) {
+      playerNameInput.current.focus();
+    }
 
     setGameState(copiedGameState);
     handleHistory(copiedGameState);
@@ -1190,6 +1194,7 @@ const PickleBallLaderPlay = () => {
                 <input
                   onChange={(e) => setPlayerInput(e.target.value)}
                   value={playerInput}
+                  ref={playerNameInput}
                 />
                 <button onClick={handleAddPlayer}>add</button>
               </div>
