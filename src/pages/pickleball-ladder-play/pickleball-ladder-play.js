@@ -1,22 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./pickleball-ladder-play.css";
-import DeletedComponent from "./deleted";
-import Edit from "./edit";
-import SettingsSVG from "./settings-svg";
-import HelpSVG from "./help";
-import {
-  initialGameState,
-  deepCopy,
-  isEmpty,
-  numberToArray,
-} from "./utilities";
+import DeletedComponent from "./svgs/deleted-svg";
+import Edit from "./svgs/edit-svg";
+import SettingsSVG from "./svgs/settings-svg";
+import HelpSVG from "./svgs/help-svg";
+import { initialGameState, deepCopy, isEmpty } from "./utilities";
 import AddPlayers from "./components/add-players";
 import WaitingRoom from "./components/waiting-room";
 import BottomRow from "./components/bottom-row";
 import ActiveCourt from "./components/active-court";
 import Settings from "./components/settings";
 //todo: Refactor the #@$&! out of this spaghetti mess
-// or... implement tablet touch.
 
 const PickleBallLaderPlay = () => {
   const [redoHistory, setRedoHistory] = useState([]);
@@ -43,7 +37,7 @@ const PickleBallLaderPlay = () => {
   const doubleTouchCountdown = useRef(null);
   const [doubleTouched, setDoubleTouched] = useState(null);
   const windowWidthDebounce = useRef(null);
-  const [windowWidth, setWindowWidth] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [showqueue, setShowQueue] = useState(true);
 
   /**
@@ -60,6 +54,9 @@ const PickleBallLaderPlay = () => {
   function handleWindowResize() {
     clearTimeout(windowWidthDebounce.current);
     windowWidthDebounce.current = setTimeout(() => {
+      if (window.innerWidth >= 800) {
+        setShowQueue(true);
+      }
       setWindowWidth(window.innerWidth);
     }, 300);
   }
@@ -135,8 +132,8 @@ const PickleBallLaderPlay = () => {
 
       // remove player from current location if in court
       if (copiedDragging.draggingFrom !== "queue") {
-        deletePlayerForReal(copiedDragging, copiedGameState, courtNum);
         handleDragEnd();
+        deletePlayerForReal(copiedDragging, copiedGameState, courtNum);
         return;
       }
 
@@ -274,7 +271,7 @@ const PickleBallLaderPlay = () => {
 
     //for testing
     const emojis = [
-      "Kevin B",
+      "Kevin Beeeeee",
       "Zhen",
       "Dan",
       "Eric",
@@ -372,8 +369,9 @@ const PickleBallLaderPlay = () => {
 
     const leaders = buildLeaderBoard(copiedGameState);
     copiedGameState.leaderBoard = leaders;
-
-    handleDragEnd();
+    setTimeout(() => {
+      handleDragEnd();
+    }, 300);
     setGameState(copiedGameState);
     handleHistory(copiedGameState);
   }
@@ -716,6 +714,7 @@ const PickleBallLaderPlay = () => {
         }
       }
     }
+    setShowQueue(false);
     setGameState(copiedGameState);
     handleHistory(copiedGameState);
   }
@@ -1063,6 +1062,9 @@ const PickleBallLaderPlay = () => {
       draggingFrom: e.target.dataset.currentLocation,
     };
     setDragging(wat);
+    setTimeout(() => {
+      setShowQueue(false);
+    }, 500);
 
     // reset
     doubleTouchCountdown.current = setTimeout(() => {
@@ -1095,12 +1097,20 @@ const PickleBallLaderPlay = () => {
     setDoubleTouched(null);
   }
 
+  // Somehow fixes a minor bug where queue doesn't show
+  function returnQueueTitle() {
+    return "Queue";
+  }
+
   /**
    * Render
    */
   // Help modal
   return (
-    <div className="pickelball-ladder-play" ref={ladderContainer}>
+    <div
+      className={`pickelball-ladder-play${showqueue ? " show-queue" : ""}`}
+      ref={ladderContainer}
+    >
       {showModal && (
         <div
           className="modal-container"
@@ -1110,7 +1120,29 @@ const PickleBallLaderPlay = () => {
           <div className="modal-inner-container">{modalJsx}</div>
         </div>
       )}
-      {!showqueue && <div>QUEUE</div>}
+      {!showqueue && (
+        <div
+          className={`compact-queue${
+            doubleTouched !== null ? " highlight-queue" : ""
+          }`}
+          onDragOver={handleDragOver}
+          onDrop={(e) => dropToQueue(e)}
+          onClick={(e) =>
+            doubleTouched
+              ? [
+                  dropToQueue(e),
+                  setDragging({
+                    isDragging: true,
+                    playerData: doubleTouched,
+                    draggingFrom: "queue",
+                  }),
+                ]
+              : null
+          }
+        >
+          QUEUE
+        </div>
+      )}
       {showqueue && (
         <div
           className="queue"
@@ -1128,9 +1160,10 @@ const PickleBallLaderPlay = () => {
                 ]
               : null
           }
-          // here
         >
-          {gameState.currentMenu !== "set-court-num" && <h1>Queue</h1>}
+          {gameState.currentMenu !== "set-court-num" && (
+            <h1>{returnQueueTitle()}</h1>
+          )}
 
           {/* 
       Set Number of Courts 
@@ -1210,7 +1243,6 @@ const PickleBallLaderPlay = () => {
                   </div>
                 );
               })}
-              {/* {console.log("%crandom:", "color: lime", random)} */}
               {gameState.currentMenu === "add-players" && (
                 <AddPlayers
                   gameState={gameState}
@@ -1269,79 +1301,6 @@ const PickleBallLaderPlay = () => {
                 quad3={quad3}
                 courtNumber={courtNumber}
               />
-              {/* <div className="active-court">
-                <h1>#{courtNumber}</h1>
-                <div className="court-quads-container">
-                  {numberToArray(4).map((quadNumber) => {
-                    const quad =
-                      gameState.courts[courtNumber][`quad${quadNumber}`] ??
-                      null;
-                    return (
-                      <div
-                        onDragOver={handleDragOver}
-                        onDrop={(e) => dropToCourt(e, "quad")}
-                        onClick={(e) =>
-                          doubleTouched ? dropToCourt(e, "quad") : null
-                        }
-                        className={`court-quad ${courtNumber}-${quadNumber} ${
-                          !quad?.name && doubleTouched?.name
-                            ? "highlight-empty-court"
-                            : ""
-                        }`}
-                        key={`quad-num-${quadNumber}`}
-                      >
-                        {quad?.name && (
-                          <p
-                            className={`${
-                              doubleTouched?.name === quad?.name
-                                ? " highlight-player-queue"
-                                : ""
-                            }`}
-                            draggable={true}
-                            onDragEnd={handleDragEnd}
-                            onDragStart={handleDragStart}
-                            onTouchStart={handleDoubleTouch}
-                            onDoubleClick={selectPlayerToMove}
-                            data-player={JSON.stringify(quad)}
-                            data-current-location={`quad-${courtNumber}-${quadNumber}`}
-                          >
-                            {quad.name}
-                          </p>
-                        )}
-                      </div>
-                    );
-                  })}
-
-                  <div className="kitchen"></div>
-                  <div className="net"></div>
-                </div>
-                <div className="winner-buttons">
-                  <button
-                    className="winner-button"
-                    onClick={() =>
-                      handleWinner({
-                        winners: { quad1, quad3 },
-                        losers: { quad2, quad4 },
-                        courtNum: courtNumber,
-                      })
-                    }
-                  >
-                    Winner
-                  </button>
-                  <button
-                    className="winner-button"
-                    onClick={() =>
-                      handleWinner({
-                        winners: { quad2, quad4 },
-                        losers: { quad1, quad3 },
-                        courtNum: courtNumber,
-                      })
-                    }
-                  >
-                    Winner
-                  </button>
-                </div>
-              </div> */}
 
               {/* 
               Waiting Room 
@@ -1356,6 +1315,9 @@ const PickleBallLaderPlay = () => {
                 handleDoubleTouch={handleDoubleTouch}
                 selectPlayerToMove={selectPlayerToMove}
                 handleStartGame={handleStartGame}
+                doubleTouched={doubleTouched}
+                dropToCourt={dropToCourt}
+                courtNum={courtNum}
               />
             </div>
           );

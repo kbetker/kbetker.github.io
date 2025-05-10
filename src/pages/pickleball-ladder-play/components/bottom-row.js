@@ -1,3 +1,6 @@
+import Visible from "../svgs/visible-svg";
+import Hidden from "../svgs/hidden-svg";
+
 const BottomRow = ({
   handleHelp,
   HelpSVG,
@@ -34,7 +37,9 @@ const BottomRow = ({
           Redo
         </button>
         {windowWidth < 800 && (
-          <button onClick={() => setShowQueue(!showqueue)}>queue</button>
+          <button onClick={() => setShowQueue(!showqueue)}>
+            {showqueue ? <Hidden /> : <Visible />} queue
+          </button>
         )}
         {windowWidth >= 800 && (
           <div className="leader-board-container">

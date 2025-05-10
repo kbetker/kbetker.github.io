@@ -33,6 +33,7 @@
     gap: 2rem;
     padding: 2rem;
     overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .court-waiting {
@@ -151,6 +152,10 @@
     }
     button {
       max-width: 12.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.4rem;
     }
   }
 
@@ -422,6 +427,13 @@
     }
   }
 
+  .highlight-queue {
+    cursor: pointer;
+    box-sizing: border-box;
+    /* border: 1px solid rgb(255, 255, 255); */
+    animation: animate-queue-outline 1s ease-in-out infinite;
+  }
+
   .highlight-empty-court {
     cursor: pointer;
     box-sizing: border-box;
@@ -518,7 +530,7 @@
     margin-left: 0;
   }
 
-  @media only screen and (max-width: 1600px) {
+  @media only screen and (max-width: 1660px) {
     .court-waiting-area,
     .court-quads-container {
       height: 7.5rem;
@@ -538,7 +550,17 @@
     }
   }
 
-  @media only screen and (max-width: 1400px) {
+  .compact-queue {
+    background-color: rgba(0, 0, 0, 0.697);
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: sideways-lr;
+    font-size: xx-large;
+  }
+
+  @media only screen and (max-width: 1300px) {
     .courts {
       grid-template-columns: 1fr;
     }
@@ -583,15 +605,73 @@
       height: 7.5rem;
     }
   }
+}
 
-  @media only screen and (max-width: 800px) {
-    .queue {
-      min-width: 220px;
+@media only screen and (max-width: 800px) {
+  .pickelball-ladder-play {
+    grid-template-columns: 60px 1fr;
+    &.show-queue {
+      grid-template-columns: 10fr 0px;
     }
   }
-  @media only screen and (max-width: 650px) {
+}
+@media only screen and (max-width: 680px) {
+  .pickelball-ladder-play {
+    h1 {
+      font-size: x-large;
+    }
     .court-outer-container {
       display: grid;
+    }
+
+    .court-waiting-area,
+    .court-quads-container {
+      height: 10.5rem;
+      width: 24rem;
+    }
+    .queue {
+      min-width: 120px;
+    }
+    .court-quad,
+    .wait-room {
+      height: calc(10.5rem / 2);
+      width: calc(24rem / 2);
+    }
+    .kitchen,
+    .net {
+      height: 10.5rem;
+    }
+    .court-outer-container {
+      gap: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .pickelball-ladder-play {
+    h1 {
+      font-size: x-large;
+    }
+    .court-outer-container {
+      display: grid;
+    }
+
+    .court-waiting-area,
+    .court-quads-container {
+      height: 7rem;
+      width: 16rem;
+    }
+    .queue {
+      min-width: 120px;
+    }
+    .court-quad,
+    .wait-room {
+      height: calc(7rem / 2);
+      width: calc(16rem / 2);
+    }
+    .kitchen,
+    .net {
+      height: 7rem;
     }
   }
 }
@@ -620,4 +700,21 @@
   100% {
     box-shadow: 0 0 4px 2px inset rgb(62, 153, 228);
   }
+}
+
+@keyframes animate-queue-outline {
+  0% {
+    box-shadow: 0 0 4px 2px inset rgb(180, 180, 180);
+  }
+
+  50% {
+    box-shadow: 0 0 6px 4px inset rgb(180, 180, 180);
+  }
+  100% {
+    box-shadow: 0 0 4px 2px inset rgb(180, 180, 180);
+  }
+}
+
+.display-none {
+  display: none;
 }
