@@ -16,7 +16,7 @@ const PickleBallLaderPlay = () => {
   const [redoHistory, setRedoHistory] = useState([]);
   const [playerInput, setPlayerInput] = useState("");
   const [random, setRandom] = useState(true);
-  const [courtNumInput, setCourtNumInput] = useState(4);
+  const [courtNumInput, setCourtNumInput] = useState(2);
   const ladderContainer = useRef(null);
   const [keypressed, setKeyPressed] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -241,9 +241,9 @@ const PickleBallLaderPlay = () => {
 
   useEffect(() => {
     // / numOfCourts
-    if (courtNumInput < 2) {
-      alert("Minimum of 2 courts needed");
-      setCourtNumInput(2);
+    if (courtNumInput < 1) {
+      alert("Minimum of 1 court needed");
+      setCourtNumInput(1);
     }
     buildCourts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -270,45 +270,45 @@ const PickleBallLaderPlay = () => {
     const copiedGameState = deepCopy(gameState);
 
     //for testing
-    const emojis = [
-      "Kevin Beeeeee",
-      "Zhen",
-      "Dan",
-      "Eric",
-      "Jason",
-      "YiFie",
-      "Mike",
-      "Bernie",
-      "Elrond",
-      "Kevin Yu",
-      "Desheng",
-      "Bobert",
-      "Vladimir",
-      "Ack",
-      "Dillup",
-      "Johl",
-      "Lollerp",
-      "Yabble",
-      "Wonka",
-      "Derf",
-      "Muthro",
-      "Jammit",
-    ];
+    // const emojis = [
+    //   "Kevin Beeeeee",
+    //   "Zhen",
+    //   "Dan",
+    //   "Eric",
+    //   "Jason",
+    //   "YiFie",
+    //   "Mike",
+    //   "Bernie",
+    //   "Elrond",
+    //   "Kevin Yu",
+    //   "Desheng",
+    //   "Bobert",
+    //   "Vladimir",
+    //   "Ack",
+    //   "Dillup",
+    //   "Johl",
+    //   "Lollerp",
+    //   "Yabble",
+    //   "Wonka",
+    //   "Derf",
+    //   "Muthro",
+    //   "Jammit",
+    // ];
 
     // for testing
-    if (copiedGameState.queue.length === 0) {
-      for (let i = 0; i < emojis.length; i++) {
-        copiedGameState.queue.push({
-          name: emojis[i],
-          quad: 0,
-          numToCycleOut: 0,
-          crowns: 0,
-          totalWins: 0,
-          totalLosses: 0,
-          totalScore: 0,
-        });
-      }
-    }
+    // if (copiedGameState.queue.length === 0) {
+    //   for (let i = 0; i < emojis.length; i++) {
+    //     copiedGameState.queue.push({
+    //       name: emojis[i],
+    //       quad: 0,
+    //       numToCycleOut: 0,
+    //       crowns: 0,
+    //       totalWins: 0,
+    //       totalLosses: 0,
+    //       totalScore: 0,
+    //     });
+    //   }
+    // }
 
     // check if name exists
     const alreadyExists = copiedGameState.queue.filter(
