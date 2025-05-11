@@ -466,7 +466,7 @@ const PickleBallLaderPlay = () => {
 
     return leaders;
   }
-
+  console.log("%cgameState:", "color: red", gameState);
   /**
    * Handle Winner
    */
@@ -523,74 +523,6 @@ const PickleBallLaderPlay = () => {
         }
       }
     }
-
-    // Handle winners
-    theWinners.forEach((winnerQuad, index) => {
-      const winner = copiedGameState.courts?.[courtData.courtNum]?.[winnerQuad];
-      const quadNum = winnerQuad.split("quad")[1];
-
-      // helper function. not the best name
-      const delTacoed = () =>
-        deletePlayerForReal(
-          {
-            draggingFrom: `quad-${courtNum}-${quadNum}`,
-            isDragging: true,
-            playerData: winner,
-          },
-          copiedGameState,
-          courtNum
-        );
-
-      //helper function: add winner to top court
-      const addWinnerToTopCourt = (court) => {
-        if (index === 0 && isEmpty(court.wait1)) {
-          court.wait1 = winner;
-          winner.totalWins++;
-          delTacoed();
-        }
-        if (index === 1 && isEmpty(court.wait2)) {
-          court.wait2 = winner;
-          winner.totalWins++;
-          delTacoed();
-        }
-      };
-
-      //helper function: add winner to bottom court
-      const addWinnerToBottomCourts = (court) => {
-        if (index === 0 && isEmpty(court.wait3)) {
-          court.wait3 = winner;
-          winner.totalWins++;
-          delTacoed();
-        }
-        if (index === 1 && isEmpty(court.wait4)) {
-          court.wait4 = winner;
-          winner.totalWins++;
-          delTacoed();
-        }
-      };
-
-      if (courtNum === 1 && !isEmpty(winner)) {
-        winner.numToCycleOut++;
-        winner.crowns++;
-
-        if (
-          copiedGameState.cycleKings &&
-          winner.numToCycleOut >= copiedGameState.numToCycleOut
-        ) {
-          winner.numToCycleOut = 0;
-          copiedGameState.queue.push(winner);
-          delTacoed();
-        } else {
-          addWinnerToTopCourt(courts);
-        }
-      } else if (!isEmpty(winner)) {
-        if (courtNum - 1 === 1) {
-          addWinnerToBottomCourts(higherCourts);
-        } else {
-          addWinnerToTopCourt(higherCourts);
-        }
-      }
-    });
 
     // Handle losers
     theLosers.forEach((loserQuad, index) => {
@@ -658,6 +590,74 @@ const PickleBallLaderPlay = () => {
         delTacoed(loser);
       } else if (!isEmpty(loser)) {
         addLosersToBottomCourts(lowerCourts, loser);
+      }
+    });
+
+    // Handle winners
+    theWinners.forEach((winnerQuad, index) => {
+      const winner = copiedGameState.courts?.[courtData.courtNum]?.[winnerQuad];
+      const quadNum = winnerQuad.split("quad")[1];
+
+      // helper function. not the best name
+      const delTacoed = () =>
+        deletePlayerForReal(
+          {
+            draggingFrom: `quad-${courtNum}-${quadNum}`,
+            isDragging: true,
+            playerData: winner,
+          },
+          copiedGameState,
+          courtNum
+        );
+
+      //helper function: add winner to top court
+      const addWinnerToTopCourt = (court) => {
+        if (index === 0 && isEmpty(court.wait1)) {
+          court.wait1 = winner;
+          winner.totalWins++;
+          delTacoed();
+        }
+        if (index === 1 && isEmpty(court.wait2)) {
+          court.wait2 = winner;
+          winner.totalWins++;
+          delTacoed();
+        }
+      };
+
+      //helper function: add winner to bottom court
+      const addWinnerToBottomCourts = (court) => {
+        if (index === 0 && isEmpty(court.wait3)) {
+          court.wait3 = winner;
+          winner.totalWins++;
+          delTacoed();
+        }
+        if (index === 1 && isEmpty(court.wait4)) {
+          court.wait4 = winner;
+          winner.totalWins++;
+          delTacoed();
+        }
+      };
+
+      if (courtNum === 1 && !isEmpty(winner)) {
+        winner.numToCycleOut++;
+        winner.crowns++;
+
+        if (
+          copiedGameState.cycleKings &&
+          winner.numToCycleOut >= copiedGameState.numToCycleOut
+        ) {
+          winner.numToCycleOut = 0;
+          copiedGameState.queue.push(winner);
+          delTacoed();
+        } else {
+          addWinnerToTopCourt(courts);
+        }
+      } else if (!isEmpty(winner)) {
+        if (courtNum - 1 === 1) {
+          addWinnerToBottomCourts(higherCourts);
+        } else {
+          addWinnerToTopCourt(higherCourts);
+        }
       }
     });
   }
