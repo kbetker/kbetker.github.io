@@ -23,7 +23,13 @@ const PickleBallLaderPlay = () => {
   const [modalJsx, setModalJsx] = useState(<></>);
   const [editPlayerData, setEditPlayerData] = useState(null);
   const [editSettings, setEditSettings] = useState(false);
-  const [tempSettingObj, setTempSettingsObj] = useState(null);
+  const [tempSettingObj, setTempSettingsObj] = useState({
+    cycleKings: false,
+    showScore: true,
+    numToCycleOut: 3,
+    numOfCourts: 2,
+    crownValue: 0.5,
+  });
   const [tempSettingsCheck, setTempSettingsCheck] = useState(false);
   const [tempShowScoreCheck, setTempShowScoreCheck] = useState(true);
   const [leaderDataCount, setLeaderDataCount] = useState(0);
@@ -450,10 +456,11 @@ const PickleBallLaderPlay = () => {
         }
       }
     }
-
+    console.log("%ccopiedGameState:", "color: red", copiedGameState);
     allPlayers.forEach((player) => {
       const { totalWins, totalLosses, crowns } = player;
-      player.totalScore = totalWins - totalLosses + crowns / 2;
+      player.totalScore =
+        totalWins - totalLosses + crowns * copiedGameState.crownValue;
     });
 
     const playersOnTheBoard = allPlayers.filter(
@@ -466,7 +473,7 @@ const PickleBallLaderPlay = () => {
 
     return leaders;
   }
-  console.log("%cgameState:", "color: red", gameState);
+
   /**
    * Handle Winner
    */
@@ -513,8 +520,12 @@ const PickleBallLaderPlay = () => {
       }
     }
 
-    //Check #1 court
-    if (courtNum === 1) {
+    // Check #1 court
+    // Check if noone in queue, and if players in the upper part of the waiting room
+    if (
+      courtNum === 1 ||
+      (courtNum === totalNumOfCourts && gameState.queue.length === 0)
+    ) {
       for (let i = 1; i <= 2; i++) {
         const emptyCourt = isEmpty(courts[`wait${i}`]);
         if (!emptyCourt) {
@@ -943,9 +954,29 @@ const PickleBallLaderPlay = () => {
       showScore: tempShowScoreCheck,
       numToCycleOut: gameState.numToCycleOut,
       numOfCourts: Object.keys(gameState.courts).length,
+      crownValue: gameState.crownValue,
     });
-    setEditSettings(!editSettings);
+    // setEditSettings(!editSettings);
+
+    setShowModal(true);
   }
+
+  useEffect(() => {
+    setModalJsx(
+      <Settings
+        tempSettingObj={tempSettingObj}
+        updateSettings={updateSettings}
+        confirmCourtReduction={confirmCourtReduction}
+        setTempSettingsObj={setTempSettingsObj}
+        setEditSettings={setEditSettings}
+        closeModal={closeModal}
+        gameState={gameState}
+        tempShowScoreCheck={tempShowScoreCheck}
+        tempSettingsCheck={tempSettingsCheck}
+      />
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tempSettingObj]);
 
   function updateSettings(e) {
     const tempObjCopy = deepCopy(tempSettingObj);
@@ -957,8 +988,10 @@ const PickleBallLaderPlay = () => {
     } else if (id === "showScore") {
       tempObjCopy[id] = !tempShowScoreCheck;
       setTempShowScoreCheck(!tempShowScoreCheck);
+    } else if (parseFloat(value)) {
+      tempObjCopy[id] = parseFloat(value);
     } else {
-      tempObjCopy[id] = parseInt(value);
+      tempObjCopy[id] = value;
     }
     setTempSettingsObj(tempObjCopy);
   }
@@ -1028,14 +1061,15 @@ const PickleBallLaderPlay = () => {
     copiedGameState.cycleKings = tempSettingObj.cycleKings;
     copiedGameState.numToCycleOut = tempSettingObj.numToCycleOut;
     copiedGameState.showScore = tempSettingObj.showScore;
+    copiedGameState.crownValue = tempSettingObj.crownValue;
 
     setGameState(copiedGameState);
     handleHistory(copiedGameState);
     closeModal("modal-container");
-    setTempSettingsObj(null);
+    // setTempSettingsObj(null);
     setEditSettings(false);
   }
-
+  console.log("%cgameState:", "color: lime", gameState);
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (currentLeaderCount.current === 3) {
@@ -1192,6 +1226,7 @@ const PickleBallLaderPlay = () => {
           {/* 
       Set Number of Courts 
       */}
+
           {gameState.currentMenu === "set-court-num" && (
             <div className="set-court-num">
               <h1 className="size-sm"># of courts</h1>
@@ -1277,7 +1312,7 @@ const PickleBallLaderPlay = () => {
                 />
               )}
 
-              {gameState.currentMenu === "game-on" && (
+              {/* {gameState.currentMenu === "game-on" && (
                 <div
                   className={`settings-button-container${
                     editSettings ? " disabled" : ""
@@ -1286,8 +1321,8 @@ const PickleBallLaderPlay = () => {
                   <SettingsSVG />
                   <button onClick={handleEditSettings}>Settings</button>
                 </div>
-              )}
-
+              )} */}
+              {/* 
               {editSettings && tempSettingObj !== null && (
                 <Settings
                   tempSettingObj={tempSettingObj}
@@ -1296,7 +1331,7 @@ const PickleBallLaderPlay = () => {
                   setTempSettingsObj={setTempSettingsObj}
                   setEditSettings={setEditSettings}
                 />
-              )}
+              )} */}
             </div>
           )}
         </div>
@@ -1362,6 +1397,7 @@ const PickleBallLaderPlay = () => {
         windowWidth={windowWidth}
         gameState={gameState}
         leaderDataCount={leaderDataCount}
+        handleEditSettings={handleEditSettings}
       />
     </div>
   );

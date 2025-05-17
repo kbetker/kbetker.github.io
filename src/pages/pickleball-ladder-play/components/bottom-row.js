@@ -1,5 +1,8 @@
 import Visible from "../svgs/visible-svg";
 import Hidden from "../svgs/hidden-svg";
+import SettingsSVG from "../svgs/settings-svg";
+import Redo from "../svgs/redo";
+import Undo from "../svgs/undo";
 
 const BottomRow = ({
   handleHelp,
@@ -13,28 +16,36 @@ const BottomRow = ({
   windowWidth,
   gameState,
   leaderDataCount,
+  handleEditSettings,
 }) => {
   return (
     <div
       className={`bottom-row${windowWidth < 400 && showqueue ? " span-1" : ""}`}
     >
       <>
-        {windowWidth >= 400 && (
-          <button className="help" onClick={handleHelp}>
-            <HelpSVG />
+        <button className="help" onClick={handleHelp}>
+          <HelpSVG />
+        </button>
+        {gameState.currentMenu !== "set-court-num" && (
+          <button className={`bottom-button`} onClick={handleEditSettings}>
+            <SettingsSVG />
           </button>
         )}
         <button
-          className={`${undoHistory.length > 2 ? "" : "disabled"}`}
+          className={`bottom-button${
+            undoHistory.length > 2 ? "" : " disabled"
+          }`}
           onClick={handleUndo}
         >
-          Undo
+          {windowWidth < 500 ? <Undo /> : "Undo"}
         </button>
         <button
-          className={`${redoHistory.length > 0 ? "" : "disabled"}`}
+          className={`bottom-button${
+            redoHistory.length > 0 ? "" : " disabled"
+          }`}
           onClick={handleRedo}
         >
-          Redo
+          {windowWidth < 500 ? <Redo /> : "Redo"}
         </button>
         {windowWidth < 800 && (
           <button onClick={() => setShowQueue(!showqueue)}>
@@ -60,10 +71,12 @@ const BottomRow = ({
                         <div
                           className={`player-stats-container position-${leaderDataCount}`}
                         >
-                          <div className="leaderStats">wins: {totalWins}</div>
-                          <div className="leaderStats">crowns: {crowns}</div>
+                          <div className="leaderStats">wins: {totalScore}</div>
                           <div className="leaderStats">
-                            losses: {totalLosses}
+                            crowns: {totalScore}
+                          </div>
+                          <div className="leaderStats">
+                            losses: {totalScore}
                           </div>
                           <div className="leaderStats">total: {totalScore}</div>
                         </div>

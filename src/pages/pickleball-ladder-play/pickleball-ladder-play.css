@@ -276,6 +276,13 @@
     }
   }
 
+  .bottom-button {
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
   .confirm-setting {
     display: flex;
     flex-direction: column;

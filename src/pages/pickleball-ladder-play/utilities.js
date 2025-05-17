@@ -6,6 +6,7 @@ export const initialGameState = {
   courts: {},
   leaderBoard: [],
   showScore: true,
+  crownValue: 0.5,
 };
 
 export const isEmpty = (obj) => {

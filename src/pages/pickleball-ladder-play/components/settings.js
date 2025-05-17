@@ -2,8 +2,12 @@ const Settings = ({
   tempSettingObj,
   updateSettings,
   confirmCourtReduction,
-  setTempSettingsObj,
-  setEditSettings,
+  // setTempSettingsObj,
+  // setEditSettings,
+  closeModal,
+  // gameState,
+  // tempShowScoreCheck,
+  // tempSettingsCheck,
 }) => {
   return (
     <div className="settings-container">
@@ -47,9 +51,27 @@ const Settings = ({
         />
         <span># of courts</span>
       </div>
+      <div className="input-container">
+        <input
+          type="number"
+          value={tempSettingObj?.crownValue}
+          onChange={updateSettings}
+          id="crownValue"
+        />
+        <span>Crown value</span>
+      </div>
       <button onClick={confirmCourtReduction}>Submit</button>
       <button
-        onClick={() => [setTempSettingsObj(null), setEditSettings(false)]}
+        onClick={() => [
+          // setTempSettingsObj({
+          //   cycleKings: tempSettingsCheck,
+          //   showScore: tempShowScoreCheck,
+          //   numToCycleOut: gameState.numToCycleOut,
+          //   numOfCourts: Object.keys(gameState.courts).length,
+          // }),
+          // setEditSettings(false),
+          closeModal("modal-container"),
+        ]}
       >
         Cancel
       </button>
