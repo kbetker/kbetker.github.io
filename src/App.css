@@ -1,39 +1,38 @@
-body{
+body {
   margin: 0;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   color: white;
   overflow-x: hidden;
   background-color: black;
-
 }
-h1{
-  font-family: 'Montserrat', sans-serif;
+h1 {
+  font-family: "Montserrat", sans-serif;
   font-weight: 200;
   font-size: 44px;
   margin: 10px;
 }
-h2{
-  font-family: 'Montserrat', sans-serif;
+h2 {
+  font-family: "Montserrat", sans-serif;
   font-weight: 200;
   font-size: 35px;
   margin: 20px;
 }
-p{
+p {
   font-size: 18px;
   /* font-weight: 200; */
   color: white;
 }
 
-a{
+a {
   color: white;
   text-decoration: none;
 }
-a:hover{
+a:hover {
   text-decoration: underline;
 }
 
-.wrapper{
+.wrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -41,7 +40,6 @@ a:hover{
   width: 100vw;
   height: 100vh;
   background-size: cover;
-
 }
 
 /* .wrapper{
@@ -54,21 +52,19 @@ a:hover{
 
 } */
 
-.content_container{
+.content_container {
   display: flex;
 }
 
-.pages{
+.pages {
   display: flex;
   justify-items: center;
   align-items: center;
   overflow-x: hidden;
   background-color: rgb(34, 34, 34);
-
 }
 
-
-.page{
+.page {
   display: flex;
   justify-items: center;
   align-items: center;
@@ -78,90 +74,92 @@ a:hover{
   /* left: -500px; */
 }
 
-.page_element{
+.page_element {
   display: flex;
   flex-direction: column;
   justify-items: center;
   align-items: center;
 }
 
-
-.highlightColor{
+.highlightColor {
   color: rgb(255, 145, 0);
 }
-.reference{
+.reference {
   font-size: 25px;
 }
 
-
-.spacer{
+.spacer {
   height: 70px;
   width: 100%;
 }
 
-
-.unhide{
+.unhide {
   animation: unhide 1s linear 2s 1 normal forwards;
 }
 
-.hide{
+.hide {
   animation: hide 1s linear 0s 1 normal forwards;
 }
 
-.unHideFooterLinks{
+.unHideFooterLinks {
   animation: unhide 1s linear 0s 1 normal forwards;
 }
 
-.hideFooterLinks{
+.hideFooterLinks {
   animation: hide 1s linear 1s 1 normal forwards;
 }
 
 @keyframes unhide {
   from {
-      opacity: 0;
+    opacity: 0;
   }
   to {
-      opacity: 1;
+    opacity: 1;
   }
 }
 
 @keyframes hide {
   from {
-      opacity: 1;
+    opacity: 1;
   }
   to {
-      opacity: 0.01;
+    opacity: 0.01;
   }
 }
 
-
 @media screen and (max-width: 550px) {
-  .wrapper{
+  .wrapper {
     justify-content: flex-start;
     align-items: flex-start;
     width: 100vw;
   }
-  .page{
+  .page {
     height: 650px;
   }
-  .spacer{
+  .spacer {
     height: 1px;
   }
-
 }
 
 @media screen and (max-width: 450px) {
-  .wrapper{
+  .wrapper {
     justify-content: flex-start;
     align-items: flex-start;
     width: 100vw;
   }
-  .page{
+  .page {
     height: 450px;
     align-items: flex-start;
   }
-  .spacer{
+  .spacer {
     height: 1px;
   }
+}
 
+.visually-hidden {
+  position: fixed;
+  color: white;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
 }

@@ -1,3 +1,10 @@
+html,
+body {
+  overscroll-behavior: none;
+  height: 100%;
+  overflow: hidden;
+}
+
 .pickelball-ladder-play {
   /* colors  */
 
@@ -270,9 +277,92 @@
     padding: 1rem;
     outline: 1px solid rgba(255, 153, 0, 0.281);
     outline-offset: 5px;
+    position: relative;
     button {
       max-width: 20rem;
       align-self: center;
+    }
+  }
+  .x {
+    position: absolute;
+    right: 0.2rem;
+    top: 0.2 rem;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    /* padding: 0.5rem; */
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bolder;
+    border: 1px solid white;
+    box-shadow: 3px 3px 5px black;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  .margin-block-2-rem {
+    margin-block: 2rem;
+  }
+
+  .player-stats-outer-container {
+    /* width: 50rem; */
+    select {
+      margin-block: 1rem;
+    }
+  }
+
+  .player-stats-inner-container {
+    max-height: 70dvh;
+    overflow-y: auto;
+    /* overflow-y: auto; */
+    padding-right: 1rem;
+  }
+
+  .name-and-stats {
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    border: 1px solid orange;
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin-block: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    h2 {
+      font-size: x-large;
+      font-weight: bold;
+      margin-block: 1rem;
+    }
+  }
+  .no-highlight-stat {
+    opacity: 0.5;
+  }
+
+  .highlight-stat {
+    opacity: 1;
+    border-bottom: 1px solid white;
+    /* color: black; */
+    /* background-color: white; */
+    /* text-shadow: 0 0 3px white; */
+  }
+
+  .player-stats {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    /* padding: 1rem; */
+    /* border-left: 1px solid white; */
+    /* border-right: 1px solid white; */
+    box-shadow: inset 0 0 15px black;
+    border-radius: 0.5rem;
+    span {
+      padding: 0.5rem;
     }
   }
 

@@ -72,10 +72,21 @@ const PickleBallLaderPlay = () => {
     window.addEventListener("resize", () => {
       handleWindowResize();
     });
+
+    const preventGesture = (e) => {
+      // Adjust threshold as needed
+      if (e.touches && e.touches[0].clientX < 30) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener("touchstart", preventGesture, { passive: false });
+
     return () => {
       window.removeEventListener("resize", () => {
         handleWindowResize();
       });
+      document.removeEventListener("touchstart", preventGesture);
     };
   }, []);
 
@@ -226,10 +237,11 @@ const PickleBallLaderPlay = () => {
   function buildCourts() {
     // const number = parseInt(e.target.value);
     const copiedGameState = deepCopy(gameState);
+    const courtNum = courtNumInput < 1 ? 1 : courtNumInput;
 
     copiedGameState.courts = {};
 
-    for (let i = 0; i < courtNumInput; i++) {
+    for (let i = 0; i < courtNum; i++) {
       copiedGameState.courts[i + 1] = {
         wait1: {},
         wait2: {},
@@ -247,11 +259,6 @@ const PickleBallLaderPlay = () => {
   }
 
   useEffect(() => {
-    // / numOfCourts
-    if (courtNumInput < 1) {
-      alert("Minimum of 1 court needed");
-      setCourtNumInput(1);
-    }
     buildCourts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [courtNumInput]);
@@ -300,6 +307,28 @@ const PickleBallLaderPlay = () => {
     //   "Derf",
     //   "Muthro",
     //   "Jammit",
+    //   "Kevin Beeeeee2",
+    //   "Zhen2",
+    //   "Dan2",
+    //   "Eric2",
+    //   "Jason2",
+    //   "YiFie2",
+    //   "Mike2",
+    //   "Bernie2",
+    //   "Elrond2",
+    //   "Kevin Yu2",
+    //   "Desheng2",
+    //   "Bobert2",
+    //   "Vladimir2",
+    //   "Ack2",
+    //   "Dillup2",
+    //   "Johl2",
+    //   "Lollerp2",
+    //   "Yabble2",
+    //   "Wonka2",
+    //   "Derf2",
+    //   "Muthro2",
+    //   "Jammit2",
     // ];
 
     // for testing
@@ -313,12 +342,33 @@ const PickleBallLaderPlay = () => {
     //       totalWins: 0,
     //       totalLosses: 0,
     //       totalScore: 0,
+    //       totalGames: 0,
     //     });
     //   }
     // }
 
     // check if name exists
-    const alreadyExists = copiedGameState.queue.filter(
+
+    const onCourtPlayers = [];
+    const courtNums = Object.keys(copiedGameState.courts);
+
+    // grab all players on court
+    courtNums.forEach((courtNum) => {
+      const court = copiedGameState.courts[courtNum];
+      for (let i = 1; i <= 4; i++) {
+        const quad = court[`quad${i}`];
+        const wait = court[`wait${i}`];
+        if (!isEmpty(quad) && quad !== undefined) {
+          onCourtPlayers.push(quad);
+        }
+        if (!isEmpty(wait) && wait !== undefined) {
+          onCourtPlayers.push(wait);
+        }
+      }
+    });
+
+    const allPlayers = [...copiedGameState.queue, ...onCourtPlayers];
+    const alreadyExists = allPlayers.filter(
       (player) => player.name === playerInput
     );
     if (alreadyExists.length > 0) {
@@ -334,6 +384,7 @@ const PickleBallLaderPlay = () => {
       totalWins: 0,
       totalLosses: 0,
       totalScore: 0,
+      totalGames: 0,
     });
     setPlayerInput("");
     if (playerNameInput.current) {
@@ -456,7 +507,7 @@ const PickleBallLaderPlay = () => {
         }
       }
     }
-    console.log("%ccopiedGameState:", "color: red", copiedGameState);
+
     allPlayers.forEach((player) => {
       const { totalWins, totalLosses, crowns } = player;
       player.totalScore =
@@ -556,11 +607,13 @@ const PickleBallLaderPlay = () => {
         if (index === 0 && isEmpty(court.wait3)) {
           court.wait3 = player;
           loser.totalLosses++;
+          loser.totalGames++;
           delTacoed(player);
         }
         if (index === 1 && isEmpty(court.wait4)) {
           court.wait4 = player;
           loser.totalLosses++;
+          loser.totalGames++;
           delTacoed(player);
         }
       };
@@ -594,6 +647,7 @@ const PickleBallLaderPlay = () => {
           }
 
           loser.totalLosses++;
+          loser.totalGames++;
           copiedGameState.queue.push(loser);
         } else {
           addNewcomerToTop(courts, loser);
@@ -626,25 +680,31 @@ const PickleBallLaderPlay = () => {
         if (index === 0 && isEmpty(court.wait1)) {
           court.wait1 = winner;
           winner.totalWins++;
+          winner.totalGames++;
           delTacoed();
         }
         if (index === 1 && isEmpty(court.wait2)) {
           court.wait2 = winner;
           winner.totalWins++;
+          winner.totalGames++;
           delTacoed();
         }
       };
+
+      //todo: name checks only against queue. need to filter for ALL
 
       //helper function: add winner to bottom court
       const addWinnerToBottomCourts = (court) => {
         if (index === 0 && isEmpty(court.wait3)) {
           court.wait3 = winner;
           winner.totalWins++;
+          winner.totalGames++;
           delTacoed();
         }
         if (index === 1 && isEmpty(court.wait4)) {
           court.wait4 = winner;
           winner.totalWins++;
+          winner.totalGames++;
           delTacoed();
         }
       };
@@ -657,6 +717,9 @@ const PickleBallLaderPlay = () => {
           copiedGameState.cycleKings &&
           winner.numToCycleOut >= copiedGameState.numToCycleOut
         ) {
+          // need to add win and total games here?
+          winner.totalWins++;
+          winner.totalGames++;
           winner.numToCycleOut = 0;
           copiedGameState.queue.push(winner);
           delTacoed();
@@ -754,8 +817,26 @@ const PickleBallLaderPlay = () => {
   function submitEditPlayer() {
     const copiedGameState = deepCopy(gameState);
     let index = -1;
+    const onCourtPlayers = [];
+    const courtNums = Object.keys(copiedGameState.courts);
 
-    const filter = copiedGameState.queue.filter(
+    // grab all players on court
+    courtNums.forEach((courtNum) => {
+      const court = copiedGameState.courts[courtNum];
+      for (let i = 1; i <= 4; i++) {
+        const quad = court[`quad${i}`];
+        const wait = court[`wait${i}`];
+        if (!isEmpty(quad) && quad !== undefined) {
+          onCourtPlayers.push(quad);
+        }
+        if (!isEmpty(wait) && wait !== undefined) {
+          onCourtPlayers.push(wait);
+        }
+      }
+    });
+
+    const allPlayers = [...copiedGameState.queue, ...onCourtPlayers];
+    const filter = allPlayers.filter(
       (player) =>
         player.name === editPlayerData.name &&
         player.name !== editPlayerData.originalName
@@ -904,6 +985,15 @@ const PickleBallLaderPlay = () => {
           />
         </div>
         <div className="input-container">
+          Total games played:
+          <input
+            onChange={helpEditPlayer}
+            value={editPlayerData?.totalGames}
+            id="edit-totalGames"
+            type="number"
+          />
+        </div>
+        <div className="input-container">
           # to cycle out:
           <input
             onChange={helpEditPlayer}
@@ -931,6 +1021,7 @@ const PickleBallLaderPlay = () => {
         totalLosses: player.totalLosses,
         totalWins: player.totalWins,
         originalName: player.name,
+        totalGames: player.totalGames,
       });
     }
   }
@@ -1069,7 +1160,7 @@ const PickleBallLaderPlay = () => {
     // setTempSettingsObj(null);
     setEditSettings(false);
   }
-  console.log("%cgameState:", "color: lime", gameState);
+
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (currentLeaderCount.current === 3) {
@@ -1159,6 +1250,138 @@ const PickleBallLaderPlay = () => {
   function returnQueueTitle() {
     return "Queue";
   }
+  function getPlayerStats(method) {
+    const copiedGameState = deepCopy(gameState);
+    const courtNums = Object.keys(copiedGameState.courts);
+    const onCourtPlayers = [];
+
+    // grab all players on court  todo: this can be made a function
+    courtNums.forEach((courtNum) => {
+      const court = copiedGameState.courts[courtNum];
+      for (let i = 1; i <= 4; i++) {
+        const quad = court[`quad${i}`];
+        const wait = court[`wait${i}`];
+        if (!isEmpty(quad) && quad !== undefined) {
+          onCourtPlayers.push(quad);
+        }
+        if (!isEmpty(wait) && wait !== undefined) {
+          onCourtPlayers.push(wait);
+        }
+      }
+    });
+    const allPlayers = [...copiedGameState.queue, ...onCourtPlayers];
+
+    if (method === "name") {
+      allPlayers.sort((a, b) => {
+        const nameA = a.name.toUpperCase();
+        const nameB = b.name.toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      });
+    } else if (method === "score") {
+      allPlayers.sort((a, b) => {
+        return b.totalScore - a.totalScore;
+      });
+    } else if (method === "gamesPlayed") {
+      allPlayers.sort((a, b) => {
+        return b.totalGames - a.totalGames;
+      });
+    } else if (method === "losses") {
+      allPlayers.sort((a, b) => {
+        return b.totalLosses - a.totalLosses;
+      });
+    }
+    const jsx = (
+      <div className="player-stats-outer-container">
+        <select
+          name="sortBy"
+          id="sortBy"
+          onChange={(e) => getPlayerStats(e.target.value)}
+        >
+          <option value="">- select -</option>
+          <option value="name">Name</option>
+          <option value="score">Score</option>
+          <option value="gamesPlayed">Games Played</option>
+          <option value="losses">Losses</option>
+        </select>
+        <div className="player-stats-inner-container">
+          {allPlayers &&
+            allPlayers.length > 0 &&
+            allPlayers.map((player) => {
+              const {
+                name,
+                crowns,
+                totalGames,
+                totalLosses,
+                totalWins,
+                totalScore,
+              } = player;
+              return (
+                <div className="name-and-stats">
+                  <h2>{name}</h2>
+                  <div className="player-stats">
+                    <span
+                      className={`${
+                        method !== "" && method !== "normy" && method !== "name"
+                          ? "no-highlight-stat"
+                          : ""
+                      }`}
+                    >
+                      <b>Crowns: </b> {crowns}
+                    </span>
+
+                    <span
+                      className={`${
+                        method !== "" && method !== "normy" && method !== "name"
+                          ? "no-highlight-stat"
+                          : ""
+                      }${method === "gamesPlayed" ? " highlight-stat" : ""}`}
+                    >
+                      <b>Total games: </b> {totalGames}
+                    </span>
+                    <span
+                      className={`${
+                        method !== "" && method !== "normy" && method !== "name"
+                          ? "no-highlight-stat"
+                          : ""
+                      }`}
+                    >
+                      <b>Wins: </b> {totalWins}
+                    </span>
+                    <span
+                      className={`${
+                        method !== "" && method !== "normy" && method !== "name"
+                          ? "no-highlight-stat"
+                          : ""
+                      }${method === "losses" ? " highlight-stat" : ""}`}
+                    >
+                      <b>Losses: </b> {totalLosses}
+                    </span>
+                    <span
+                      className={`${
+                        method !== "" && method !== "normy" && method !== "name"
+                          ? "no-highlight-stat"
+                          : ""
+                      }${method === "score" ? " highlight-stat" : ""}`}
+                    >
+                      <b>Score: </b> {totalScore}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+        </div>
+      </div>
+    );
+
+    setModalJsx(jsx);
+    setShowModal(true);
+  }
 
   /**
    * Render
@@ -1175,7 +1398,12 @@ const PickleBallLaderPlay = () => {
           id="modal-container"
           onClick={(e) => closeModal(e.target.id)}
         >
-          <div className="modal-inner-container">{modalJsx}</div>
+          <div className="modal-inner-container">
+            <button className="x" onClick={() => closeModal("modal-container")}>
+              X
+            </button>
+            {modalJsx}
+          </div>
         </div>
       )}
       {!showqueue && (
@@ -1333,6 +1561,15 @@ const PickleBallLaderPlay = () => {
                 />
               )} */}
             </div>
+          )}
+
+          {gameState.currentMenu === "game-on" && (
+            <button
+              className="margin-block-2-rem"
+              onClick={() => getPlayerStats("normy")}
+            >
+              Player stats
+            </button>
           )}
         </div>
       )}

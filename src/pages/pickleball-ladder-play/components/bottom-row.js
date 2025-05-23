@@ -71,12 +71,10 @@ const BottomRow = ({
                         <div
                           className={`player-stats-container position-${leaderDataCount}`}
                         >
-                          <div className="leaderStats">wins: {totalScore}</div>
+                          <div className="leaderStats">wins: {totalWins}</div>
+                          <div className="leaderStats">crowns: {crowns}</div>
                           <div className="leaderStats">
-                            crowns: {totalScore}
-                          </div>
-                          <div className="leaderStats">
-                            losses: {totalScore}
+                            losses: {totalLosses}
                           </div>
                           <div className="leaderStats">total: {totalScore}</div>
                         </div>
