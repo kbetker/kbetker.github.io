@@ -251,7 +251,7 @@ const PickleBallLaderPlay = () => {
         quad2: {},
         quad3: {},
         quad4: {},
-        waitStatus: "waiting",
+        waitStatus: "Wait area",
       };
     }
     setGameState(copiedGameState);
@@ -538,19 +538,19 @@ const PickleBallLaderPlay = () => {
     const higherCourts = copiedGameState.courts[courtData.courtNum - 1];
     const lowerCourts = copiedGameState.courts[courtData.courtNum + 1];
 
-    //  Check waiting area empty in higher court
+    //  Check wait area empty in higher court
     if (higherCourts) {
       for (let i = 1; i <= 4; i++) {
         const emptyCourt = isEmpty(higherCourts[`wait${i}`]);
         if (courtNum - 1 === 1) {
           if ((i === 3 || i === 4) && !emptyCourt) {
-            alert("Players still in waiting area");
+            alert("Players still in wait area");
             return;
           }
         } else {
           if ((i === 1 || i === 2) && !emptyCourt) {
             alert(
-              `Players still in court #${courtData.courtNum - 1} waiting area`
+              `Players still in court #${courtData.courtNum - 1} wait area`
             );
             return;
           }
@@ -558,13 +558,13 @@ const PickleBallLaderPlay = () => {
       }
     }
 
-    //  Check waiting area empty in lower court
+    //  Check wait area empty in lower court
     if (lowerCourts) {
       for (let i = 3; i <= 4; i++) {
         const emptyCourt = isEmpty(lowerCourts[`wait${i}`]);
         if (!emptyCourt) {
           alert(
-            `Players still in court #${courtData.courtNum + 1} waiting area`
+            `Players still in court #${courtData.courtNum + 1} wait area`
           );
           return;
         }
@@ -580,7 +580,7 @@ const PickleBallLaderPlay = () => {
       for (let i = 1; i <= 2; i++) {
         const emptyCourt = isEmpty(courts[`wait${i}`]);
         if (!emptyCourt) {
-          alert("Players in winner's waiting area");
+          alert("Players in winner's wait area");
           return;
         }
       }
@@ -742,7 +742,7 @@ const PickleBallLaderPlay = () => {
   function getCourtStatus(courtNum, copiedGameState) {
     const courts = copiedGameState.courts[courtNum];
     const spots = [1, 2, 3, 4].map((num) => !isEmpty(courts[`wait${num}`]));
-    let courtStatus = "waiting";
+    let courtStatus = "Wait area";
 
     const isSingles = () => {
       return (
@@ -763,11 +763,11 @@ const PickleBallLaderPlay = () => {
     };
 
     if (isSingles()) {
-      courtStatus = "singles?";
+      courtStatus = "Singles?";
     } else if (isCutthroat()) {
-      courtStatus = "cut-throat?";
+      courtStatus = "Cut-throat?";
     } else if (spots.every(Boolean)) {
-      courtStatus = "doubles?";
+      courtStatus = "Doubles?";
     }
 
     return courtStatus;
@@ -879,7 +879,7 @@ const PickleBallLaderPlay = () => {
       }
     });
 
-    if (courts.waitStatus === "waiting") {
+    if (courts.waitStatus === "Wait area") {
       alert("Need more players bruh");
       return;
     }
@@ -895,7 +895,7 @@ const PickleBallLaderPlay = () => {
       }
     }
 
-    courts.waitStatus = "waiting";
+    courts.waitStatus = "Wait area";
     setGameState(copiedGameState);
     handleHistory(copiedGameState);
     // do stuff
@@ -1144,7 +1144,7 @@ const PickleBallLaderPlay = () => {
           quad2: {},
           quad3: {},
           quad4: {},
-          waitStatus: "waiting",
+          waitStatus: "Wait area",
         };
       }
     }
@@ -1451,8 +1451,8 @@ const PickleBallLaderPlay = () => {
             <h1>{returnQueueTitle()}</h1>
           )}
 
-          {/* 
-      Set Number of Courts 
+          {/*
+      Set Number of Courts
       */}
 
           {gameState.currentMenu === "set-court-num" && (
@@ -1467,8 +1467,8 @@ const PickleBallLaderPlay = () => {
             </div>
           )}
 
-          {/* 
-      Add Players 
+          {/*
+      Add Players
       */}
           {(gameState.currentMenu === "add-players" ||
             gameState.currentMenu === "game-on") && (
@@ -1550,7 +1550,7 @@ const PickleBallLaderPlay = () => {
                   <button onClick={handleEditSettings}>Settings</button>
                 </div>
               )} */}
-              {/* 
+              {/*
               {editSettings && tempSettingObj !== null && (
                 <Settings
                   tempSettingObj={tempSettingObj}
@@ -1601,8 +1601,8 @@ const PickleBallLaderPlay = () => {
                 courtNumber={courtNumber}
               />
 
-              {/* 
-              Waiting Room 
+              {/*
+              Waiting Room
               */}
               <WaitingRoom
                 gameState={gameState}

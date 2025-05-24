@@ -17,7 +17,7 @@ const WaitingRoom = ({
 }) => {
   return (
     <div className="court-waiting">
-      <h1>{waitStatus}</h1>
+      <h1>{waitStatus}{waitStatus === 'Wait area' ? ` #${courtNumber}` : ''}</h1>
       <div className={`court-waiting-area ${courtNumber}`}>
         {numberToArray(4).map((waitNumber) => {
           const wait =

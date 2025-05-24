@@ -18,7 +18,7 @@ const ActiveCourt = ({
 }) => {
   return (
     <div className="active-court">
-      <h1>#{courtNumber}</h1>
+      <h1>Court #{courtNumber}</h1>
       <div className="court-quads-container">
         {numberToArray(4).map((quadNumber) => {
           const quad =
