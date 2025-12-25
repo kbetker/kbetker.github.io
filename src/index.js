@@ -11,6 +11,7 @@ import Tetris from "./pages/Tetris";
 import DragonSfx from "./components/dragon-sfx";
 import configureStore from "./components/store";
 import { Route, Switch, HashRouter, BrowserRouter } from "react-router-dom";
+import gameshowGift from "./images/gameshow-gift.jpg";
 
 const store = configureStore();
 
@@ -30,6 +31,11 @@ ReactDOM.render(
           </Route>
           <Route exact path="/pickleball-ladder-play">
             <PickleBallLaderPlay />
+          </Route>
+          <Route exact path="/gameshow-gift">
+            <div className="gameshow-gift">
+              <img src={gameshowGift} alt="Gameshow Gift" />
+            </div>
           </Route>
           <Route exact path="/">
             <App />
