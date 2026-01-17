@@ -2,7 +2,7 @@ export const scripts = [
   {
     name: "Intro",
     script:
-      "Every year, countless children are exposed to Paternal Unsolicited Nonsensical Satire, or P.U.N.S. for short. What begins as 'harmless humor' can quickly escalate into full-blown pun deployment, leaving children confused, fatigued, and questioning their will to laugh. These are a few of the survivors.",
+      "Test... Every year, countless children are exposed to Paternal Unsolicited Nonsensical Satire, or P.U.N.S. for short. What begins as 'harmless humor' can quickly escalate into full-blown pun deployment, leaving children confused, fatigued, and questioning their will to laugh. These are a few of the survivors.",
   },
 
   {
