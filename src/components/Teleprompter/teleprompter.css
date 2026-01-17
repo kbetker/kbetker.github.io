@@ -24,12 +24,13 @@
 .tele-wrapper .tele-container {
   height: 90dvh;
   width: 96dvw;
-  position: absolute;
-  top: 0;
+  position: relative;
+  transform: translateY(-2rem);
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  border: 1px solid blue;
 }
 
 .tele-wrapper .tele-container p {
