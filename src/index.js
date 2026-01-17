@@ -9,6 +9,7 @@ import Pickleball from "./pages/PickleBall";
 import PickleBallLaderPlay from "./pages/pickleball-ladder-play/pickleball-ladder-play";
 import Tetris from "./pages/Tetris";
 import DragonSfx from "./components/dragon-sfx";
+import Teleprompter from "./components/Teleprompter";
 import configureStore from "./components/store";
 import { Route, Switch, HashRouter, BrowserRouter } from "react-router-dom";
 import gameshowGift from "./images/gameshow-gift.jpg";
@@ -37,6 +38,9 @@ ReactDOM.render(
               <img src={gameshowGift} alt="Gameshow Gift" />
             </div>
           </Route>
+          <Route exact path="/teleprompter">
+            <Teleprompter />
+          </Route>
           <Route exact path="/">
             <App />
           </Route>
@@ -44,5 +48,5 @@ ReactDOM.render(
       </Provider>
     </HashRouter>
   </BrowserRouter>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
