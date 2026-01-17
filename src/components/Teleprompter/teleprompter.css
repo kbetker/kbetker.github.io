@@ -6,57 +6,57 @@
   height: 99dvh;
   background-color: black;
   border: 1px solid red;
+}
 
-  button {
-    margin: 0 10px;
-    padding: 10px 20px;
-    font-size: 36px;
-    min-width: 66px;
-    background-color: rgb(0, 0, 0);
-    color: rgb(255, 0, 0);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 1px solid red;
-  }
+.tele-wrapper button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 36px;
+  min-width: 66px;
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 0, 0);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid red;
+}
 
-  .tele-container {
-    height: 90dvh;
-    width: 96dvw;
-    position: absolute;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+.tele-wrapper .tele-container {
+  height: 90dvh;
+  width: 96dvw;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
 
-    p {
-      transform: scaleY(-1);
-      color: yellow;
-      position: absolute;
-      bottom: 10rem;
-    }
+.tele-wrapper .tele-container p {
+  transform: scaleY(-1);
+  color: yellow;
+  position: absolute;
+  bottom: 10rem;
+}
 
-    .tele-button-container {
-      display: flex;
-    }
-  }
+.tele-wrapper .tele-container .tele-button-container {
+  display: flex;
+}
 
-  .tele-controls {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-  }
+.tele-wrapper .tele-controls {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
 
-  .button-controls {
-    display: flex;
-    align-items: center;
+.tele-wrapper .button-controls {
+  display: flex;
+  align-items: center;
+}
 
-    span {
-      font-size: 24px;
-      color: rgb(255, 0, 0);
-    }
-  }
+.tele-wrapper .button-controls span {
+  font-size: 24px;
+  color: rgb(255, 0, 0);
 }
