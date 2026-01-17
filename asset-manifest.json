@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.575b5ecf.chunk.css",
-    "main.js": "/static/js/main.e2169df7.chunk.js",
-    "main.js.map": "/static/js/main.e2169df7.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.6d39cdd5.js",
-    "runtime-main.js.map": "/static/js/runtime-main.6d39cdd5.js.map",
-    "static/js/2.252a0f0e.chunk.js": "/static/js/2.252a0f0e.chunk.js",
-    "static/js/2.252a0f0e.chunk.js.map": "/static/js/2.252a0f0e.chunk.js.map",
-    "static/js/3.d33d8af2.chunk.js": "/static/js/3.d33d8af2.chunk.js",
-    "static/js/3.d33d8af2.chunk.js.map": "/static/js/3.d33d8af2.chunk.js.map",
+    "main.css": "/static/css/main.c94da44d.chunk.css",
+    "main.js": "/static/js/main.97977789.chunk.js",
+    "main.js.map": "/static/js/main.97977789.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.4b4e4483.js",
+    "runtime-main.js.map": "/static/js/runtime-main.4b4e4483.js.map",
+    "static/js/2.edd89f00.chunk.js": "/static/js/2.edd89f00.chunk.js",
+    "static/js/2.edd89f00.chunk.js.map": "/static/js/2.edd89f00.chunk.js.map",
+    "static/js/3.c2fa38fe.chunk.js": "/static/js/3.c2fa38fe.chunk.js",
+    "static/js/3.c2fa38fe.chunk.js.map": "/static/js/3.c2fa38fe.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.575b5ecf.chunk.css.map": "/static/css/main.575b5ecf.chunk.css.map",
-    "static/js/2.252a0f0e.chunk.js.LICENSE.txt": "/static/js/2.252a0f0e.chunk.js.LICENSE.txt",
-    "static/js/3.d33d8af2.chunk.js.LICENSE.txt": "/static/js/3.d33d8af2.chunk.js.LICENSE.txt",
+    "static/css/main.c94da44d.chunk.css.map": "/static/css/main.c94da44d.chunk.css.map",
+    "static/js/2.edd89f00.chunk.js.LICENSE.txt": "/static/js/2.edd89f00.chunk.js.LICENSE.txt",
+    "static/js/3.c2fa38fe.chunk.js.LICENSE.txt": "/static/js/3.c2fa38fe.chunk.js.LICENSE.txt",
     "static/media/BBB_thumb.80de1b6f.jpg": "/static/media/BBB_thumb.80de1b6f.jpg",
     "static/media/Musician.836f7884.jpg": "/static/media/Musician.836f7884.jpg",
     "static/media/airDnD_thumb.3e439bc6.jpg": "/static/media/airDnD_thumb.3e439bc6.jpg",
@@ -65,9 +65,9 @@
     "static/media/videographer.468f3360.jpg": "/static/media/videographer.468f3360.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.6d39cdd5.js",
-    "static/js/2.252a0f0e.chunk.js",
-    "static/css/main.575b5ecf.chunk.css",
-    "static/js/main.e2169df7.chunk.js"
+    "static/js/runtime-main.4b4e4483.js",
+    "static/js/2.edd89f00.chunk.js",
+    "static/css/main.c94da44d.chunk.css",
+    "static/js/main.97977789.chunk.js"
   ]
 }
