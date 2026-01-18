@@ -28,6 +28,7 @@
   transform: translateY(-2rem);
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   align-items: center;
   overflow: hidden;
 }
@@ -54,9 +55,63 @@
 .tele-wrapper .button-controls {
   display: flex;
   align-items: center;
+  input {
+    font-size: 16px;
+    padding: 8px;
+    border: 1px solid red;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: black;
+    color: red;
+    width: 66px;
+    height: 66px;
+    text-align: center;
+
+    &:focus {
+      outline: none;
+      border-color: yellow;
+    }
+  }
 }
 
 .tele-wrapper .button-controls span {
   font-size: 24px;
   color: rgb(255, 0, 0);
+
+  &.big-a {
+    font-size: 32px;
+  }
+
+  &.little-a {
+    font-size: 16px;
+  }
+}
+
+.script-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  input,
+  textarea {
+    font-size: 16px;
+    padding: 8px;
+    border: 1px solid red;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: black;
+    color: red;
+
+    &:focus {
+      outline: none;
+      border-color: yellow;
+    }
+  }
+
+  textarea {
+    width: 70dvw;
+    height: 50dvh;
+  }
 }
