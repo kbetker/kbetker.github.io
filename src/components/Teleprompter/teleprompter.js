@@ -2,6 +2,14 @@ import React, { useRef, useState, useEffect } from "react";
 import "./teleprompter.css";
 // import { scripts } from "./scripts";
 import { waitAMoment } from "../MiscComponents/MiscComponents";
+import play from "./svgs/play.svg";
+import stop from "./svgs/stop.svg";
+import fontIncrease from "./svgs/font-increase.svg";
+import fontDecrease from "./svgs/font-decrease.svg";
+import timeIncrease from "./svgs/time-increase.svg";
+import timeDecrease from "./svgs/time-decrease.svg";
+import edit from "./svgs/edit.svg";
+import back from "./svgs/back-arrow.svg";
 
 const Teleprompter = () => {
   const [fontSize, setFontSize] = useState(108);
@@ -126,7 +134,12 @@ const Teleprompter = () => {
                 </button>
               ))}
             {!addingNewScript && !editingScript && (
-              <button onClick={() => setAddingNewScript(true)}>+</button>
+              <button
+                className="new-script-button"
+                onClick={() => setAddingNewScript(true)}
+              >
+                +
+              </button>
             )}
           </div>
         )}
@@ -179,39 +192,48 @@ const Teleprompter = () => {
       {script && !editingScript && (
         <div className="tele-controls">
           {isPlaying ? (
-            <button onClick={stopScrolling}>stop</button>
+            <button onClick={stopScrolling}>
+              <img src={stop} alt="stop" />
+            </button>
           ) : (
-            <button onClick={scrollTheScript}>play</button>
+            <button onClick={scrollTheScript}>
+              <img src={play} alt="play" />
+            </button>
           )}
 
           {/* Button Controls */}
           <div className="button-controls">
-            <span className="big-a">A</span>
-            <span className="little-a">A</span>
-            <button onClick={() => setFontSize(fontSize + 6)}>+</button>
-            <button onClick={() => setFontSize(fontSize - 6)}>-</button>
-            <span>{fontSize}px</span>
+            <button onClick={() => setFontSize(fontSize + 6)}>
+              <img src={fontIncrease} alt="increase font size" />
+            </button>
+            <button onClick={() => setFontSize(fontSize - 6)}>
+              <img src={fontDecrease} alt="decrease font size" />
+            </button>
           </div>
           <div className="button-controls">
-            <span>Speed</span>
-            <button onClick={() => setScrollSpeed(scrollSpeed + 1)}>+</button>
-            <button onClick={() => setScrollSpeed(scrollSpeed - 1)}>-</button>
+            <button onClick={() => setScrollSpeed(scrollSpeed + 1)}>
+              <img src={timeIncrease} alt="increase scroll speed" />
+            </button>
+            <button onClick={() => setScrollSpeed(scrollSpeed - 1)}>
+              <img src={timeDecrease} alt="decrease scroll speed" />
+            </button>
             <input
               onChange={(e) => setScrollSpeed(Number(e.target.value))}
               value={scrollSpeed}
             ></input>
           </div>
           <button
+            className="edit-button"
             onClick={() => [
               setEditingScript(true),
               setEditName(script.name),
               setEditScript(script.text),
             ]}
           >
-            edit
+            <img src={edit} alt="edit script" />
           </button>
           <button onClick={() => [setScript(null), setIsPlaying(false)]}>
-            back
+            <img src={back} alt="back to scripts" />
           </button>
         </div>
       )}
